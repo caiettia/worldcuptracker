@@ -15,6 +15,8 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    env:
+      API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -23,6 +25,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Sync actual tournament results
+        run: python scripts/sync_actual_results.py
 
       - name: Determine generated metadata timestamp
         id: generated_at
@@ -43,7 +48,6 @@ jobs:
 
           echo "value=$value" >> "$GITHUB_OUTPUT"
 
-      # Add the external match-results sync step here when the ingestion script exists.
       - name: Regenerate tracker data
         run: >
           python scripts/generate_tracker_data.py
@@ -55,13 +59,13 @@ jobs:
       - name: Commit refreshed data when it changed
         shell: bash
         run: |
-          if git diff --quiet -- data/generated app/public/data; then
+          if git diff --quiet -- data/actual-results.json data/generated app/public/data; then
             echo "No tracker data changes detected."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/generated app/public/data
+          git add data/actual-results.json data/generated app/public/data
           git commit -m "chore: refresh tracker data"
           git push

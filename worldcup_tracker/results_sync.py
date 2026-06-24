@@ -213,3 +213,10 @@ def sync_actual_results(
     normalized_document = _normalize_team_names(document)
     write_actual_results_document(normalized_document, output_path)
     return normalized_document
+
+
+def run_sync_from_env(env: dict[str, str], output_path: Path) -> dict[str, Any]:
+    api_key = env.get("API_FOOTBALL_KEY")
+    if not api_key:
+        raise RuntimeError("API_FOOTBALL_KEY is required")
+    return sync_actual_results(api_key=api_key, output_path=output_path)

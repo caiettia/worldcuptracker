@@ -9,6 +9,7 @@ from unittest.mock import patch
 from worldcup_tracker.results_sync import (
     build_group_stage,
     build_knockout,
+    run_sync_from_env,
     sync_actual_results,
     validate_actual_results_document,
     write_actual_results_document,
@@ -315,6 +316,13 @@ class ResultsSyncTests(unittest.TestCase):
                     "https://v3.football.api-sports.io/fixtures?league=1&season=2026",
                 ],
             )
+
+    def test_run_sync_from_env_requires_api_key(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_path = Path(tmpdir) / "actual-results.json"
+
+            with self.assertRaisesRegex(RuntimeError, "API_FOOTBALL_KEY"):
+                run_sync_from_env({}, output_path)
 
 
 if __name__ == "__main__":

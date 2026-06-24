@@ -18,6 +18,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -37,6 +39,9 @@ jobs:
       - name: Install frontend dependencies
         working-directory: app
         run: npm ci
+
+      - name: Sync actual tournament results
+        run: python scripts/sync_actual_results.py
 
       - name: Determine generated metadata timestamp
         id: generated_at
