@@ -169,6 +169,45 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(leaderboard[0]["rank"], 1)
         self.assertEqual(leaderboard[1]["rank"], 1)
 
+    def test_tracker_outputs_use_explicit_generated_at_when_provided(self) -> None:
+        brackets_doc = {
+            "entries": [
+                {
+                    "id": "alpha",
+                    "displayName": "Alpha",
+                    "groupStage": {"groups": {}},
+                    "knockout": {
+                        "roundOf32Winners": [],
+                        "roundOf16Winners": [],
+                        "quarterfinalWinners": [],
+                        "semifinalWinners": [],
+                        "champion": None,
+                    },
+                }
+            ]
+        }
+        actual_results = {
+            "metadata": {"asOf": None},
+            "groupStage": {"groups": {}},
+            "knockout": {
+                "roundOf16Teams": [],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": [],
+                "champion": None,
+            },
+        }
+
+        outputs = build_tracker_outputs(
+            brackets_doc,
+            actual_results,
+            SCORING_RULES,
+            generated_at="2026-06-24T20:00:00Z",
+        )
+
+        self.assertEqual(outputs["leaderboard"]["metadata"]["generatedAt"], "2026-06-24T20:00:00Z")
+        self.assertEqual(outputs["entryProgress"]["metadata"]["generatedAt"], "2026-06-24T20:00:00Z")
+
 
 if __name__ == "__main__":
     unittest.main()

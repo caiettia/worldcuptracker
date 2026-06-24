@@ -36,6 +36,11 @@ def parse_args() -> argparse.Namespace:
         default="data/generated",
         help="Directory where generated JSON files should be written.",
     )
+    parser.add_argument(
+        "--generated-at",
+        default=None,
+        help="Optional stable timestamp to write into generated metadata.",
+    )
     return parser.parse_args()
 
 
@@ -46,6 +51,7 @@ def main() -> None:
         actual_results_path=Path(args.results),
         scoring_rules_path=Path(args.scoring),
         output_dir=Path(args.out),
+        generated_at=args.generated_at,
     )
     print(
         json.dumps(

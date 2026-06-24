@@ -152,6 +152,7 @@ def build_tracker_outputs(
     brackets_doc: dict[str, Any],
     actual_results: dict[str, Any],
     scoring_rules: dict[str, Any],
+    generated_at: str | None = None,
 ) -> dict[str, Any]:
     scored_entries = [
         score_entry(entry, actual_results, scoring_rules)
@@ -193,7 +194,7 @@ def build_tracker_outputs(
     }
 
     metadata = {
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "generatedAt": generated_at or datetime.now(timezone.utc).isoformat(),
         "asOf": actual_results.get("metadata", {}).get("asOf"),
         "entrants": len(scored_entries),
         "scoringSystem": scoring_rules.get("name"),
@@ -218,11 +219,13 @@ def write_tracker_outputs(
     actual_results_path: str | Path,
     scoring_rules_path: str | Path,
     output_dir: str | Path,
+    generated_at: str | None = None,
 ) -> dict[str, Any]:
     outputs = build_tracker_outputs(
         load_json(brackets_path),
         load_json(actual_results_path),
         load_json(scoring_rules_path),
+        generated_at=generated_at,
     )
 
     output_path = Path(output_dir)

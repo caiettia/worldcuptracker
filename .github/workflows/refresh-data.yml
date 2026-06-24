@@ -1,0 +1,67 @@
+name: Refresh Tracker Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-tracker-data
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Determine generated metadata timestamp
+        id: generated_at
+        shell: bash
+        run: |
+          value="$(python - <<'PY'
+          import json
+          from pathlib import Path
+
+          doc = json.loads(Path("data/actual-results.json").read_text(encoding="utf-8"))
+          print(doc.get("metadata", {}).get("asOf") or "")
+          PY
+          )"
+
+          if [ -z "$value" ]; then
+            value="$(git log -1 --format=%cI)"
+          fi
+
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+      # Add the external match-results sync step here when the ingestion script exists.
+      - name: Regenerate tracker data
+        run: >
+          python scripts/generate_tracker_data.py
+          --generated-at "${{ steps.generated_at.outputs.value }}"
+
+      - name: Publish frontend data
+        run: python scripts/publish_frontend_data.py
+
+      - name: Commit refreshed data when it changed
+        shell: bash
+        run: |
+          if git diff --quiet -- data/generated app/public/data; then
+            echo "No tracker data changes detected."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/generated app/public/data
+          git commit -m "chore: refresh tracker data"
+          git push
