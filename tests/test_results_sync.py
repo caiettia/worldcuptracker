@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
 import unittest
@@ -323,6 +326,19 @@ class ResultsSyncTests(unittest.TestCase):
 
             with self.assertRaisesRegex(RuntimeError, "API_FOOTBALL_KEY"):
                 run_sync_from_env({}, output_path)
+
+    def test_sync_script_bootstraps_repo_root_before_importing_package(self) -> None:
+        repo_root = Path(__file__).resolve().parents[1]
+        result = subprocess.run(
+            [sys.executable, "scripts/sync_actual_results.py"],
+            cwd=repo_root,
+            env={key: value for key, value in os.environ.items() if key != "API_FOOTBALL_KEY"},
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertNotIn("ModuleNotFoundError", result.stderr)
+        self.assertIn("API_FOOTBALL_KEY is required", result.stderr)
 
 
 if __name__ == "__main__":
