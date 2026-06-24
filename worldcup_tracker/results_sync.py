@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+from tempfile import NamedTemporaryFile
 from typing import Any
 
 
@@ -91,3 +94,50 @@ def build_knockout(fixtures_payload: dict[str, Any]) -> dict[str, Any]:
             knockout[target].append(winner)
 
     return knockout
+
+
+def validate_actual_results_document(document: dict[str, Any]) -> None:
+    metadata = document.get("metadata")
+    group_stage = document.get("groupStage")
+    knockout = document.get("knockout")
+
+    if not isinstance(metadata, dict):
+        raise ValueError("Results document is missing metadata")
+    if not isinstance(group_stage, dict):
+        raise ValueError("Results document is missing groupStage")
+    if not isinstance(knockout, dict):
+        raise ValueError("Results document is missing knockout")
+
+    groups = group_stage.get("groups")
+    if not isinstance(groups, dict) or sorted(groups.keys()) != list(GROUP_KEYS):
+        raise ValueError("Results document must contain groups A-L")
+
+    for key in GROUP_KEYS:
+        group = groups[key]
+        if not isinstance(group.get("finalized"), bool):
+            raise ValueError(f"Group {key} finalized flag must be boolean")
+        if not isinstance(group.get("standings"), list):
+            raise ValueError(f"Group {key} standings must be a list")
+
+    if not isinstance(group_stage.get("bestThirdPlacedTeams"), list):
+        raise ValueError("bestThirdPlacedTeams must be a list")
+
+    for field in ("roundOf16Teams", "quarterfinalTeams", "semifinalTeams", "finalTeams"):
+        if not isinstance(knockout.get(field), list):
+            raise ValueError(f"{field} must be a list")
+
+    champion = knockout.get("champion")
+    if champion is not None and not knockout["finalTeams"]:
+        raise ValueError("Champion cannot be set before finalTeams is populated")
+
+
+def write_actual_results_document(document: dict[str, Any], output_path: Path) -> None:
+    validate_actual_results_document(document)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with NamedTemporaryFile("w", delete=False, dir=output_path.parent, encoding="utf-8") as handle:
+        json.dump(document, handle, indent=2)
+        handle.write("\n")
+        temp_path = Path(handle.name)
+
+    temp_path.replace(output_path)

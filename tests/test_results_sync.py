@@ -1,8 +1,16 @@
 from __future__ import annotations
 
+import json
+import tempfile
+from pathlib import Path
 import unittest
 
-from worldcup_tracker.results_sync import build_group_stage, build_knockout
+from worldcup_tracker.results_sync import (
+    build_group_stage,
+    build_knockout,
+    validate_actual_results_document,
+    write_actual_results_document,
+)
 
 
 STANDINGS_PAYLOAD = {
@@ -188,6 +196,79 @@ class ResultsSyncTests(unittest.TestCase):
 
         self.assertEqual(knockout["roundOf16Teams"], [])
         self.assertIsNone(knockout["champion"])
+
+    def test_validate_actual_results_document_rejects_champion_without_final_team(self) -> None:
+        invalid_doc = {
+            "metadata": {
+                "tournament": "FIFA World Cup 2026",
+                "asOf": "2026-06-24T22:00:00Z",
+                "notes": "Synced from API-Football.",
+                "provider": "api-football",
+                "providerFetchedAt": "2026-06-24T22:00:00Z",
+            },
+            "groupStage": {
+                "groups": {
+                    key: {"finalized": False, "standings": []}
+                    for key in "ABCDEFGHIJKL"
+                },
+                "bestThirdPlacedTeams": [],
+            },
+            "knockout": {
+                "roundOf16Teams": [],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": [],
+                "champion": "Argentina",
+            },
+        }
+
+        with self.assertRaises(ValueError):
+            validate_actual_results_document(invalid_doc)
+
+    def test_write_actual_results_document_preserves_previous_file_when_validation_fails(self) -> None:
+        valid_doc = {
+            "metadata": {
+                "tournament": "FIFA World Cup 2026",
+                "asOf": None,
+                "notes": "Existing snapshot.",
+                "provider": "api-football",
+                "providerFetchedAt": "2026-06-24T20:00:00Z",
+            },
+            "groupStage": {
+                "groups": {
+                    key: {"finalized": False, "standings": []}
+                    for key in "ABCDEFGHIJKL"
+                },
+                "bestThirdPlacedTeams": [],
+            },
+            "knockout": {
+                "roundOf16Teams": [],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": [],
+                "champion": None,
+            },
+        }
+        invalid_doc = {
+            **valid_doc,
+            "knockout": {
+                "roundOf16Teams": [],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": [],
+                "champion": "Argentina",
+            },
+        }
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_path = Path(tmpdir) / "actual-results.json"
+            output_path.write_text(json.dumps(valid_doc), encoding="utf-8")
+
+            with self.assertRaises(ValueError):
+                write_actual_results_document(invalid_doc, output_path)
+
+            saved_doc = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertEqual(saved_doc["metadata"]["notes"], "Existing snapshot.")
 
 
 if __name__ == "__main__":
