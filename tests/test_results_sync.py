@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import json
+import io
 import os
 import subprocess
 import sys
 import tempfile
+from contextlib import redirect_stderr
 from pathlib import Path
 import unittest
 from unittest.mock import patch
@@ -319,6 +321,55 @@ class ResultsSyncTests(unittest.TestCase):
                     "https://v3.football.api-sports.io/fixtures?league=1&season=2026",
                 ],
             )
+
+    @patch("worldcup_tracker.results_sync.urlopen")
+    def test_sync_actual_results_keeps_last_good_snapshot_when_provider_returns_no_rows(
+        self, mock_urlopen
+    ) -> None:
+        mock_urlopen.side_effect = [
+            FakeHttpResponse({"results": 0, "errors": [], "response": []}),
+            FakeHttpResponse(FIXTURES_PAYLOAD),
+        ]
+        existing_doc = {
+            "metadata": {
+                "tournament": "FIFA World Cup 2026",
+                "asOf": "2026-06-24T20:00:00Z",
+                "notes": "Existing snapshot.",
+                "provider": "api-football",
+                "providerFetchedAt": "2026-06-24T20:00:00Z",
+            },
+            "groupStage": {
+                "groups": {
+                    key: {"finalized": False, "standings": []}
+                    for key in "ABCDEFGHIJKL"
+                },
+                "bestThirdPlacedTeams": [],
+            },
+            "knockout": {
+                "roundOf16Teams": [],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": [],
+                "champion": None,
+            },
+        }
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_path = Path(tmpdir) / "actual-results.json"
+            output_path.write_text(json.dumps(existing_doc), encoding="utf-8")
+
+            stderr = io.StringIO()
+            with redirect_stderr(stderr):
+                document = sync_actual_results(
+                    api_key="test-key",
+                    output_path=output_path,
+                    fetched_at="2026-06-24T22:00:00Z",
+                )
+
+            saved_doc = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertEqual(document, existing_doc)
+            self.assertEqual(saved_doc, existing_doc)
+            self.assertIn("Preserving existing actual results snapshot", stderr.getvalue())
 
     def test_run_sync_from_env_requires_api_key(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:

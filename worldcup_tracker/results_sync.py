@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -44,7 +45,10 @@ def build_group_stage(standings_payload: dict[str, Any]) -> dict[str, Any]:
     group_stage = _empty_group_stage()
     response = standings_payload.get("response", [])
     if not response:
-        raise ValueError("Standings payload did not include any response rows")
+        raise ValueError(
+            "Standings payload did not include any response rows "
+            f"(results={standings_payload.get('results')}, errors={standings_payload.get('errors')})"
+        )
 
     standings_groups = response[0].get("league", {}).get("standings", [])
     for standings in standings_groups:
@@ -152,6 +156,12 @@ def write_actual_results_document(document: dict[str, Any], output_path: Path) -
     temp_path.replace(output_path)
 
 
+def read_actual_results_document(output_path: Path) -> dict[str, Any]:
+    document = json.loads(output_path.read_text(encoding="utf-8"))
+    validate_actual_results_document(document)
+    return document
+
+
 def _apply_team_name(team_name: str) -> str:
     return TEAM_NAME_OVERRIDES.get(team_name, team_name)
 
@@ -188,31 +198,43 @@ def sync_actual_results(
     fetched_at: str | None = None,
 ) -> dict[str, Any]:
     timestamp = fetched_at or datetime.now(timezone.utc).isoformat()
-    standings_payload = _fetch_api_football_json(
-        "/standings",
-        api_key,
-        {"league": LEAGUE_ID, "season": SEASON},
-    )
-    fixtures_payload = _fetch_api_football_json(
-        "/fixtures",
-        api_key,
-        {"league": LEAGUE_ID, "season": SEASON},
-    )
+    try:
+        standings_payload = _fetch_api_football_json(
+            "/standings",
+            api_key,
+            {"league": LEAGUE_ID, "season": SEASON},
+        )
+        fixtures_payload = _fetch_api_football_json(
+            "/fixtures",
+            api_key,
+            {"league": LEAGUE_ID, "season": SEASON},
+        )
 
-    document = {
-        "metadata": {
-            "tournament": "FIFA World Cup 2026",
-            "asOf": timestamp,
-            "notes": "Synced from API-Football.",
-            "provider": "api-football",
-            "providerFetchedAt": timestamp,
-        },
-        "groupStage": build_group_stage(standings_payload),
-        "knockout": build_knockout(fixtures_payload),
-    }
-    normalized_document = _normalize_team_names(document)
-    write_actual_results_document(normalized_document, output_path)
-    return normalized_document
+        document = {
+            "metadata": {
+                "tournament": "FIFA World Cup 2026",
+                "asOf": timestamp,
+                "notes": "Synced from API-Football.",
+                "provider": "api-football",
+                "providerFetchedAt": timestamp,
+            },
+            "groupStage": build_group_stage(standings_payload),
+            "knockout": build_knockout(fixtures_payload),
+        }
+        normalized_document = _normalize_team_names(document)
+        write_actual_results_document(normalized_document, output_path)
+        return normalized_document
+    except Exception as exc:
+        if not output_path.exists():
+            raise
+
+        existing_document = read_actual_results_document(output_path)
+        print(
+            "Warning: failed to sync API-Football results "
+            f"({exc}). Preserving existing actual results snapshot at {output_path}.",
+            file=sys.stderr,
+        )
+        return existing_document
 
 
 def run_sync_from_env(env: dict[str, str], output_path: Path) -> dict[str, Any]:
