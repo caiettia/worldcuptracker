@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "tournament": "FIFA World Cup 2026",
+    "asOf": null,
+    "notes": "Update this file after groups finalize or knockout matches end. Arrays may be partially filled during the tournament."
+  },
+  "groupStage": {
+    "groups": {
+      "A": { "finalized": false, "standings": [] },
+      "B": { "finalized": false, "standings": [] },
+      "C": { "finalized": false, "standings": [] },
+      "D": { "finalized": false, "standings": [] },
+      "E": { "finalized": false, "standings": [] },
+      "F": { "finalized": false, "standings": [] },
+      "G": { "finalized": false, "standings": [] },
+      "H": { "finalized": false, "standings": [] },
+      "I": { "finalized": false, "standings": [] },
+      "J": { "finalized": false, "standings": [] },
+      "K": { "finalized": false, "standings": [] },
+      "L": { "finalized": false, "standings": [] }
+    },
+    "bestThirdPlacedTeams": []
+  },
+  "knockout": {
+    "roundOf16Teams": [],
+    "quarterfinalTeams": [],
+    "semifinalTeams": [],
+    "finalTeams": [],
+    "champion": null
+  }
+}

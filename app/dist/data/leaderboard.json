@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "generatedAt": "2026-06-24T19:37:33.780856+00:00",
+    "asOf": null,
+    "entrants": 6,
+    "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
+  },
+  "progress": {
+    "groupsFinalized": 0,
+    "roundOf16TeamsKnown": 0,
+    "quarterfinalTeamsKnown": 0,
+    "semifinalTeamsKnown": 0,
+    "finalTeamsKnown": 0,
+    "championKnown": false
+  },
+  "leaderboard": [
+    {
+      "rank": 1,
+      "id": "chit",
+      "displayName": "chitra",
+      "totalPoints": 0,
+      "groupStagePoints": 0,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 1,
+      "id": "dinkelberg",
+      "displayName": "Dinkelberg",
+      "totalPoints": 0,
+      "groupStagePoints": 0,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 1,
+      "id": "liz",
+      "displayName": "ElizabethAcors",
+      "totalPoints": 0,
+      "groupStagePoints": 0,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 1,
+      "id": "heathernr24",
+      "displayName": "heathernr24",
+      "totalPoints": 0,
+      "groupStagePoints": 0,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 1,
+      "id": "nfry",
+      "displayName": "NFry",
+      "totalPoints": 0,
+      "groupStagePoints": 0,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 1,
+      "id": "shreyas",
+      "displayName": "Shreyas Bhalle",
+      "totalPoints": 0,
+      "groupStagePoints": 0,
+      "knockoutPoints": 0
+    }
+  ]
+}

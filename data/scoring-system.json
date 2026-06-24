@@ -1,0 +1,19 @@
+{
+  "name": "fifa-world-cup-2026-bracket-challenge",
+  "verifiedOn": "2026-06-24",
+  "sources": [
+    "https://play.fifa.com/bracket-predictor/help/guidelines",
+    "https://play.fifa.com/bracket-predictor/help/faqs"
+  ],
+  "groupStage": {
+    "correctPositionPerTeam": 50,
+    "perfectGroupBonus": 30
+  },
+  "knockout": {
+    "roundOf16": 20,
+    "quarterfinal": 30,
+    "semifinal": 40,
+    "final": 75,
+    "champion": 100
+  }
+}

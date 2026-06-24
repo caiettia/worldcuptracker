@@ -1,0 +1,65 @@
+.podium-card {
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(229, 238, 255, 0.85), rgba(255, 255, 255, 0.95));
+  border: 1px solid rgba(11, 28, 48, 0.08);
+}
+
+.podium-card--1 {
+  background: linear-gradient(180deg, rgba(254, 183, 0, 0.28), rgba(255, 255, 255, 0.96));
+}
+
+.podium-points {
+  margin: 12px 0 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--pitch-green);
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.leaderboard-table th {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.76rem;
+}
+
+.leaderboard-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 720px) {
+  .leaderboard-table thead {
+    display: none;
+  }
+
+  .leaderboard-table,
+  .leaderboard-table tbody,
+  .leaderboard-table tr,
+  .leaderboard-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .leaderboard-table tr {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .leaderboard-table td {
+    border: none;
+    padding: 6px 0;
+  }
+}

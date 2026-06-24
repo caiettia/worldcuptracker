@@ -1,0 +1,318 @@
+{
+  "metadata": {
+    "generatedAt": "2026-06-24T19:37:33.780856+00:00",
+    "asOf": null,
+    "entrants": 6,
+    "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
+  },
+  "progress": {
+    "groupsFinalized": 0,
+    "roundOf16TeamsKnown": 0,
+    "quarterfinalTeamsKnown": 0,
+    "semifinalTeamsKnown": 0,
+    "finalTeamsKnown": 0,
+    "championKnown": false
+  },
+  "entries": [
+    {
+      "id": "chit",
+      "displayName": "chitra",
+      "points": {
+        "total": 0,
+        "groupStage": 0,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 0,
+        "correctPositions": 0,
+        "perfectGroups": [],
+        "finalizedGroupsScored": 0,
+        "correctPositionsByGroup": {}
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Spain",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 1
+    },
+    {
+      "id": "dinkelberg",
+      "displayName": "Dinkelberg",
+      "points": {
+        "total": 0,
+        "groupStage": 0,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 0,
+        "correctPositions": 0,
+        "perfectGroups": [],
+        "finalizedGroupsScored": 0,
+        "correctPositionsByGroup": {}
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Mexico",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 1
+    },
+    {
+      "id": "liz",
+      "displayName": "ElizabethAcors",
+      "points": {
+        "total": 0,
+        "groupStage": 0,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 0,
+        "correctPositions": 0,
+        "perfectGroups": [],
+        "finalizedGroupsScored": 0,
+        "correctPositionsByGroup": {}
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Brazil",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 1
+    },
+    {
+      "id": "heathernr24",
+      "displayName": "heathernr24",
+      "points": {
+        "total": 0,
+        "groupStage": 0,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 0,
+        "correctPositions": 0,
+        "perfectGroups": [],
+        "finalizedGroupsScored": 0,
+        "correctPositionsByGroup": {}
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Spain",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 1
+    },
+    {
+      "id": "nfry",
+      "displayName": "NFry",
+      "points": {
+        "total": 0,
+        "groupStage": 0,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 0,
+        "correctPositions": 0,
+        "perfectGroups": [],
+        "finalizedGroupsScored": 0,
+        "correctPositionsByGroup": {}
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Spain",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 1
+    },
+    {
+      "id": "shreyas",
+      "displayName": "Shreyas Bhalle",
+      "points": {
+        "total": 0,
+        "groupStage": 0,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 0,
+        "correctPositions": 0,
+        "perfectGroups": [],
+        "finalizedGroupsScored": 0,
+        "correctPositionsByGroup": {}
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Germany",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 1
+    }
+  ]
+}
