@@ -4,10 +4,12 @@ import json
 import tempfile
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 from worldcup_tracker.results_sync import (
     build_group_stage,
     build_knockout,
+    sync_actual_results,
     validate_actual_results_document,
     write_actual_results_document,
 )
@@ -148,6 +150,20 @@ FIXTURES_PAYLOAD = {
 }
 
 
+class FakeHttpResponse:
+    def __init__(self, payload: dict[str, object]) -> None:
+        self._payload = payload
+
+    def read(self) -> bytes:
+        return json.dumps(self._payload).encode("utf-8")
+
+    def __enter__(self) -> "FakeHttpResponse":
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        return None
+
+
 class ResultsSyncTests(unittest.TestCase):
     def test_build_group_stage_keeps_all_twelve_groups_and_finalizes_complete_groups(self) -> None:
         group_stage = build_group_stage(STANDINGS_PAYLOAD)
@@ -269,6 +285,36 @@ class ResultsSyncTests(unittest.TestCase):
 
             saved_doc = json.loads(output_path.read_text(encoding="utf-8"))
             self.assertEqual(saved_doc["metadata"]["notes"], "Existing snapshot.")
+
+    @patch("worldcup_tracker.results_sync.urlopen")
+    def test_sync_actual_results_fetches_provider_payloads_and_writes_metadata(self, mock_urlopen) -> None:
+        mock_urlopen.side_effect = [
+            FakeHttpResponse(STANDINGS_PAYLOAD),
+            FakeHttpResponse(FIXTURES_PAYLOAD),
+        ]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            output_path = Path(tmpdir) / "actual-results.json"
+            sync_actual_results(
+                api_key="test-key",
+                output_path=output_path,
+                fetched_at="2026-06-24T22:00:00Z",
+            )
+
+            saved_doc = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertEqual(saved_doc["metadata"]["provider"], "api-football")
+            self.assertEqual(saved_doc["metadata"]["providerFetchedAt"], "2026-06-24T22:00:00Z")
+            self.assertEqual(saved_doc["metadata"]["tournament"], "FIFA World Cup 2026")
+            self.assertEqual(saved_doc["groupStage"]["groups"]["A"]["standings"][0], "Mexico")
+            self.assertEqual(saved_doc["knockout"]["champion"], "Argentina")
+            requested_urls = [call.args[0].full_url for call in mock_urlopen.call_args_list]
+            self.assertEqual(
+                requested_urls,
+                [
+                    "https://v3.football.api-sports.io/standings?league=1&season=2026",
+                    "https://v3.football.api-sports.io/fixtures?league=1&season=2026",
+                ],
+            )
 
 
 if __name__ == "__main__":

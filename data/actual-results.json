@@ -2,7 +2,9 @@
   "metadata": {
     "tournament": "FIFA World Cup 2026",
     "asOf": null,
-    "notes": "Update this file after groups finalize or knockout matches end. Arrays may be partially filled during the tournament."
+    "notes": "Synced from API-Football when workflow refresh runs.",
+    "provider": "api-football",
+    "providerFetchedAt": null
   },
   "groupStage": {
     "groups": {

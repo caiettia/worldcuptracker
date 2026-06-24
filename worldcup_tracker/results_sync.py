@@ -1,19 +1,28 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import Any
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 
 GROUP_KEYS = tuple("ABCDEFGHIJKL")
 COMPLETED_STATUS_CODES = {"FT", "AET", "PEN"}
+BASE_URL = "https://v3.football.api-sports.io"
+LEAGUE_ID = 1
+SEASON = 2026
 KNOCKOUT_TARGETS = {
     "ROUND OF 32": "roundOf16Teams",
     "ROUND OF 16": "quarterfinalTeams",
     "QUARTER-FINALS": "semifinalTeams",
     "SEMI-FINALS": "finalTeams",
     "FINAL": "champion",
+}
+TEAM_NAME_OVERRIDES = {
+    "IR Iran": "Iran",
 }
 
 
@@ -141,3 +150,66 @@ def write_actual_results_document(document: dict[str, Any], output_path: Path) -
         temp_path = Path(handle.name)
 
     temp_path.replace(output_path)
+
+
+def _apply_team_name(team_name: str) -> str:
+    return TEAM_NAME_OVERRIDES.get(team_name, team_name)
+
+
+def _fetch_api_football_json(path: str, api_key: str, params: dict[str, Any]) -> dict[str, Any]:
+    query = urlencode(params)
+    request = Request(
+        f"{BASE_URL}{path}?{query}",
+        headers={"x-apisports-key": api_key},
+        method="GET",
+    )
+    with urlopen(request) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def _normalize_team_names(document: dict[str, Any]) -> dict[str, Any]:
+    for group in document["groupStage"]["groups"].values():
+        group["standings"] = [_apply_team_name(name) for name in group["standings"]]
+    document["groupStage"]["bestThirdPlacedTeams"] = [
+        _apply_team_name(name) for name in document["groupStage"]["bestThirdPlacedTeams"]
+    ]
+    for field in ("roundOf16Teams", "quarterfinalTeams", "semifinalTeams", "finalTeams"):
+        document["knockout"][field] = [
+            _apply_team_name(name) for name in document["knockout"][field]
+        ]
+    champion = document["knockout"]["champion"]
+    document["knockout"]["champion"] = _apply_team_name(champion) if champion else None
+    return document
+
+
+def sync_actual_results(
+    api_key: str,
+    output_path: Path,
+    fetched_at: str | None = None,
+) -> dict[str, Any]:
+    timestamp = fetched_at or datetime.now(timezone.utc).isoformat()
+    standings_payload = _fetch_api_football_json(
+        "/standings",
+        api_key,
+        {"league": LEAGUE_ID, "season": SEASON},
+    )
+    fixtures_payload = _fetch_api_football_json(
+        "/fixtures",
+        api_key,
+        {"league": LEAGUE_ID, "season": SEASON},
+    )
+
+    document = {
+        "metadata": {
+            "tournament": "FIFA World Cup 2026",
+            "asOf": timestamp,
+            "notes": "Synced from API-Football.",
+            "provider": "api-football",
+            "providerFetchedAt": timestamp,
+        },
+        "groupStage": build_group_stage(standings_payload),
+        "knockout": build_knockout(fixtures_payload),
+    }
+    normalized_document = _normalize_team_names(document)
+    write_actual_results_document(normalized_document, output_path)
+    return normalized_document
