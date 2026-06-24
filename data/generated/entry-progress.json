@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-24T20:00:00Z",
+    "generatedAt": "2026-06-24T22:16:35.204478+00:00",
     "asOf": null,
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
@@ -115,56 +115,6 @@
       "rank": 1
     },
     {
-      "id": "liz",
-      "displayName": "ElizabethAcors",
-      "points": {
-        "total": 0,
-        "groupStage": 0,
-        "knockout": 0
-      },
-      "groupStage": {
-        "points": 0,
-        "correctPositions": 0,
-        "perfectGroups": [],
-        "finalizedGroupsScored": 0,
-        "correctPositionsByGroup": {}
-      },
-      "knockout": {
-        "roundOf16": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 16,
-          "actualKnownCount": 0
-        },
-        "quarterfinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 8,
-          "actualKnownCount": 0
-        },
-        "semifinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 4,
-          "actualKnownCount": 0
-        },
-        "final": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 2,
-          "actualKnownCount": 0
-        },
-        "champion": {
-          "points": 0,
-          "predictedTeam": "Brazil",
-          "actualTeam": null,
-          "correct": false
-        },
-        "points": 0
-      },
-      "rank": 1
-    },
-    {
       "id": "heathernr24",
       "displayName": "heathernr24",
       "points": {
@@ -207,6 +157,56 @@
         "champion": {
           "points": 0,
           "predictedTeam": "Spain",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 1
+    },
+    {
+      "id": "liz",
+      "displayName": "Liz",
+      "points": {
+        "total": 0,
+        "groupStage": 0,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 0,
+        "correctPositions": 0,
+        "perfectGroups": [],
+        "finalizedGroupsScored": 0,
+        "correctPositionsByGroup": {}
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Brazil",
           "actualTeam": null,
           "correct": false
         },
@@ -266,7 +266,7 @@
     },
     {
       "id": "shreyas",
-      "displayName": "Shreyas Bhalle",
+      "displayName": "ShreyB",
       "points": {
         "total": 0,
         "groupStage": 0,
