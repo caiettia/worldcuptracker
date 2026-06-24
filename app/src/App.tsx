@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import HeroHeader from "./components/HeroHeader";
 import LeaderboardTable from "./components/LeaderboardTable";
 import LoadState from "./components/LoadState";
 import Podium from "./components/Podium";
-import StatusBanner from "./components/StatusBanner";
+import TopNav from "./components/TopNav";
 import { loadLeaderboard } from "./lib/loadLeaderboard";
 import type { LeaderboardPayload } from "./types/leaderboard";
 
@@ -40,13 +39,14 @@ export default function App() {
   }
 
   return (
-    <main className="app-shell">
-      <div className="app-frame">
-        <HeroHeader />
-        <StatusBanner metadata={data.metadata} progress={data.progress} />
-        <Podium rows={data.leaderboard} />
-        <LeaderboardTable rows={data.leaderboard} />
-      </div>
-    </main>
+    <>
+      <TopNav />
+      <main className="app-shell">
+        <div className="app-frame">
+          <Podium rows={data.leaderboard} />
+          <LeaderboardTable rows={data.leaderboard} />
+        </div>
+      </main>
+    </>
   );
 }

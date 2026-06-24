@@ -20,7 +20,7 @@ test("renders error state when leaderboard loading fails", async () => {
   expect(await screen.findByText(/unable to load the leaderboard/i)).toBeInTheDocument();
 });
 
-test("renders the leaderboard heading and top player when data loads", async () => {
+test("renders the leaderboard table and top player when data loads", async () => {
   mockLoadLeaderboard.mockResolvedValue({
     metadata: {
       generatedAt: "2026-06-24T18:38:07Z",
@@ -65,8 +65,7 @@ test("renders the leaderboard heading and top player when data loads", async () 
   });
 
   render(<App />);
-  expect(await screen.findByRole("heading", { name: /league leaderboard/i })).toBeInTheDocument();
-  expect(screen.getByRole("table")).toBeInTheDocument();
+  expect(await screen.findByRole("table")).toBeInTheDocument();
   expect(screen.getAllByText("Dinkelberg").length).toBeGreaterThan(0);
   expect(screen.getAllByText("120").length).toBeGreaterThan(0);
 });
