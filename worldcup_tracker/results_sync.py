@@ -4,6 +4,14 @@ from typing import Any
 
 
 GROUP_KEYS = tuple("ABCDEFGHIJKL")
+COMPLETED_STATUS_CODES = {"FT", "AET", "PEN"}
+KNOCKOUT_TARGETS = {
+    "ROUND OF 32": "roundOf16Teams",
+    "ROUND OF 16": "quarterfinalTeams",
+    "QUARTER-FINALS": "semifinalTeams",
+    "SEMI-FINALS": "finalTeams",
+    "FINAL": "champion",
+}
 
 
 def _empty_group_stage() -> dict[str, Any]:
@@ -39,3 +47,47 @@ def build_group_stage(standings_payload: dict[str, Any]) -> dict[str, Any]:
         }
 
     return group_stage
+
+
+def _empty_knockout() -> dict[str, Any]:
+    return {
+        "roundOf16Teams": [],
+        "quarterfinalTeams": [],
+        "semifinalTeams": [],
+        "finalTeams": [],
+        "champion": None,
+    }
+
+
+def _winner_name(fixture: dict[str, Any]) -> str | None:
+    status = fixture.get("fixture", {}).get("status", {}).get("short")
+    if status not in COMPLETED_STATUS_CODES:
+        return None
+
+    home = fixture.get("teams", {}).get("home", {})
+    away = fixture.get("teams", {}).get("away", {})
+    if home.get("winner") is True:
+        return home.get("name")
+    if away.get("winner") is True:
+        return away.get("name")
+    return None
+
+
+def build_knockout(fixtures_payload: dict[str, Any]) -> dict[str, Any]:
+    knockout = _empty_knockout()
+    for fixture in fixtures_payload.get("response", []):
+        winner = _winner_name(fixture)
+        if not winner:
+            continue
+
+        round_name = fixture.get("league", {}).get("round", "").strip().upper()
+        target = KNOCKOUT_TARGETS.get(round_name)
+        if not target:
+            continue
+
+        if target == "champion":
+            knockout["champion"] = winner
+        else:
+            knockout[target].append(winner)
+
+    return knockout
