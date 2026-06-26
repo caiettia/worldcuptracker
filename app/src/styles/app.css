@@ -129,6 +129,60 @@
   outline: none;
 }
 
+.detail-view__points-summary {
+  margin-top: 10px;
+  color: var(--pitch-green);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.detail-view__points-summary strong {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+}
+
+.player-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.player-switcher__pill {
+  border: 1px solid rgba(0, 102, 79, 0.2);
+  background: var(--surface);
+  color: var(--pitch-green);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.player-switcher__pill:hover {
+  background: rgba(0, 102, 79, 0.06);
+  border-color: rgba(0, 102, 79, 0.4);
+}
+
+.player-switcher__pill--active {
+  background: var(--pitch-green);
+  color: white;
+  border-color: var(--pitch-green);
+}
+
+.player-switcher__pill--active:hover {
+  background: var(--pitch-green);
+  color: white;
+}
+
 .group-cards,
 .bracket-gallery {
   display: grid;

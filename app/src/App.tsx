@@ -127,7 +127,9 @@ export default function App() {
                     actualResults={data.actualResults}
                     bracketEntry={bracketEntry}
                     entryProgress={entryProgress}
+                    allEntries={data.entryProgress.entries}
                     onBack={() => setView({ name: "leaderboard" })}
+                    onSelectEntry={(entryId) => setView({ name: "entry", entryId })}
                   />
                 );
               })()

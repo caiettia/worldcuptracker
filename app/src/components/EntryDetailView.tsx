@@ -5,7 +5,9 @@ type EntryDetailViewProps = {
   actualResults: ActualResultsPayload;
   bracketEntry: BracketEntry;
   entryProgress: EntryProgressRow;
+  allEntries: EntryProgressRow[];
   onBack: () => void;
+  onSelectEntry: (entryId: string) => void;
 };
 
 function groupKeys(actualResults: ActualResultsPayload, bracketEntry: BracketEntry): string[] {
@@ -48,8 +50,12 @@ export default function EntryDetailView({
   actualResults,
   bracketEntry,
   entryProgress,
+  allEntries,
   onBack,
+  onSelectEntry,
 }: EntryDetailViewProps) {
+  const groupStagePoints = entryProgress.groupStage.points;
+
   return (
     <section className="detail-view">
       <div className="detail-view__header">
@@ -60,10 +66,27 @@ export default function EntryDetailView({
             Actual outcomes are shown side by side with the submitted predictions and the points earned
             for each finalized group.
           </p>
+          <p className="detail-view__points-summary">
+            Group Stage Points: <strong>{groupStagePoints.toLocaleString()}</strong>
+          </p>
         </div>
         <button className="secondary-button" type="button" onClick={onBack}>
           Back to Leaderboard
         </button>
+      </div>
+
+      <div className="player-switcher" role="group" aria-label="Switch player">
+        {allEntries.map((entry) => (
+          <button
+            key={entry.id}
+            className={`player-switcher__pill${entry.id === entryProgress.id ? " player-switcher__pill--active" : ""}`}
+            type="button"
+            onClick={() => onSelectEntry(entry.id)}
+            aria-current={entry.id === entryProgress.id ? "true" : undefined}
+          >
+            {entry.displayName}
+          </button>
+        ))}
       </div>
 
       <div className="group-cards">
@@ -100,7 +123,7 @@ export default function EntryDetailView({
                   {renderStandings(actualGroup?.standings ?? [], "Awaiting finalized standings")}
                 </section>
                 <section className="group-card__column">
-                  <h3>Your Prediction</h3>
+                  <h3>{entryProgress.displayName}'s Prediction</h3>
                   {renderStandings(predictedStandings, "No prediction submitted")}
                 </section>
               </div>
