@@ -34,6 +34,8 @@ describe("loadAppData", () => {
                 id: "dinkelberg",
                 displayName: "Dinkelberg",
                 totalPoints: 0,
+                projectedTotalPoints: 0,
+                projectedAdditionalPoints: 0,
                 groupStagePoints: 0,
                 knockoutPoints: 0,
               },

@@ -30,6 +30,8 @@ const appData = {
         id: "dinkelberg",
         displayName: "Dinkelberg",
         totalPoints: 120,
+        projectedTotalPoints: 160,
+        projectedAdditionalPoints: 40,
         groupStagePoints: 90,
         knockoutPoints: 30,
       },
@@ -38,6 +40,8 @@ const appData = {
         id: "nfry",
         displayName: "NFry",
         totalPoints: 100,
+        projectedTotalPoints: 130,
+        projectedAdditionalPoints: 30,
         groupStagePoints: 70,
         knockoutPoints: 30,
       },
@@ -202,7 +206,7 @@ const appData = {
           standings: ["Mexico", "Korea Republic", "Czechia", "South Africa"],
         },
         B: {
-          finalized: true,
+          finalized: false,
           standings: ["Switzerland", "Canada", "Bosnia and Herzegovina", "Qatar"],
         },
       },
@@ -244,7 +248,8 @@ test("renders the leaderboard table and top player when data loads", async () =>
   render(<App />);
   expect(await screen.findByRole("table")).toBeInTheDocument();
   expect(screen.getAllByText("Dinkelberg").length).toBeGreaterThan(0);
-  expect(screen.getAllByText("120").length).toBeGreaterThan(0);
+  expect(screen.getByText("120 (160, +40)")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /group stage/i })).toBeInTheDocument();
 });
 
 test("lets you click a player to view group stage predictions against actual results", async () => {
@@ -254,9 +259,12 @@ test("lets you click a player to view group stage predictions against actual res
 
   fireEvent.click(await screen.findByRole("button", { name: /view dinkelberg predictions/i }));
 
+  expect(screen.getByRole("button", { name: /group stage/i })).toHaveClass("is-active");
   expect(screen.getByRole("heading", { name: /dinkelberg group stage/i })).toBeInTheDocument();
   expect(screen.getByRole("heading", { name: /group a/i })).toBeInTheDocument();
   expect(screen.getByText(/group points: 50/i)).toBeInTheDocument();
+  expect(screen.getByText("Finalized")).toBeInTheDocument();
+  expect(screen.getByText("Pending")).toBeInTheDocument();
   expect(screen.getAllByRole("heading", { name: /actual outcome/i }).length).toBeGreaterThan(0);
   expect(screen.getAllByRole("heading", { name: /your prediction/i }).length).toBeGreaterThan(0);
 });

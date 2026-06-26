@@ -55,7 +55,7 @@ export default function LeaderboardTable({ rows, onSelectEntry }: LeaderboardTab
               </td>
               <td data-label="Points">
                 <span className={`score-text ${row.id === CURRENT_USER_ID ? "score-text--you" : ""}`}>
-                  {row.totalPoints.toLocaleString()}
+                  {`${row.totalPoints.toLocaleString()} (${row.projectedTotalPoints.toLocaleString()}, +${row.projectedAdditionalPoints.toLocaleString()})`}
                 </span>
               </td>
             </tr>

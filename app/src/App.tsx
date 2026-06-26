@@ -13,8 +13,16 @@ type ViewState =
   | { name: "entry"; entryId: string }
   | { name: "bracket"; entryId: string };
 
-function selectedBracketEntryId(data: AppData): string {
-  return data.brackets.entries[0]?.id ?? "";
+function defaultEntryId(data: AppData): string {
+  return data.entryProgress.entries[0]?.id ?? data.brackets.entries[0]?.id ?? "";
+}
+
+function currentOrDefaultEntryId(view: ViewState, data: AppData): string {
+  if (view.name === "entry" || view.name === "bracket") {
+    return view.entryId;
+  }
+
+  return defaultEntryId(data);
 }
 
 export default function App() {
@@ -54,7 +62,13 @@ export default function App() {
   return (
     <>
       <TopNav
-        activeView={view.name === "bracket" ? "bracket" : "leaderboard"}
+        activeView={
+          view.name === "bracket"
+            ? "bracket"
+            : view.name === "entry"
+              ? "group-stage"
+              : "leaderboard"
+        }
         onNavigate={(nextView) => {
           if (!data) {
             return;
@@ -65,9 +79,17 @@ export default function App() {
             return;
           }
 
+          if (nextView === "group-stage") {
+            setView({
+              name: "entry",
+              entryId: currentOrDefaultEntryId(view, data),
+            });
+            return;
+          }
+
           setView({
             name: "bracket",
-            entryId: view.name === "bracket" ? view.entryId : selectedBracketEntryId(data),
+            entryId: currentOrDefaultEntryId(view, data),
           });
         }}
       />

@@ -119,6 +119,52 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(scored["points"]["knockout"], 20)
         self.assertEqual(scored["knockout"]["roundOf16"]["correctTeams"], ["Mexico"])
 
+    def test_projected_totals_include_pending_group_standings(self) -> None:
+        brackets_doc = {
+            "entries": [
+                {
+                    "id": "alpha",
+                    "displayName": "Alpha",
+                    "groupStage": {
+                        "groups": {
+                            "A": ["A1", "A2", "A3", "A4"],
+                            "B": ["B1", "B2", "B3", "B4"],
+                        }
+                    },
+                    "knockout": {
+                        "roundOf32Winners": [],
+                        "roundOf16Winners": [],
+                        "quarterfinalWinners": [],
+                        "semifinalWinners": [],
+                        "champion": None,
+                    },
+                }
+            ]
+        }
+        actual_results = {
+            "metadata": {"asOf": None},
+            "groupStage": {
+                "groups": {
+                    "A": {"finalized": True, "standings": ["A1", "A2", "A3", "A4"]},
+                    "B": {"finalized": False, "standings": ["B1", "B2", "B4", "B3"]},
+                }
+            },
+            "knockout": {
+                "roundOf16Teams": [],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": [],
+                "champion": None,
+            },
+        }
+
+        outputs = build_tracker_outputs(brackets_doc, actual_results, SCORING_RULES)
+        row = outputs["leaderboard"]["leaderboard"][0]
+
+        self.assertEqual(row["totalPoints"], 230)
+        self.assertEqual(row["projectedTotalPoints"], 330)
+        self.assertEqual(row["projectedAdditionalPoints"], 100)
+
     def test_leaderboard_is_sorted_by_points_then_name(self) -> None:
         brackets_doc = {
             "entries": [

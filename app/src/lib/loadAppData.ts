@@ -24,6 +24,8 @@ function isLeaderboardRow(value: unknown): value is LeaderboardPayload["leaderbo
     typeof value.id === "string" &&
     typeof value.displayName === "string" &&
     typeof value.totalPoints === "number" &&
+    typeof value.projectedTotalPoints === "number" &&
+    typeof value.projectedAdditionalPoints === "number" &&
     typeof value.groupStagePoints === "number" &&
     typeof value.knockoutPoints === "number"
   );

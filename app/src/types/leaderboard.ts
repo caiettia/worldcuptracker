@@ -3,6 +3,8 @@ export type LeaderboardRow = {
   id: string;
   displayName: string;
   totalPoints: number;
+  projectedTotalPoints: number;
+  projectedAdditionalPoints: number;
   groupStagePoints: number;
   knockoutPoints: number;
 };

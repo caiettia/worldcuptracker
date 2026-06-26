@@ -1,12 +1,7 @@
 {
   "metadata": {
-<<<<<<< HEAD
-    "generatedAt": "2026-06-26T07:37:19Z",
-    "asOf": null,
-=======
-    "generatedAt": "2026-06-26T16:38:03.612419+00:00",
-    "asOf": "2026-06-26T16:38:03.612419+00:00",
->>>>>>> a7a2c5b (feat: scrape FIFA standings for live group updates)
+    "generatedAt": "2026-06-26T17:22:24.928039+00:00",
+    "asOf": "2026-06-26T17:22:12.280007+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },

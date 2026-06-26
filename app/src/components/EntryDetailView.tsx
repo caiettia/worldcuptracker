@@ -72,6 +72,7 @@ export default function EntryDetailView({
           const predictedStandings = bracketEntry.groupStage.groups[groupKey] ?? [];
           const points = entryProgress.groupStage.pointsByGroup[groupKey] ?? 0;
           const isPerfect = entryProgress.groupStage.perfectGroups.includes(groupKey);
+          const isFinalized = actualGroup?.finalized ?? false;
 
           return (
             <article className="group-card" key={groupKey}>
@@ -82,6 +83,13 @@ export default function EntryDetailView({
                 </div>
                 <div className="group-card__score">
                   <span>Group Points: {points}</span>
+                  <span
+                    className={`group-card__status ${
+                      isFinalized ? "group-card__status--finalized" : "group-card__status--pending"
+                    }`}
+                  >
+                    {isFinalized ? "Finalized" : "Pending"}
+                  </span>
                   {isPerfect ? <span className="group-card__bonus">Perfect group bonus</span> : null}
                 </div>
               </div>

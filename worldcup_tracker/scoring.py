@@ -23,6 +23,8 @@ def score_group_stage(
     predicted_groups: dict[str, list[str]],
     actual_group_stage: dict[str, Any],
     scoring_rules: dict[str, Any],
+    *,
+    include_pending: bool = False,
 ) -> dict[str, Any]:
     points_per_team = scoring_rules["groupStage"]["correctPositionPerTeam"]
     perfect_group_bonus = scoring_rules["groupStage"]["perfectGroupBonus"]
@@ -36,7 +38,7 @@ def score_group_stage(
 
     actual_groups = actual_group_stage.get("groups", {})
     for group_name, actual_group in actual_groups.items():
-        if not actual_group.get("finalized"):
+        if not actual_group.get("finalized") and not include_pending:
             continue
 
         actual_standings = actual_group.get("standings", [])
@@ -159,10 +161,26 @@ def build_tracker_outputs(
     scoring_rules: dict[str, Any],
     generated_at: str | None = None,
 ) -> dict[str, Any]:
-    scored_entries = [
-        score_entry(entry, actual_results, scoring_rules)
-        for entry in brackets_doc.get("entries", [])
-    ]
+    scored_entries = []
+    projected_totals_by_entry: dict[str, dict[str, int]] = {}
+
+    for entry in brackets_doc.get("entries", []):
+        scored_entry = score_entry(entry, actual_results, scoring_rules)
+        projected_group_stage_breakdown = score_group_stage(
+            entry["groupStage"]["groups"],
+            actual_results["groupStage"],
+            scoring_rules,
+            include_pending=True,
+        )
+        projected_total_points = (
+            projected_group_stage_breakdown["points"] + scored_entry["points"]["knockout"]
+        )
+        projected_totals_by_entry[entry["id"]] = {
+            "projectedTotalPoints": projected_total_points,
+            "projectedAdditionalPoints": projected_total_points - scored_entry["points"]["total"],
+        }
+        scored_entries.append(scored_entry)
+
     scored_entries.sort(
         key=lambda item: (
             -item["points"]["total"],
@@ -179,6 +197,10 @@ def build_tracker_outputs(
             "id": entry["id"],
             "displayName": entry["displayName"],
             "totalPoints": entry["points"]["total"],
+            "projectedTotalPoints": projected_totals_by_entry[entry["id"]]["projectedTotalPoints"],
+            "projectedAdditionalPoints": projected_totals_by_entry[entry["id"]][
+                "projectedAdditionalPoints"
+            ],
             "groupStagePoints": entry["points"]["groupStage"],
             "knockoutPoints": entry["points"]["knockout"],
         }
