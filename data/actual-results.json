@@ -1,10 +1,10 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": "2026-06-26T18:58:35.940407+00:00",
+    "asOf": "2026-06-26T19:40:27.927027+00:00",
     "notes": "Synced from FIFA standings page.",
     "provider": "fifa-standings-scrape",
-    "providerFetchedAt": "2026-06-26T18:58:35.940407+00:00"
+    "providerFetchedAt": "2026-06-26T19:40:27.927027+00:00"
   },
   "groupStage": {
     "groups": {
@@ -81,7 +81,7 @@
         ]
       },
       "I": {
-        "finalized": false,
+        "finalized": true,
         "standings": [
           "France",
           "Norway",
@@ -124,8 +124,8 @@
       "Paraguay",
       "Croatia",
       "Korea Republic",
-      "Algeria",
-      "Scotland"
+      "Senegal",
+      "Algeria"
     ]
   },
   "knockout": {

@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-26T18:58:35.940407+00:00",
-    "asOf": "2026-06-26T18:58:35.940407+00:00",
+    "generatedAt": "2026-06-26T19:40:27.927027+00:00",
+    "asOf": "2026-06-26T19:40:27.927027+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
   "progress": {
-    "groupsFinalized": 6,
+    "groupsFinalized": 7,
     "roundOf16TeamsKnown": 0,
     "quarterfinalTeamsKnown": 0,
     "semifinalTeamsKnown": 0,
@@ -18,26 +18,28 @@
       "id": "nfry",
       "displayName": "NFry",
       "points": {
-        "total": 840,
-        "groupStage": 840,
+        "total": 1070,
+        "groupStage": 1070,
         "knockout": 0
       },
       "groupStage": {
-        "points": 840,
-        "correctPositions": 15,
+        "points": 1070,
+        "correctPositions": 19,
         "perfectGroups": [
           "C",
           "E",
-          "F"
+          "F",
+          "I"
         ],
-        "finalizedGroupsScored": 6,
+        "finalizedGroupsScored": 7,
         "correctPositionsByGroup": {
           "A": 1,
           "B": 1,
           "C": 4,
           "D": 1,
           "E": 4,
-          "F": 4
+          "F": 4,
+          "I": 4
         },
         "pointsByGroup": {
           "A": 50,
@@ -45,7 +47,8 @@
           "C": 230,
           "D": 50,
           "E": 230,
-          "F": 230
+          "F": 230,
+          "I": 230
         }
       },
       "knockout": {
@@ -87,25 +90,27 @@
       "id": "shreyas",
       "displayName": "ShreyB",
       "points": {
-        "total": 810,
-        "groupStage": 810,
+        "total": 1040,
+        "groupStage": 1040,
         "knockout": 0
       },
       "groupStage": {
-        "points": 810,
-        "correctPositions": 15,
+        "points": 1040,
+        "correctPositions": 19,
         "perfectGroups": [
           "C",
-          "F"
+          "F",
+          "I"
         ],
-        "finalizedGroupsScored": 6,
+        "finalizedGroupsScored": 7,
         "correctPositionsByGroup": {
           "A": 1,
           "B": 3,
           "C": 4,
           "D": 1,
           "E": 2,
-          "F": 4
+          "F": 4,
+          "I": 4
         },
         "pointsByGroup": {
           "A": 50,
@@ -113,7 +118,8 @@
           "C": 230,
           "D": 50,
           "E": 100,
-          "F": 230
+          "F": 230,
+          "I": 230
         }
       },
       "knockout": {
@@ -155,24 +161,26 @@
       "id": "liz",
       "displayName": "Liz",
       "points": {
-        "total": 730,
-        "groupStage": 730,
+        "total": 960,
+        "groupStage": 960,
         "knockout": 0
       },
       "groupStage": {
-        "points": 730,
-        "correctPositions": 14,
+        "points": 960,
+        "correctPositions": 18,
         "perfectGroups": [
-          "C"
+          "C",
+          "I"
         ],
-        "finalizedGroupsScored": 6,
+        "finalizedGroupsScored": 7,
         "correctPositionsByGroup": {
           "A": 1,
           "B": 3,
           "C": 4,
           "D": 2,
           "E": 2,
-          "F": 2
+          "F": 2,
+          "I": 4
         },
         "pointsByGroup": {
           "A": 50,
@@ -180,7 +188,8 @@
           "C": 230,
           "D": 100,
           "E": 100,
-          "F": 100
+          "F": 100,
+          "I": 230
         }
       },
       "knockout": {
@@ -222,25 +231,27 @@
       "id": "chit",
       "displayName": "chitra",
       "points": {
-        "total": 660,
-        "groupStage": 660,
+        "total": 890,
+        "groupStage": 890,
         "knockout": 0
       },
       "groupStage": {
-        "points": 660,
-        "correctPositions": 12,
+        "points": 890,
+        "correctPositions": 16,
         "perfectGroups": [
           "C",
-          "F"
+          "F",
+          "I"
         ],
-        "finalizedGroupsScored": 6,
+        "finalizedGroupsScored": 7,
         "correctPositionsByGroup": {
           "A": 1,
           "B": 0,
           "C": 4,
           "D": 1,
           "E": 2,
-          "F": 4
+          "F": 4,
+          "I": 4
         },
         "pointsByGroup": {
           "A": 50,
@@ -248,7 +259,8 @@
           "C": 230,
           "D": 50,
           "E": 100,
-          "F": 230
+          "F": 230,
+          "I": 230
         }
       },
       "knockout": {
@@ -290,25 +302,26 @@
       "id": "dinkelberg",
       "displayName": "Dinkelberg",
       "points": {
-        "total": 660,
-        "groupStage": 660,
+        "total": 760,
+        "groupStage": 760,
         "knockout": 0
       },
       "groupStage": {
-        "points": 660,
-        "correctPositions": 12,
+        "points": 760,
+        "correctPositions": 14,
         "perfectGroups": [
           "D",
           "F"
         ],
-        "finalizedGroupsScored": 6,
+        "finalizedGroupsScored": 7,
         "correctPositionsByGroup": {
           "A": 2,
           "B": 1,
           "C": 0,
           "D": 4,
           "E": 1,
-          "F": 4
+          "F": 4,
+          "I": 2
         },
         "pointsByGroup": {
           "A": 100,
@@ -316,7 +329,8 @@
           "C": 0,
           "D": 230,
           "E": 50,
-          "F": 230
+          "F": 230,
+          "I": 100
         }
       },
       "knockout": {
@@ -352,31 +366,32 @@
         },
         "points": 0
       },
-      "rank": 4
+      "rank": 5
     },
     {
       "id": "heathernr24",
       "displayName": "heathernr24",
       "points": {
-        "total": 660,
-        "groupStage": 660,
+        "total": 710,
+        "groupStage": 710,
         "knockout": 0
       },
       "groupStage": {
-        "points": 660,
-        "correctPositions": 12,
+        "points": 710,
+        "correctPositions": 13,
         "perfectGroups": [
           "C",
           "F"
         ],
-        "finalizedGroupsScored": 6,
+        "finalizedGroupsScored": 7,
         "correctPositionsByGroup": {
           "A": 1,
           "B": 0,
           "C": 4,
           "D": 2,
           "E": 1,
-          "F": 4
+          "F": 4,
+          "I": 1
         },
         "pointsByGroup": {
           "A": 50,
@@ -384,7 +399,8 @@
           "C": 230,
           "D": 100,
           "E": 50,
-          "F": 230
+          "F": 230,
+          "I": 50
         }
       },
       "knockout": {
@@ -420,7 +436,7 @@
         },
         "points": 0
       },
-      "rank": 4
+      "rank": 6
     }
   ]
 }

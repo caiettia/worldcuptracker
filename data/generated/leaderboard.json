@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-26T18:58:35.940407+00:00",
-    "asOf": "2026-06-26T18:58:35.940407+00:00",
+    "generatedAt": "2026-06-26T19:40:27.927027+00:00",
+    "asOf": "2026-06-26T19:40:27.927027+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
   "progress": {
-    "groupsFinalized": 6,
+    "groupsFinalized": 7,
     "roundOf16TeamsKnown": 0,
     "quarterfinalTeamsKnown": 0,
     "semifinalTeamsKnown": 0,
@@ -18,60 +18,60 @@
       "rank": 1,
       "id": "nfry",
       "displayName": "NFry",
-      "totalPoints": 840,
+      "totalPoints": 1070,
       "projectedTotalPoints": 1780,
-      "projectedAdditionalPoints": 940,
-      "groupStagePoints": 840,
+      "projectedAdditionalPoints": 710,
+      "groupStagePoints": 1070,
       "knockoutPoints": 0
     },
     {
       "rank": 2,
       "id": "shreyas",
       "displayName": "ShreyB",
-      "totalPoints": 810,
+      "totalPoints": 1040,
       "projectedTotalPoints": 1570,
-      "projectedAdditionalPoints": 760,
-      "groupStagePoints": 810,
+      "projectedAdditionalPoints": 530,
+      "groupStagePoints": 1040,
       "knockoutPoints": 0
     },
     {
       "rank": 3,
       "id": "liz",
       "displayName": "Liz",
-      "totalPoints": 730,
+      "totalPoints": 960,
       "projectedTotalPoints": 1620,
-      "projectedAdditionalPoints": 890,
-      "groupStagePoints": 730,
+      "projectedAdditionalPoints": 660,
+      "groupStagePoints": 960,
       "knockoutPoints": 0
     },
     {
       "rank": 4,
       "id": "chit",
       "displayName": "chitra",
-      "totalPoints": 660,
+      "totalPoints": 890,
       "projectedTotalPoints": 1550,
-      "projectedAdditionalPoints": 890,
-      "groupStagePoints": 660,
+      "projectedAdditionalPoints": 660,
+      "groupStagePoints": 890,
       "knockoutPoints": 0
     },
     {
-      "rank": 4,
+      "rank": 5,
       "id": "dinkelberg",
       "displayName": "Dinkelberg",
-      "totalPoints": 660,
+      "totalPoints": 760,
       "projectedTotalPoints": 1160,
-      "projectedAdditionalPoints": 500,
-      "groupStagePoints": 660,
+      "projectedAdditionalPoints": 400,
+      "groupStagePoints": 760,
       "knockoutPoints": 0
     },
     {
-      "rank": 4,
+      "rank": 6,
       "id": "heathernr24",
       "displayName": "heathernr24",
-      "totalPoints": 660,
+      "totalPoints": 710,
       "projectedTotalPoints": 1240,
-      "projectedAdditionalPoints": 580,
-      "groupStagePoints": 660,
+      "projectedAdditionalPoints": 530,
+      "groupStagePoints": 710,
       "knockoutPoints": 0
     }
   ]
