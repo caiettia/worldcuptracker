@@ -10,12 +10,7 @@ vi.mock("./lib/loadAppData", () => ({
 
 const appData = {
   leaderboard: {
-    metadata: {
-      generatedAt: "2026-06-24T18:38:07Z",
-      asOf: null,
-      entrants: 2,
-      scoringSystem: "fifa",
-    },
+    metadata: { generatedAt: "2026-06-24T18:38:07Z", asOf: null, entrants: 2, scoringSystem: "fifa" },
     progress: {
       groupsFinalized: 1,
       roundOf16TeamsKnown: 0,
@@ -48,12 +43,7 @@ const appData = {
     ],
   },
   entryProgress: {
-    metadata: {
-      generatedAt: "2026-06-24T18:38:07Z",
-      asOf: null,
-      entrants: 2,
-      scoringSystem: "fifa",
-    },
+    metadata: { generatedAt: "2026-06-24T18:38:07Z", asOf: null, entrants: 2, scoringSystem: "fifa" },
     progress: {
       groupsFinalized: 1,
       roundOf16TeamsKnown: 0,
@@ -67,36 +57,21 @@ const appData = {
         id: "dinkelberg",
         displayName: "Dinkelberg",
         rank: 1,
-        points: {
-          total: 120,
-          groupStage: 90,
-          knockout: 30,
-        },
+        points: { total: 120, groupStage: 90, knockout: 30 },
         groupStage: {
           points: 90,
           correctPositions: 1,
           perfectGroups: [],
-          finalizedGroupsScored: 2,
-          correctPositionsByGroup: {
-            A: 1,
-            B: 0,
-          },
-          pointsByGroup: {
-            A: 50,
-            B: 0,
-          },
+          finalizedGroupsScored: 1,
+          correctPositionsByGroup: { A: 1 },
+          pointsByGroup: { A: 50 },
         },
         knockout: {
           roundOf16: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
           quarterfinal: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
           semifinal: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
           final: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
-          champion: {
-            points: 0,
-            predictedTeam: "Mexico",
-            actualTeam: null,
-            correct: false,
-          },
+          champion: { points: 0, predictedTeam: "Mexico", actualTeam: null, correct: false },
           points: 0,
         },
       },
@@ -104,36 +79,21 @@ const appData = {
         id: "nfry",
         displayName: "NFry",
         rank: 2,
-        points: {
-          total: 100,
-          groupStage: 70,
-          knockout: 30,
-        },
+        points: { total: 100, groupStage: 70, knockout: 30 },
         groupStage: {
           points: 70,
           correctPositions: 1,
           perfectGroups: [],
-          finalizedGroupsScored: 2,
-          correctPositionsByGroup: {
-            A: 1,
-            B: 0,
-          },
-          pointsByGroup: {
-            A: 50,
-            B: 0,
-          },
+          finalizedGroupsScored: 1,
+          correctPositionsByGroup: { A: 1 },
+          pointsByGroup: { A: 50 },
         },
         knockout: {
           roundOf16: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
           quarterfinal: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
           semifinal: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
           final: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
-          champion: {
-            points: 0,
-            predictedTeam: "Spain",
-            actualTeam: null,
-            correct: false,
-          },
+          champion: { points: 0, predictedTeam: "Spain", actualTeam: null, correct: false },
           points: 0,
         },
       },
@@ -149,10 +109,7 @@ const appData = {
           knockouts: "/brackets/dinkelberg_knockouts.png",
         },
         groupStage: {
-          groups: {
-            A: ["Mexico", "Czechia", "Korea Republic", "South Africa"],
-            B: ["Bosnia-Herzegovina", "Canada", "Atlantis", "Qatar"],
-          },
+          groups: { A: ["Mexico", "Czechia", "Korea Republic", "South Africa"] },
           bestThirdCandidates: [],
           selectedBestThirdPlacedTeams: [],
         },
@@ -168,15 +125,9 @@ const appData = {
       {
         id: "nfry",
         displayName: "NFry",
-        sourceImages: {
-          groupStage: "/brackets/nfry_groupstage.jpeg",
-          knockouts: "/brackets/nfry_knockouts.jpeg",
-        },
+        sourceImages: { groupStage: "/brackets/nfry_groupstage.jpeg", knockouts: "/brackets/nfry_knockouts.jpeg" },
         groupStage: {
-          groups: {
-            A: ["Mexico", "Korea Republic", "Czechia", "South Africa"],
-            B: ["Canada", "Switzerland", "Bosnia-Herzegovina", "Qatar"],
-          },
+          groups: { A: ["Mexico", "Korea Republic", "Czechia", "South Africa"] },
           bestThirdCandidates: [],
           selectedBestThirdPlacedTeams: [],
         },
@@ -201,24 +152,12 @@ const appData = {
     },
     groupStage: {
       groups: {
-        A: {
-          finalized: true,
-          standings: ["Mexico", "Korea Republic", "Czechia", "South Africa"],
-        },
-        B: {
-          finalized: false,
-          standings: ["Switzerland", "Canada", "Bosnia and Herzegovina", "Qatar"],
-        },
+        A: { finalized: true, standings: ["Mexico", "Korea Republic", "Czechia", "South Africa"] },
+        B: { finalized: false, standings: ["Switzerland", "Canada", "Bosnia and Herzegovina", "Qatar"] },
       },
       bestThirdPlacedTeams: [],
     },
-    knockout: {
-      roundOf16Teams: [],
-      quarterfinalTeams: [],
-      semifinalTeams: [],
-      finalTeams: [],
-      champion: null,
-    },
+    knockout: { roundOf16Teams: [], quarterfinalTeams: [], semifinalTeams: [], finalTeams: [], champion: null },
   },
 };
 
@@ -230,77 +169,52 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-test("renders loading state before leaderboard data resolves", () => {
+test("renders loading state before data resolves", () => {
   mockLoadAppData.mockReturnValue(new Promise(() => {}));
   render(<App />);
   expect(screen.getByText(/loading leaderboard/i)).toBeInTheDocument();
 });
 
-test("renders error state when leaderboard loading fails", async () => {
+test("renders error state when loading fails", async () => {
   mockLoadAppData.mockRejectedValue(new Error("boom"));
   render(<App />);
   expect(await screen.findByText(/unable to load the leaderboard/i)).toBeInTheDocument();
 });
 
-test("renders the leaderboard table and top player when data loads", async () => {
+test("renders the leaderboard with players, points and the three nav tabs", async () => {
   mockLoadAppData.mockResolvedValue(appData);
-
   render(<App />);
-  expect(await screen.findByRole("table")).toBeInTheDocument();
+
+  expect(await screen.findByRole("button", { name: /view dinkelberg predictions/i })).toBeInTheDocument();
   expect(screen.getAllByText("Dinkelberg").length).toBeGreaterThan(0);
-  expect(screen.getByText("120 (160, +40)")).toBeInTheDocument();
-  expect(screen.getByRole("button", { name: /group stage/i })).toBeInTheDocument();
+  expect(screen.getAllByText("120").length).toBeGreaterThan(0);
+  expect(screen.getByRole("button", { name: /^leaderboard$/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /^groups$/i })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /^bracket$/i })).toBeInTheDocument();
 });
 
-test("lets you click a player to view group stage predictions against actual results", async () => {
+test("clicking a player opens their group-stage breakdown with actual vs predicted", async () => {
   mockLoadAppData.mockResolvedValue(appData);
-
   render(<App />);
 
   fireEvent.click(await screen.findByRole("button", { name: /view dinkelberg predictions/i }));
 
-  expect(screen.getByRole("button", { name: /group stage/i })).toHaveClass("is-active");
-  expect(screen.getByRole("heading", { name: /dinkelberg group stage/i })).toBeInTheDocument();
-  expect(screen.getByRole("heading", { name: /group a/i })).toBeInTheDocument();
-  expect(screen.getByText(/group points: 50/i)).toBeInTheDocument();
-  expect(screen.getByText("Finalized")).toBeInTheDocument();
-  expect(screen.getByText("Pending")).toBeInTheDocument();
-  expect(screen.getAllByRole("heading", { name: /actual outcome/i }).length).toBeGreaterThan(0);
-  expect(screen.getAllByRole("heading", { name: /your prediction/i }).length).toBeGreaterThan(0);
-});
-
-test("renders local flag avatars for known countries and skips unknown ones", async () => {
-  mockLoadAppData.mockResolvedValue(appData);
-
-  render(<App />);
-
-  fireEvent.click(await screen.findByRole("button", { name: /view dinkelberg predictions/i }));
-
+  expect(screen.getByText(/group-stage breakdown/i)).toBeInTheDocument();
+  expect(screen.getByText("Group A")).toBeInTheDocument();
+  // Group A is finalized: 50 pts pill shown.
+  expect(screen.getAllByText(/50 pts/i).length).toBeGreaterThan(0);
+  // Group B is not finalized: shown as pending.
+  expect(screen.getAllByText(/pending/i).length).toBeGreaterThan(0);
   expect(screen.getAllByAltText("Mexico flag")[0]).toHaveAttribute("src", "/flags/mx.svg");
-  expect(screen.getByAltText("Bosnia and Herzegovina flag")).toHaveAttribute("src", "/flags/ba.svg");
-  expect(screen.getByAltText("Bosnia-Herzegovina flag")).toHaveAttribute("src", "/flags/ba.svg");
-  expect(screen.getByText("Atlantis")).toBeInTheDocument();
-  expect(screen.queryByAltText("Atlantis flag")).not.toBeInTheDocument();
 });
 
-test("shows a bracket view with a player selector and no dashboard or live nav links", async () => {
+test("bracket tab shows the entrant knockout summary and champion banner", async () => {
   mockLoadAppData.mockResolvedValue(appData);
-
   render(<App />);
-
-  expect(screen.queryByRole("button", { name: /dashboard/i })).not.toBeInTheDocument();
-  expect(screen.queryByRole("button", { name: /live/i })).not.toBeInTheDocument();
 
   fireEvent.click(await screen.findByRole("button", { name: /^bracket$/i }));
 
-  expect(screen.getByRole("heading", { name: /bracket picks/i })).toBeInTheDocument();
-
-  const selector = screen.getByLabelText(/choose a player/i);
-  fireEvent.change(selector, { target: { value: "nfry" } });
-
-  expect(screen.getByText(/nfry submission/i)).toBeInTheDocument();
-  expect(screen.getByAltText(/nfry group stage bracket/i)).toHaveAttribute(
-    "src",
-    "/brackets/nfry_groupstage.jpeg",
-  );
+  expect(screen.getByText(/ko pts/i)).toBeInTheDocument();
+  expect(screen.getByText(/champion · mexico/i)).toBeInTheDocument();
+  expect(screen.getByText(/round of 16/i)).toBeInTheDocument();
 });

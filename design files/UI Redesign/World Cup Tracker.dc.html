@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    .wct-scroll{scrollbar-width:none;-ms-overflow-style:none;}
+    .wct-scroll::-webkit-scrollbar{display:none;}
+  </style>
+</helmet>
+<div style="min-height:100vh;background:linear-gradient(180deg,#FBF4E6 0%,#F7F0E0 42%,#F4EDDB 100%);font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#16241C;-webkit-font-smoothing:antialiased;">
+  <div style="max-width:680px;margin:0 auto;padding:0 16px 64px;">
+
+    <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 4px 16px;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="display:flex;gap:4px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:#0E6E42;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:#E8A23D;"></span>
+          <span style="width:9px;height:9px;border-radius:50%;background:#D83A36;"></span>
+        </div>
+        <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;letter-spacing:-0.025em;color:#0E6E42;">World Cup Tracker</span>
+      </div>
+      <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#9A8A5E;background:rgba(232,162,61,0.14);border:1px solid rgba(232,162,61,0.3);padding:4px 10px;border-radius:999px;">2026</span>
+    </header>
+
+    <nav style="position:sticky;top:8px;z-index:20;display:flex;gap:4px;padding:5px;background:rgba(255,255,255,0.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid #EEE6D5;border-radius:999px;box-shadow:0 8px 22px rgba(20,40,30,0.06);margin-bottom:24px;">
+      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="3">
+        <button onClick="{{ tab.onClick }}" style="{{ tab.style }}">{{ tab.label }}</button>
+      </sc-for>
+    </nav>
+
+    <sc-if value="{{ isLeaderboard }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Leaderboard">
+        <div style="display:flex;align-items:flex-end;justify-content:center;gap:10px;margin-bottom:26px;padding-top:6px;">
+          <sc-for list="{{ podium }}" as="p" hint-placeholder-count="3">
+            <div style="flex:1;max-width:150px;display:flex;flex-direction:column;align-items:center;">
+              <div style="position:relative;margin-bottom:10px;">
+                <div style="width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;background:{{ p.player.color }};border:3px solid {{ p.ring }};box-shadow:0 6px 16px rgba(20,40,30,0.14);">{{ p.player.initial }}</div>
+                <div style="position:absolute;bottom:-4px;right:-4px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono';font-weight:700;font-size:11px;color:#fff;background:{{ p.ring }};border:2px solid #FBF4E6;">{{ p.place }}</div>
+              </div>
+              <div style="font-weight:700;font-size:13px;text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ p.player.name }}</div>
+              <div style="font-family:'Space Mono';font-weight:700;font-size:15px;color:#0E6E42;margin-top:1px;">{{ p.ptsLabel }}</div>
+              <div style="width:100%;height:{{ p.stepH }};margin-top:9px;border-radius:14px 14px 0 0;background:{{ p.stepBg }};display:flex;align-items:flex-start;justify-content:center;padding-top:9px;color:rgba(255,255,255,0.92);font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;box-shadow:inset 0 2px 6px rgba(255,255,255,0.25);"></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EFE7D6;border-radius:22px;padding:6px;box-shadow:0 12px 34px rgba(20,40,30,0.055);">
+          <div style="display:flex;align-items:center;padding:13px 16px 9px;font-size:10.5px;letter-spacing:0.09em;color:#A6AC9F;font-weight:700;text-transform:uppercase;">
+            <span style="width:56px;">Rank</span>
+            <span style="flex:1;">Player</span>
+            <span>Points</span>
+          </div>
+          <sc-for list="{{ standings }}" as="row" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:15px;{{ row.highlight }}">
+              <div style="width:44px;display:flex;align-items:center;gap:5px;">
+                <span style="font-family:'Space Mono';font-weight:700;font-size:14px;color:#16241C;">{{ row.rankLabel }}</span>
+                <sc-if value="{{ showMovement }}" hint-placeholder-val="{{ true }}"><span style="color:{{ row.moveColor }};font-size:9px;line-height:1;">{{ row.moveIcon }}</span></sc-if>
+              </div>
+              <div style="width:40px;height:40px;border-radius:50%;background:{{ row.player.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:16px;flex-shrink:0;">{{ row.player.initial }}</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ row.player.name }}</div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:5px;">
+                  <sc-if value="{{ showAccuracyBars }}" hint-placeholder-val="{{ true }}"><div style="flex:1;height:5px;background:#F1EBDA;border-radius:99px;overflow:hidden;max-width:128px;"><div style="height:100%;border-radius:99px;background:{{ row.barColor }};width:{{ row.barWidth }};"></div></div></sc-if>
+                  <span style="font-size:11px;color:#8A938B;font-weight:500;white-space:nowrap;">{{ row.exactLabel }}</span>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'Space Mono';font-weight:700;font-size:18px;color:#16241C;line-height:1.1;">{{ row.ptsLabel }}</div>
+                <div style="font-size:9.5px;color:#A6AC9F;letter-spacing:0.06em;font-weight:600;">PTS</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isGroups }}">
+      <div data-screen-label="Group Stage">
+        <div style="display:flex;gap:4px;padding:5px;background:#fff;border:1px solid #EFE7D6;border-radius:999px;margin-bottom:20px;max-width:320px;">
+          <sc-for list="{{ groupTabs }}" as="t" hint-placeholder-count="2">
+            <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ isByGroup }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div class="wct-scroll" style="display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;margin-bottom:16px;">
+              <sc-for list="{{ groupChips }}" as="c" hint-placeholder-count="8">
+                <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+
+            <div style="background:#fff;border:1px solid #EFE7D6;border-radius:22px;padding:20px 18px;box-shadow:0 12px 34px rgba(20,40,30,0.055);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+                <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;letter-spacing:-0.02em;">Group {{ group.id }}</h2>
+                <span style="font-size:11px;font-weight:700;color:#0E6E42;background:rgba(14,110,66,0.1);padding:5px 11px;border-radius:999px;letter-spacing:0.03em;">Finalized</span>
+              </div>
+
+              <div style="font-size:10.5px;letter-spacing:0.09em;color:#A6AC9F;font-weight:700;text-transform:uppercase;margin-bottom:9px;">Final standings</div>
+              <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:22px;">
+                <sc-for list="{{ group.standings }}" as="t" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:12px;background:{{ t.rowBg }};">
+                    <span style="font-family:'Space Mono';font-weight:700;font-size:13px;color:#9AA39B;width:14px;">{{ t.rank }}</span>
+                    <span style="width:26px;height:26px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,0.15);display:block;"><img src="https://flagcdn.com/w80/{{ t.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
+                    <span style="flex:1;font-weight:600;font-size:14px;">{{ t.name }}</span>
+                    <sc-if value="{{ t.advanced }}"><span style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;color:#C9831F;background:rgba(232,162,61,0.16);padding:3px 7px;border-radius:6px;">ADV</span></sc-if>
+                    <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#16241C;width:42px;text-align:right;">{{ t.ptsLabel }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;">
+                <div style="font-size:10.5px;letter-spacing:0.09em;color:#A6AC9F;font-weight:700;text-transform:uppercase;">How everyone scored</div>
+                <div style="font-size:10.5px;color:#B0B6A8;font-weight:500;">+40 exact · +70 perfect</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <sc-for list="{{ group.scoreboard }}" as="s" hint-placeholder-count="6">
+                  <div style="border:1px solid #EFE7D6;border-radius:14px;overflow:hidden;">
+                    <button onClick="{{ s.onClick }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:11px 12px;background:#FCFAF4;border:none;cursor:pointer;text-align:left;font-family:'Plus Jakarta Sans';">
+                      <span style="font-family:'Space Mono';font-weight:700;font-size:13px;color:#9AA39B;width:14px;">{{ s.rankLabel }}</span>
+                      <span style="width:32px;height:32px;border-radius:50%;background:{{ s.player.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;flex-shrink:0;">{{ s.player.initial }}</span>
+                      <span style="flex:1;font-weight:700;font-size:14px;color:#16241C;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ s.player.name }}</span>
+                      <sc-if value="{{ s.perfect }}"><span style="font-size:9.5px;font-weight:800;letter-spacing:0.04em;color:#C9831F;background:rgba(232,162,61,0.16);padding:3px 7px;border-radius:6px;">★ PERFECT</span></sc-if>
+                      <span style="font-size:11px;color:#8A938B;font-weight:500;">{{ s.exactLabel }}</span>
+                      <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#0E6E42;background:rgba(14,110,66,0.09);padding:4px 9px;border-radius:8px;">{{ s.ptsLabel }}</span>
+                      <span style="color:#B0B6A8;font-size:11px;width:12px;">{{ s.chevron }}</span>
+                    </button>
+                    <sc-if value="{{ s.expanded }}">
+                      <div style="padding:6px 12px 12px;background:#fff;">
+                        <div style="display:flex;font-size:9.5px;letter-spacing:0.07em;color:#B0B6A8;font-weight:700;text-transform:uppercase;padding:6px 8px 8px;">
+                          <span style="width:18px;"></span><span style="flex:1;">Actual</span><span style="flex:1;">Their pick</span><span style="width:20px;"></span>
+                        </div>
+                        <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="4">
+                          <div style="display:flex;align-items:center;padding:7px 8px;border-radius:9px;background:{{ r.rowBg }};">
+                            <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#9AA39B;width:18px;">{{ r.posLabel }}</span>
+                            <span style="flex:1;display:flex;align-items:center;gap:8px;min-width:0;"><span style="width:20px;height:20px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ r.aCode }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span><span style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.aName }}</span></span>
+                            <span style="flex:1;display:flex;align-items:center;gap:8px;min-width:0;"><span style="width:20px;height:20px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ r.pCode }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span><span style="font-size:13px;font-weight:500;color:#56615A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.pName }}</span></span>
+                            <span style="width:20px;text-align:center;font-weight:800;font-size:13px;color:{{ r.okColor }};">{{ r.okIcon }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isByPlayer }}">
+          <div>
+            <div class="wct-scroll" style="display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;margin-bottom:16px;">
+              <sc-for list="{{ playerChips }}" as="c" hint-placeholder-count="6">
+                <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #EFE7D6;border-radius:18px;padding:14px 16px;margin-bottom:14px;box-shadow:0 10px 28px rgba(20,40,30,0.05);">
+              <div style="width:46px;height:46px;border-radius:50%;background:{{ playerHeader.player.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;">{{ playerHeader.player.initial }}</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;letter-spacing:-0.01em;">{{ playerHeader.player.name }}</div>
+                <div style="font-size:12px;color:#8A938B;font-weight:500;">Group-stage breakdown</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'Space Mono';font-weight:700;font-size:20px;color:#0E6E42;">{{ playerHeader.totalLabel }}</div>
+                <div style="font-size:9.5px;color:#A6AC9F;letter-spacing:0.06em;font-weight:600;">GROUP PTS</div>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <sc-for list="{{ playerGroups }}" as="g" hint-placeholder-count="8">
+                <div style="background:#fff;border:1px solid #EFE7D6;border-radius:16px;padding:14px;box-shadow:0 6px 18px rgba(20,40,30,0.04);">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                    <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;">Group {{ g.id }}</span>
+                    <span style="display:flex;align-items:center;gap:7px;">
+                      <sc-if value="{{ g.perfect }}"><span style="font-size:9px;font-weight:800;letter-spacing:0.04em;color:#C9831F;background:rgba(232,162,61,0.16);padding:3px 7px;border-radius:6px;">★ PERFECT</span></sc-if>
+                      <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#0E6E42;background:rgba(14,110,66,0.09);padding:4px 9px;border-radius:8px;">{{ g.ptsLabel }}</span>
+                    </span>
+                  </div>
+                  <div style="display:flex;font-size:9.5px;letter-spacing:0.07em;color:#B0B6A8;font-weight:700;text-transform:uppercase;padding:0 8px 6px;">
+                    <span style="width:18px;"></span><span style="flex:1;">Actual</span><span style="flex:1;">Their pick</span><span style="width:20px;"></span>
+                  </div>
+                  <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;padding:6px 8px;border-radius:9px;background:{{ r.rowBg }};">
+                      <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#9AA39B;width:18px;">{{ r.posLabel }}</span>
+                      <span style="flex:1;display:flex;align-items:center;gap:8px;min-width:0;"><span style="width:20px;height:20px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ r.aCode }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span><span style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.aName }}</span></span>
+                      <span style="flex:1;display:flex;align-items:center;gap:8px;min-width:0;"><span style="width:20px;height:20px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ r.pCode }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span><span style="font-size:13px;font-weight:500;color:#56615A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.pName }}</span></span>
+                      <span style="width:20px;text-align:center;font-weight:800;font-size:13px;color:{{ r.okColor }};">{{ r.okIcon }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isBracket }}">
+      <div data-screen-label="Bracket">
+        <div class="wct-scroll" style="display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;margin-bottom:16px;">
+          <sc-for list="{{ bracketChips }}" as="c" hint-placeholder-count="6">
+            <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #EFE7D6;border-radius:18px;padding:14px 16px;margin-bottom:18px;box-shadow:0 10px 28px rgba(20,40,30,0.05);">
+          <div style="width:46px;height:46px;border-radius:50%;background:{{ bracketSummary.player.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;">{{ bracketSummary.player.initial }}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;letter-spacing:-0.01em;">{{ bracketSummary.player.name }}</div>
+            <div style="font-size:12px;color:#8A938B;font-weight:500;">{{ bracketSummary.recordLabel }} knockout picks</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'Space Mono';font-weight:700;font-size:20px;color:#0E6E42;">{{ bracketSummary.totalLabel }}</div>
+            <div style="font-size:9.5px;color:#A6AC9F;letter-spacing:0.06em;font-weight:600;">KO PTS</div>
+          </div>
+        </div>
+
+        <sc-for list="{{ rounds }}" as="rnd" hint-placeholder-count="4">
+          <div style="margin-bottom:22px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;padding:0 2px;">
+              <h3 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:17px;letter-spacing:-0.01em;">{{ rnd.name }}</h3>
+              <span style="font-size:10.5px;color:#B0B6A8;font-weight:600;">{{ rnd.ptsLabel }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;">
+              <sc-for list="{{ rnd.matches }}" as="m" hint-placeholder-count="2">
+                <div style="background:#fff;border:1px solid #EFE7D6;border-radius:14px;padding:9px;box-shadow:0 5px 16px rgba(20,40,30,0.04);">
+                  <sc-for list="{{ m.teams }}" as="t" hint-placeholder-count="2">
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 7px;border-radius:9px;background:{{ t.rowBg }};">
+                      <span style="width:22px;height:22px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ t.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
+                      <span style="flex:1;font-size:13px;font-weight:{{ t.weight }};color:{{ t.nameColor }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ t.name }}</span>
+                      <span style="font-size:8.5px;font-weight:800;letter-spacing:0.05em;color:#0E6E42;">{{ t.tag }}</span>
+                    </div>
+                  </sc-for>
+                  <div style="display:flex;align-items:center;gap:6px;margin-top:7px;padding:0 7px;">
+                    <span style="font-weight:800;font-size:12px;color:{{ m.okColor }};">{{ m.okIcon }}</span>
+                    <span style="font-size:11px;color:#8A938B;font-weight:500;">{{ m.note }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+
+        <div style="background:linear-gradient(135deg,#0E6E42,#0A5733);border-radius:18px;padding:18px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 14px 32px rgba(14,110,66,0.28);">
+          <span style="width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #E8A23D;display:block;"><img src="https://flagcdn.com/w80/{{ champion.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:10.5px;letter-spacing:0.1em;color:#E8C98C;font-weight:700;text-transform:uppercase;">Champion · {{ champion.name }}</div>
+            <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:18px;color:#fff;margin-top:2px;">{{ champion.note }}</div>
+          </div>
+          <span style="font-weight:800;font-size:20px;color:{{ champion.okColor }};">{{ champion.okIcon }}</span>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:920},&quot;showMovement&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;},&quot;showAccuracyBars&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;},&quot;highlightMe&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;None&quot;,&quot;options&quot;:[&quot;None&quot;,&quot;NFry&quot;,&quot;ShreyB&quot;,&quot;Liz&quot;,&quot;chitra&quot;,&quot;Dinkelberg&quot;,&quot;heathernr24&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Display&quot;}}">
+class Component extends DCLogic {
+  state = {
+    view: 'leaderboard',
+    groupTab: 'byGroup',
+    groupId: 'C',
+    playerId: 'nfry',
+    bracketPlayerId: 'nfry',
+    expanded: {}
+  };
+
+  PLAYERS = [
+    { id: 'nfry',        name: 'NFry',        initial: 'N', color: 'oklch(0.60 0.14 145)', move: 1 },
+    { id: 'shreyb',      name: 'ShreyB',      initial: 'S', color: 'oklch(0.60 0.15 25)',  move: 1 },
+    { id: 'liz',         name: 'Liz',         initial: 'L', color: 'oklch(0.64 0.15 70)',  move: -1 },
+    { id: 'chitra',      name: 'chitra',      initial: 'C', color: 'oklch(0.60 0.13 200)', move: 1 },
+    { id: 'dinkelberg',  name: 'Dinkelberg',  initial: 'D', color: 'oklch(0.56 0.13 285)', move: 0 },
+    { id: 'heathernr24', name: 'heathernr24', initial: 'H', color: 'oklch(0.63 0.15 340)', move: -1 }
+  ];
+
+  SKILL = { nfry: 0.80, shreyb: 0.73, liz: 0.67, chitra: 0.60, dinkelberg: 0.50, heathernr24: 0.56 };
+
+  GROUPS_DEF = [
+    { id: 'A', teams: [['Mexico','mx'],['South Africa','za'],['Korea Republic','kr'],['Czechia','cz']] },
+    { id: 'B', teams: [['Switzerland','ch'],['Canada','ca'],['Bosnia & Herz.','ba'],['Qatar','qa']] },
+    { id: 'C', teams: [['Brazil','br'],['Croatia','hr'],['Cameroon','cm'],['Saudi Arabia','sa']] },
+    { id: 'D', teams: [['Argentina','ar'],['Japan','jp'],['Ghana','gh'],['Norway','no']] },
+    { id: 'E', teams: [['France','fr'],['United States','us'],['Senegal','sn'],['Iran','ir']] },
+    { id: 'F', teams: [['Spain','es'],['Uruguay','uy'],['Australia','au'],['Ecuador','ec']] },
+    { id: 'G', teams: [['England','gb-eng'],['Netherlands','nl'],['Morocco','ma'],['Egypt','eg']] },
+    { id: 'H', teams: [['Germany','de'],['Portugal','pt'],['Colombia','co'],['Nigeria','ng']] }
+  ];
+
+  BRACKET = [
+    { name: 'Round of 16', pts: 30, matches: [
+      { a: ['Mexico','mx'], b: ['Canada','ca'], w: 0 },
+      { a: ['Brazil','br'], b: ['Japan','jp'], w: 0 },
+      { a: ['France','fr'], b: ['Uruguay','uy'], w: 0 },
+      { a: ['England','gb-eng'], b: ['Portugal','pt'], w: 0 },
+      { a: ['Switzerland','ch'], b: ['South Africa','za'], w: 0 },
+      { a: ['Argentina','ar'], b: ['Croatia','hr'], w: 0 },
+      { a: ['Spain','es'], b: ['United States','us'], w: 0 },
+      { a: ['Germany','de'], b: ['Netherlands','nl'], w: 0 }
+    ]},
+    { name: 'Quarterfinals', pts: 50, matches: [
+      { a: ['Mexico','mx'], b: ['Brazil','br'], w: 1 },
+      { a: ['France','fr'], b: ['England','gb-eng'], w: 0 },
+      { a: ['Switzerland','ch'], b: ['Argentina','ar'], w: 1 },
+      { a: ['Spain','es'], b: ['Germany','de'], w: 0 }
+    ]},
+    { name: 'Semifinals', pts: 80, matches: [
+      { a: ['Brazil','br'], b: ['France','fr'], w: 0 },
+      { a: ['Argentina','ar'], b: ['Spain','es'], w: 0 }
+    ]},
+    { name: 'Final', pts: 120, matches: [
+      { a: ['Brazil','br'], b: ['Argentina','ar'], w: 1 }
+    ]}
+  ];
+  CHAMPION = ['Argentina', 'ar'];
+
+  hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  rng(seed) { let x = (seed >>> 0) || 1; return () => { x ^= x << 13; x >>>= 0; x ^= x >> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
+  shuffle(arr, r) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  // Build a prediction of `teams` with exactly k correct positions (k in {0,1,2,4}).
+  permWithFixed(teams, k, r) {
+    const n = teams.length;
+    if (k >= n) return teams.slice();
+    const positions = this.shuffle([0, 1, 2, 3], r);
+    const fixed = new Set(positions.slice(0, k));
+    const movers = [0, 1, 2, 3].filter(i => !fixed.has(i));
+    const result = new Array(n);
+    fixed.forEach(i => { result[i] = teams[i]; });
+    let der, tries = 0;
+    do { der = this.shuffle(movers, r); tries++; } while (tries < 30 && der.some((v, ix) => v === movers[ix]));
+    movers.forEach((pos, ix) => { result[pos] = teams[der[ix]]; });
+    return result;
+  }
+
+  pickK(skill, r) {
+    const u = r();
+    const p4 = skill * 0.45, p2 = 0.28, p1 = 0.22;
+    if (u < p4) return 4;
+    if (u < p4 + p2) return 2;
+    if (u < p4 + p2 + p1) return 1;
+    return 0;
+  }
+
+  cmp(pos, actual, predicted, ok) {
+    return {
+      posLabel: String(pos),
+      aName: actual.name, aCode: actual.code,
+      pName: predicted.name, pCode: predicted.code,
+      ok, okIcon: ok ? '✓' : '✕',
+      okColor: ok ? '#0E6E42' : '#C9402F',
+      rowBg: ok ? 'rgba(14,110,66,0.06)' : 'rgba(216,58,54,0.045)'
+    };
+  }
+
+  bracketFor(p) {
+    const skill = this.SKILL[p.id];
+    const r = this.rng(this.hash('ko|' + p.id));
+    let total = 0, correct = 0, totalMatches = 0;
+    const rounds = this.BRACKET.map(rd => {
+      const matches = rd.matches.map(m => {
+        totalMatches++;
+        const ok = r() < skill;
+        if (ok) { total += rd.pts; correct++; }
+        const pickIdx = ok ? m.w : (1 - m.w);
+        const pick = pickIdx === 0 ? m.a : m.b;
+        const teams = [
+          { name: m.a[0], code: m.a[1], win: m.w === 0 },
+          { name: m.b[0], code: m.b[1], win: m.w === 1 }
+        ];
+        return { teams, ok, okIcon: ok ? '✓' : '✕', okColor: ok ? '#1E9E5A' : '#D86560',
+                 note: ok ? ('Correct +' + rd.pts) : ('Picked ' + pick[0]), pickName: pick[0] };
+      });
+      return { name: rd.name, pts: rd.pts, ptsLabel: '+' + rd.pts + ' / match', matches };
+    });
+    const finalM = rounds[rounds.length - 1].matches[0];
+    const champOk = finalM.ok;
+    const champPick = finalM.pickName;
+    if (champOk) total += 50;
+    return { total, correct, totalMatches, rounds, champOk, champPick };
+  }
+
+  data() {
+    if (this._d) return this._d;
+    const groups = this.GROUPS_DEF.map(g => {
+      const teams = g.teams.map((t, i) => ({ name: t[0], code: t[1], rank: i + 1, advanced: i < 2 }));
+      const standings = teams.map((t, i) => ({
+        name: t.name, code: t.code, rank: t.rank, advanced: t.advanced,
+        pts: [9, 6, 3, 0][i], ptsLabel: [9, 6, 3, 0][i] + ' pts',
+        rowBg: t.advanced ? 'rgba(14,110,66,0.05)' : 'transparent'
+      }));
+      const results = this.PLAYERS.map(p => {
+        const skill = this.SKILL[p.id];
+        const rr = this.rng(this.hash('grp|' + p.id + '|' + g.id));
+        let predicted;
+        if (p.id === 'nfry' && g.id === 'C') predicted = teams.slice();
+        else predicted = this.permWithFixed(teams, this.pickK(skill, rr), rr);
+        let exact = 0;
+        const rows = teams.map((t, i) => { const pr = predicted[i]; const ok = pr.name === t.name; if (ok) exact++; return this.cmp(i + 1, t, pr, ok); });
+        const perfect = exact === 4;
+        const points = exact * 40 + (perfect ? 70 : 0);
+        return { playerId: p.id, exact, perfect, points, rows };
+      });
+      return { id: g.id, teams, standings, results };
+    });
+    const players = this.PLAYERS.map(p => {
+      let gpts = 0, correct = 0;
+      groups.forEach(g => { const r = g.results.find(x => x.playerId === p.id); gpts += r.points; correct += r.exact; });
+      const ko = this.bracketFor(p);
+      return Object.assign({}, p, { gpts, correct, ko: ko.total, total: gpts + ko.total });
+    });
+    const sorted = players.slice().sort((a, b) => b.total - a.total);
+    this._d = { groups, players, sorted };
+    return this._d;
+  }
+
+  toggle(key) { this.setState(s => ({ expanded: Object.assign({}, s.expanded, { [key]: !s.expanded[key] }) })); }
+
+  renderVals() {
+    const d = this.data();
+    const view = this.state.view;
+    const showMovement = this.props.showMovement !== false;
+    const showAccuracyBars = this.props.showAccuracyBars !== false;
+    const highlightMe = this.props.highlightMe || 'None';
+
+    const navBase = 'flex:1;border:none;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;font-size:13px;padding:9px 0;border-radius:999px;transition:all .15s;';
+    const navActive = navBase + 'background:#0E6E42;color:#fff;box-shadow:0 2px 8px rgba(14,110,66,0.3);';
+    const navIdle = navBase + 'background:transparent;color:#7A857C;';
+    const tab = (key, label) => ({ key, label, onClick: () => this.setState({ view: key }), style: view === key ? navActive : navIdle });
+
+    const subBase = 'flex:1;border:none;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;font-size:12.5px;padding:8px 0;border-radius:999px;transition:all .15s;';
+    const subActive = subBase + 'background:#0E6E42;color:#fff;';
+    const subIdle = subBase + 'background:transparent;color:#7A857C;';
+
+    const squareActive = 'min-width:44px;height:44px;border-radius:14px;border:1px solid transparent;font-family:Bricolage Grotesque,sans-serif;font-weight:800;font-size:16px;cursor:pointer;background:#0E6E42;color:#fff;box-shadow:0 4px 12px rgba(14,110,66,0.28);flex-shrink:0;';
+    const squareIdle = 'min-width:44px;height:44px;border-radius:14px;border:1px solid #EAE2D1;font-family:Bricolage Grotesque,sans-serif;font-weight:800;font-size:16px;cursor:pointer;background:#fff;color:#16241C;flex-shrink:0;';
+
+    const pillActive = 'border-radius:999px;padding:8px 15px;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;background:#0E6E42;color:#fff;border:1px solid #0E6E42;flex-shrink:0;';
+    const pillIdle = 'border-radius:999px;padding:8px 15px;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;background:#fff;color:#46524A;border:1px solid #EAE2D1;flex-shrink:0;';
+
+    // ---- leaderboard ----
+    const sorted = d.sorted;
+    const leaderPts = sorted[0].total || 1;
+    const standings = sorted.map((p, i) => ({
+      player: p,
+      rankLabel: String(i + 1).padStart(2, '0'),
+      moveIcon: p.move > 0 ? '▲' : p.move < 0 ? '▼' : '—',
+      moveColor: p.move > 0 ? '#1E9E5A' : p.move < 0 ? '#D83A36' : '#BFC6BC',
+      ptsLabel: p.total.toLocaleString(),
+      exactLabel: p.correct + ' exact',
+      barWidth: Math.round(p.total / leaderPts * 100) + '%',
+      barColor: i === 0 ? '#E8A23D' : '#0E6E42',
+      highlight: (p.name === highlightMe) ? 'background:rgba(232,162,61,0.12);' : ''
+    }));
+    const stepStyle = {
+      1: { step: 'linear-gradient(180deg,#ECA93B,#CE8A1B)', ring: '#D9931F', h: '94px' },
+      2: { step: 'linear-gradient(180deg,#C8D0CB,#9FA8A2)', ring: '#B4BBB5', h: '72px' },
+      3: { step: 'linear-gradient(180deg,#D29C65,#AE7740)', ring: '#BC8550', h: '58px' }
+    };
+    const podium = [
+      { p: sorted[1], place: 2 },
+      { p: sorted[0], place: 1 },
+      { p: sorted[2], place: 3 }
+    ].map(x => {
+      const s = stepStyle[x.place];
+      return { player: x.p, place: x.place, stepBg: s.step, ring: s.ring, stepH: s.h, ptsLabel: x.p.total.toLocaleString() };
+    });
+
+    // ---- groups: by group ----
+    const groupTabs = [
+      { label: 'By group', onClick: () => this.setState({ groupTab: 'byGroup' }), style: this.state.groupTab === 'byGroup' ? subActive : subIdle },
+      { label: 'By player', onClick: () => this.setState({ groupTab: 'byPlayer' }), style: this.state.groupTab === 'byPlayer' ? subActive : subIdle }
+    ];
+    const groupChips = d.groups.map(g => ({
+      label: g.id, onClick: () => this.setState({ groupId: g.id }),
+      style: g.id === this.state.groupId ? squareActive : squareIdle
+    }));
+    const group = d.groups.find(g => g.id === this.state.groupId);
+    const groupView = {
+      id: group.id,
+      standings: group.standings,
+      scoreboard: group.results.slice().sort((a, b) => b.points - a.points).map((res, i) => {
+        const pl = this.PLAYERS.find(p => p.id === res.playerId);
+        const key = group.id + '-' + res.playerId;
+        const expanded = !!this.state.expanded[key];
+        return {
+          player: pl, rankLabel: String(i + 1),
+          exactLabel: res.exact + '/4 exact',
+          ptsLabel: res.points + ' pts',
+          perfect: res.perfect, expanded, rows: res.rows,
+          chevron: expanded ? '▾' : '▸',
+          onClick: () => this.toggle(key)
+        };
+      })
+    };
+
+    // ---- groups: by player ----
+    const playerChips = this.PLAYERS.map(p => ({
+      label: p.name, onClick: () => this.setState({ playerId: p.id }),
+      style: p.id === this.state.playerId ? pillActive : pillIdle
+    }));
+    const selPlayer = this.PLAYERS.find(p => p.id === this.state.playerId);
+    let pTot = 0;
+    const playerGroups = d.groups.map(g => {
+      const res = g.results.find(x => x.playerId === this.state.playerId);
+      pTot += res.points;
+      return { id: g.id, ptsLabel: res.points + ' pts', perfect: res.perfect, rows: res.rows };
+    });
+    const playerHeader = { player: selPlayer, totalLabel: pTot.toLocaleString() };
+
+    // ---- bracket ----
+    const bp = this.PLAYERS.find(p => p.id === this.state.bracketPlayerId);
+    const bData = this.bracketFor(bp);
+    const bracketChips = this.PLAYERS.map(p => ({
+      label: p.name, onClick: () => this.setState({ bracketPlayerId: p.id }),
+      style: p.id === this.state.bracketPlayerId ? pillActive : pillIdle
+    }));
+    const rounds = bData.rounds.map(rd => ({
+      name: rd.name, ptsLabel: rd.ptsLabel,
+      matches: rd.matches.map(m => ({
+        okIcon: m.okIcon, okColor: m.okColor, note: m.note,
+        teams: m.teams.map(t => ({
+          name: t.name, code: t.code,
+          rowBg: t.win ? 'rgba(14,110,66,0.09)' : 'transparent',
+          nameColor: t.win ? '#0E6E42' : '#9AA39B',
+          weight: t.win ? '700' : '500',
+          tag: t.win ? 'ADV' : ''
+        }))
+      }))
+    }));
+    const champion = {
+      name: this.CHAMPION[0], code: this.CHAMPION[1],
+      okIcon: bData.champOk ? '✓' : '✕',
+      okColor: bData.champOk ? '#E8C98C' : '#F0B5B2',
+      note: bData.champOk ? 'You called it · +50 bonus' : ('You picked ' + bData.champPick)
+    };
+    const bracketSummary = { player: bp, totalLabel: bData.total.toLocaleString(), recordLabel: bData.correct + '/' + bData.totalMatches };
+
+    return {
+      tabs: [tab('leaderboard', 'Leaderboard'), tab('groups', 'Groups'), tab('bracket', 'Bracket')],
+      isLeaderboard: view === 'leaderboard',
+      isGroups: view === 'groups',
+      isBracket: view === 'bracket',
+      showMovement, showAccuracyBars,
+      podium, standings,
+      groupTabs,
+      isByGroup: this.state.groupTab === 'byGroup',
+      isByPlayer: this.state.groupTab === 'byPlayer',
+      groupChips, group: groupView,
+      playerChips, playerHeader, playerGroups,
+      bracketChips, bracketSummary, rounds, champion
+    };
+  }
+}
+</script>
+</body>
+</html>

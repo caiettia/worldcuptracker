@@ -1,27 +1,132 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": null,
-    "notes": "Synced from API-Football when workflow refresh runs.",
-    "provider": "api-football",
-    "providerFetchedAt": null
+    "asOf": "2026-06-26T17:32:25.731789+00:00",
+    "notes": "Synced from FIFA standings page.",
+    "provider": "fifa-standings-scrape",
+    "providerFetchedAt": "2026-06-26T17:32:25.731789+00:00"
   },
   "groupStage": {
     "groups": {
-      "A": { "finalized": false, "standings": [] },
-      "B": { "finalized": false, "standings": [] },
-      "C": { "finalized": false, "standings": [] },
-      "D": { "finalized": false, "standings": [] },
-      "E": { "finalized": false, "standings": [] },
-      "F": { "finalized": false, "standings": [] },
-      "G": { "finalized": false, "standings": [] },
-      "H": { "finalized": false, "standings": [] },
-      "I": { "finalized": false, "standings": [] },
-      "J": { "finalized": false, "standings": [] },
-      "K": { "finalized": false, "standings": [] },
-      "L": { "finalized": false, "standings": [] }
+      "A": {
+        "finalized": true,
+        "standings": [
+          "Mexico",
+          "South Africa",
+          "Korea Republic",
+          "Czechia"
+        ]
+      },
+      "B": {
+        "finalized": true,
+        "standings": [
+          "Switzerland",
+          "Canada",
+          "Bosnia and Herzegovina",
+          "Qatar"
+        ]
+      },
+      "C": {
+        "finalized": true,
+        "standings": [
+          "Brazil",
+          "Morocco",
+          "Scotland",
+          "Haiti"
+        ]
+      },
+      "D": {
+        "finalized": true,
+        "standings": [
+          "USA",
+          "Australia",
+          "Paraguay",
+          "Turkiye"
+        ]
+      },
+      "E": {
+        "finalized": true,
+        "standings": [
+          "Germany",
+          "Cote d'Ivoire",
+          "Ecuador",
+          "Curacao"
+        ]
+      },
+      "F": {
+        "finalized": true,
+        "standings": [
+          "Netherlands",
+          "Japan",
+          "Sweden",
+          "Tunisia"
+        ]
+      },
+      "G": {
+        "finalized": false,
+        "standings": [
+          "Egypt",
+          "IR Iran",
+          "Belgium",
+          "New Zealand"
+        ]
+      },
+      "H": {
+        "finalized": false,
+        "standings": [
+          "Spain",
+          "Uruguay",
+          "Cabo Verde",
+          "Saudi Arabia"
+        ]
+      },
+      "I": {
+        "finalized": false,
+        "standings": [
+          "France",
+          "Norway",
+          "Senegal",
+          "Iraq"
+        ]
+      },
+      "J": {
+        "finalized": false,
+        "standings": [
+          "Argentina",
+          "Austria",
+          "Algeria",
+          "Jordan"
+        ]
+      },
+      "K": {
+        "finalized": false,
+        "standings": [
+          "Colombia",
+          "Portugal",
+          "Congo DR",
+          "Uzbekistan"
+        ]
+      },
+      "L": {
+        "finalized": false,
+        "standings": [
+          "England",
+          "Ghana",
+          "Croatia",
+          "Panama"
+        ]
+      }
     },
-    "bestThirdPlacedTeams": []
+    "bestThirdPlacedTeams": [
+      "Sweden",
+      "Ecuador",
+      "Bosnia and Herzegovina",
+      "Paraguay",
+      "Croatia",
+      "Korea Republic",
+      "Algeria",
+      "Scotland"
+    ]
   },
   "knockout": {
     "roundOf16Teams": [],
