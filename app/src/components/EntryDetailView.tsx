@@ -93,15 +93,21 @@ export default function EntryDetailView({
         {groupKeys(actualResults, bracketEntry).map((groupKey) => {
           const actualGroup = actualResults.groupStage.groups[groupKey];
           const predictedStandings = bracketEntry.groupStage.groups[groupKey] ?? [];
-          const points = entryProgress.groupStage.pointsByGroup[groupKey] ?? 0;
           const isPerfect = entryProgress.groupStage.perfectGroups.includes(groupKey);
           const isFinalized = actualGroup?.finalized ?? false;
+          const points = (() => {
+            const scored = entryProgress.groupStage.pointsByGroup[groupKey];
+            if (scored !== undefined) return scored;
+            const actualStandings = actualGroup?.standings ?? [];
+            if (actualStandings.length === 0) return 0;
+            const correct = predictedStandings.filter((t, i) => actualStandings[i] === t).length;
+            return correct * 50 + (correct === 4 ? 30 : 0);
+          })();
 
           return (
             <article className="group-card" key={groupKey}>
               <div className="group-card__header">
                 <div>
-                  <p className="eyebrow">Group {groupKey}</p>
                   <h2>Group {groupKey}</h2>
                 </div>
                 <div className="group-card__score">
