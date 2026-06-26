@@ -3,6 +3,7 @@ import type {
   BracketEntry,
   EntryProgressRow,
 } from "../types/leaderboard";
+import { normalizeTeamName, teamNamesMatch } from "./teamNames";
 
 export type ComparisonRow = {
   pos: number;
@@ -28,13 +29,13 @@ function buildRows(actualStandings: string[], predictedStandings: string[]): Com
   const size = Math.max(actualStandings.length, predictedStandings.length);
   const rows: ComparisonRow[] = [];
   for (let i = 0; i < size; i += 1) {
-    const actualTeam = actualStandings[i] ?? null;
-    const predictedTeam = predictedStandings[i] ?? null;
+    const actualTeam = normalizeTeamName(actualStandings[i] ?? null);
+    const predictedTeam = normalizeTeamName(predictedStandings[i] ?? null);
     rows.push({
       pos: i + 1,
       actualTeam,
       predictedTeam,
-      ok: actualTeam !== null && actualTeam === predictedTeam,
+      ok: teamNamesMatch(actualTeam, predictedTeam),
     });
   }
   return rows;
