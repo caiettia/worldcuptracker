@@ -54,6 +54,7 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(scored["points"]["groupStage"], 330)
         self.assertEqual(scored["groupStage"]["correctPositions"], 6)
         self.assertEqual(scored["groupStage"]["perfectGroups"], ["A"])
+        self.assertEqual(scored["groupStage"]["pointsByGroup"], {"A": 230, "B": 100})
 
     def test_knockout_scoring_is_team_based_by_round(self) -> None:
         entry = {

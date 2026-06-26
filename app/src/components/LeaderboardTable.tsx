@@ -2,6 +2,7 @@ import type { LeaderboardRow } from "../types/leaderboard";
 
 type LeaderboardTableProps = {
   rows: LeaderboardRow[];
+  onSelectEntry: (entryId: string) => void;
 };
 
 const CURRENT_USER_ID = "dinkelberg";
@@ -15,7 +16,7 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-export default function LeaderboardTable({ rows }: LeaderboardTableProps) {
+export default function LeaderboardTable({ rows, onSelectEntry }: LeaderboardTableProps) {
   return (
     <section className="leaderboard-table-card">
       <table className="leaderboard-table">
@@ -41,7 +42,14 @@ export default function LeaderboardTable({ rows }: LeaderboardTableProps) {
                 <div className="entrant-cell">
                   <div className="entrant-main">
                     <span className="entrant-avatar">{initials(row.displayName)}</span>
-                    <span className="entrant-name">{row.displayName}</span>
+                    <button
+                      className="entrant-name entrant-name-button"
+                      type="button"
+                      onClick={() => onSelectEntry(row.id)}
+                      aria-label={`View ${row.displayName} predictions`}
+                    >
+                      {row.displayName}
+                    </button>
                   </div>
                 </div>
               </td>

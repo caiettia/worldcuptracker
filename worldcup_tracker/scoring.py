@@ -32,6 +32,7 @@ def score_group_stage(
     finalized_groups = 0
     perfect_groups: list[str] = []
     correct_positions_by_group: dict[str, int] = {}
+    points_by_group: dict[str, int] = {}
 
     actual_groups = actual_group_stage.get("groups", {})
     for group_name, actual_group in actual_groups.items():
@@ -51,11 +52,14 @@ def score_group_stage(
         )
         correct_positions += matching_positions
         correct_positions_by_group[group_name] = matching_positions
-        group_points += matching_positions * points_per_team
+        group_score = matching_positions * points_per_team
 
         if predicted_standings == actual_standings:
             perfect_groups.append(group_name)
-            group_points += perfect_group_bonus
+            group_score += perfect_group_bonus
+
+        points_by_group[group_name] = group_score
+        group_points += group_score
 
     return {
         "points": group_points,
@@ -63,6 +67,7 @@ def score_group_stage(
         "perfectGroups": perfect_groups,
         "finalizedGroupsScored": finalized_groups,
         "correctPositionsByGroup": correct_positions_by_group,
+        "pointsByGroup": points_by_group,
     }
 
 

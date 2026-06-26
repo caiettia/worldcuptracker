@@ -1,0 +1,544 @@
+{
+  "entries": [
+    {
+      "id": "dinkelberg",
+      "displayName": "Dinkelberg",
+      "sourceImages": {
+        "groupStage": "brackets/dinkelberg_groupstage.png",
+        "knockouts": "brackets/dinkelberg_knockouts.png"
+      },
+      "groupStage": {
+        "groups": {
+          "A": ["Mexico", "Czechia", "Korea Republic", "South Africa"],
+          "B": ["Bosnia-Herzegovina", "Switzerland", "Canada", "Qatar"],
+          "C": ["Morocco", "Brazil", "Haiti", "Scotland"],
+          "D": ["USA", "Australia", "Paraguay", "Turkiye"],
+          "E": ["Germany", "Curacao", "Cote d'Ivoire", "Ecuador"],
+          "F": ["Netherlands", "Japan", "Sweden", "Tunisia"],
+          "G": ["New Zealand", "Belgium", "Egypt", "IR Iran"],
+          "H": ["Uruguay", "Spain", "Cabo Verde", "Saudi Arabia"],
+          "I": ["Norway", "France", "Senegal", "Iraq"],
+          "J": ["Argentina", "Austria", "Jordan", "Algeria"],
+          "K": ["Portugal", "Colombia", "Congo DR", "Uzbekistan"],
+          "L": ["England", "Croatia", "Ghana", "Panama"]
+        },
+        "bestThirdCandidates": [
+          { "team": "Senegal", "selected": true },
+          { "team": "Korea Republic", "selected": true },
+          { "team": "Egypt", "selected": false },
+          { "team": "Canada", "selected": true },
+          { "team": "Cote d'Ivoire", "selected": false },
+          { "team": "Sweden", "selected": true },
+          { "team": "Paraguay", "selected": true },
+          { "team": "Congo DR", "selected": false },
+          { "team": "Jordan", "selected": true },
+          { "team": "Cabo Verde", "selected": true },
+          { "team": "Ghana", "selected": true },
+          { "team": "Haiti", "selected": false }
+        ],
+        "selectedBestThirdPlacedTeams": [
+          "Senegal",
+          "Korea Republic",
+          "Canada",
+          "Sweden",
+          "Paraguay",
+          "Jordan",
+          "Cabo Verde",
+          "Ghana"
+        ]
+      },
+      "knockout": {
+        "roundOf32Winners": [
+          "Germany",
+          "Norway",
+          "Czechia",
+          "Netherlands",
+          "Croatia",
+          "Uruguay",
+          "USA",
+          "New Zealand",
+          "Morocco",
+          "France",
+          "Mexico",
+          "England",
+          "Spain",
+          "Australia",
+          "Bosnia-Herzegovina",
+          "Portugal"
+        ],
+        "roundOf16Winners": [
+          "Germany",
+          "Czechia",
+          "Croatia",
+          "New Zealand",
+          "France",
+          "Mexico",
+          "Spain",
+          "Portugal"
+        ],
+        "quarterfinalWinners": [
+          "Germany",
+          "Croatia",
+          "Mexico",
+          "Portugal"
+        ],
+        "semifinalWinners": [
+          "Croatia",
+          "Mexico"
+        ],
+        "runnerUp": "Croatia",
+        "champion": "Mexico"
+      }
+    },
+    {
+      "id": "chit",
+      "displayName": "chitra",
+      "sourceImages": {
+        "groupStage": "brackets/chit_groupstage.jpeg",
+        "knockouts": "brackets/chit_knockouts.jpeg"
+      },
+      "groupStage": {
+        "groups": {
+          "A": ["Mexico", "Korea Republic", "Czechia", "South Africa"],
+          "B": ["Canada", "Switzerland", "Qatar", "Bosnia-Herzegovina"],
+          "C": ["Brazil", "Morocco", "Scotland", "Haiti"],
+          "D": ["USA", "Paraguay", "Turkiye", "Australia"],
+          "E": ["Germany", "Ecuador", "Cote d'Ivoire", "Curacao"],
+          "F": ["Netherlands", "Japan", "Sweden", "Tunisia"],
+          "G": ["Belgium", "Egypt", "New Zealand", "IR Iran"],
+          "H": ["Spain", "Uruguay", "Cabo Verde", "Saudi Arabia"],
+          "I": ["France", "Norway", "Senegal", "Iraq"],
+          "J": ["Argentina", "Austria", "Algeria", "Jordan"],
+          "K": ["Portugal", "Colombia", "Congo DR", "Uzbekistan"],
+          "L": ["England", "Ghana", "Panama", "Croatia"]
+        },
+        "bestThirdCandidates": [
+          { "team": "Senegal", "selected": true },
+          { "team": "Turkiye", "selected": true },
+          { "team": "Algeria", "selected": false },
+          { "team": "Cote d'Ivoire", "selected": true },
+          { "team": "Panama", "selected": true },
+          { "team": "Sweden", "selected": true },
+          { "team": "Czechia", "selected": true },
+          { "team": "Scotland", "selected": true },
+          { "team": "Congo DR", "selected": false },
+          { "team": "Qatar", "selected": false },
+          { "team": "Cabo Verde", "selected": false },
+          { "team": "New Zealand", "selected": true }
+        ],
+        "selectedBestThirdPlacedTeams": [
+          "Senegal",
+          "Turkiye",
+          "Cote d'Ivoire",
+          "Panama",
+          "Sweden",
+          "Czechia",
+          "Scotland",
+          "New Zealand"
+        ]
+      },
+      "knockout": {
+        "roundOf32Winners": [
+          "Germany",
+          "France",
+          "Switzerland",
+          "Netherlands",
+          "Colombia",
+          "Spain",
+          "USA",
+          "Belgium",
+          "Brazil",
+          "Ecuador",
+          "Mexico",
+          "England",
+          "Argentina",
+          "Paraguay",
+          "Canada",
+          "Portugal"
+        ],
+        "roundOf16Winners": [
+          "France",
+          "Netherlands",
+          "Spain",
+          "Belgium",
+          "Brazil",
+          "Mexico",
+          "Argentina",
+          "Portugal"
+        ],
+        "quarterfinalWinners": [
+          "France",
+          "Spain",
+          "Brazil",
+          "Argentina"
+        ],
+        "semifinalWinners": [
+          "Spain",
+          "Argentina"
+        ],
+        "runnerUp": "Argentina",
+        "champion": "Spain"
+      }
+    },
+    {
+      "id": "heathernr24",
+      "displayName": "heathernr24",
+      "sourceImages": {
+        "groupStage": "brackets/heathernr24_groupstage.jpeg",
+        "knockouts": "brackets/heathernr24_knockouts.jpeg"
+      },
+      "groupStage": {
+        "groups": {
+          "A": ["Mexico", "Korea Republic", "Czechia", "South Africa"],
+          "B": ["Canada", "Switzerland", "Qatar", "Bosnia-Herzegovina"],
+          "C": ["Brazil", "Morocco", "Scotland", "Haiti"],
+          "D": ["USA", "Turkiye", "Paraguay", "Australia"],
+          "E": ["Germany", "Ecuador", "Curacao", "Cote d'Ivoire"],
+          "F": ["Netherlands", "Japan", "Sweden", "Tunisia"],
+          "G": ["Belgium", "Egypt", "IR Iran", "New Zealand"],
+          "H": ["Spain", "Uruguay", "Saudi Arabia", "Cabo Verde"],
+          "I": ["France", "Senegal", "Iraq", "Norway"],
+          "J": ["Argentina", "Austria", "Algeria", "Jordan"],
+          "K": ["Portugal", "Colombia", "Congo DR", "Uzbekistan"],
+          "L": ["England", "Croatia", "Panama", "Ghana"]
+        },
+        "bestThirdCandidates": [
+          { "team": "IR Iran", "selected": true },
+          { "team": "Algeria", "selected": false },
+          { "team": "Panama", "selected": true },
+          { "team": "Sweden", "selected": true },
+          { "team": "Czechia", "selected": true },
+          { "team": "Paraguay", "selected": true },
+          { "team": "Scotland", "selected": true },
+          { "team": "Congo DR", "selected": false },
+          { "team": "Qatar", "selected": true },
+          { "team": "Iraq", "selected": false },
+          { "team": "Saudi Arabia", "selected": false },
+          { "team": "Curacao", "selected": true }
+        ],
+        "selectedBestThirdPlacedTeams": [
+          "IR Iran",
+          "Panama",
+          "Sweden",
+          "Czechia",
+          "Paraguay",
+          "Scotland",
+          "Qatar",
+          "Curacao"
+        ]
+      },
+      "knockout": {
+        "roundOf32Winners": [
+          "Germany",
+          "France",
+          "Switzerland",
+          "Netherlands",
+          "Colombia",
+          "Spain",
+          "USA",
+          "Belgium",
+          "Brazil",
+          "Ecuador",
+          "Mexico",
+          "England",
+          "Argentina",
+          "Turkiye",
+          "Canada",
+          "Portugal"
+        ],
+        "roundOf16Winners": [
+          "France",
+          "Netherlands",
+          "Spain",
+          "Belgium",
+          "Brazil",
+          "England",
+          "Argentina",
+          "Portugal"
+        ],
+        "quarterfinalWinners": [
+          "France",
+          "Spain",
+          "Brazil",
+          "Argentina"
+        ],
+        "semifinalWinners": [
+          "Spain",
+          "Brazil"
+        ],
+        "runnerUp": "Brazil",
+        "champion": "Spain"
+      }
+    },
+    {
+      "id": "liz",
+      "displayName": "Liz",
+      "sourceImages": {
+        "groupStage": "brackets/liz_groupstage.jpeg",
+        "knockouts": "brackets/liz_knockouts.jpeg"
+      },
+      "groupStage": {
+        "groups": {
+          "A": ["Mexico", "Czechia", "South Africa", "Korea Republic"],
+          "B": ["Switzerland", "Canada", "Bosnia-Herzegovina", "Qatar"],
+          "C": ["Brazil", "Morocco", "Scotland", "Haiti"],
+          "D": ["USA", "Paraguay", "Australia", "Turkiye"],
+          "E": ["Germany", "Ecuador", "Cote d'Ivoire", "Curacao"],
+          "F": ["Japan", "Netherlands", "Sweden", "Tunisia"],
+          "G": ["Belgium", "Egypt", "New Zealand", "IR Iran"],
+          "H": ["Spain", "Uruguay", "Cabo Verde", "Saudi Arabia"],
+          "I": ["France", "Norway", "Senegal", "Iraq"],
+          "J": ["Argentina", "Austria", "Algeria", "Jordan"],
+          "K": ["Portugal", "Colombia", "Congo DR", "Uzbekistan"],
+          "L": ["England", "Croatia", "Ghana", "Panama"]
+        },
+        "bestThirdCandidates": [
+          { "team": "Senegal", "selected": true },
+          { "team": "Australia", "selected": true },
+          { "team": "Algeria", "selected": true },
+          { "team": "Cote d'Ivoire", "selected": true },
+          { "team": "Sweden", "selected": true },
+          { "team": "Scotland", "selected": true },
+          { "team": "Congo DR", "selected": false },
+          { "team": "South Africa", "selected": true },
+          { "team": "Bosnia-Herzegovina", "selected": false },
+          { "team": "Cabo Verde", "selected": true },
+          { "team": "Ghana", "selected": false },
+          { "team": "New Zealand", "selected": false }
+        ],
+        "selectedBestThirdPlacedTeams": [
+          "Senegal",
+          "Australia",
+          "Algeria",
+          "Cote d'Ivoire",
+          "Sweden",
+          "Scotland",
+          "South Africa",
+          "Cabo Verde"
+        ]
+      },
+      "knockout": {
+        "roundOf32Winners": [
+          "Germany",
+          "France",
+          "Canada",
+          "Japan",
+          "Croatia",
+          "Spain",
+          "USA",
+          "South Africa",
+          "Brazil",
+          "Ecuador",
+          "Mexico",
+          "Senegal",
+          "Argentina",
+          "Egypt",
+          "Switzerland",
+          "Australia"
+        ],
+        "roundOf16Winners": [
+          "France",
+          "Japan",
+          "Croatia",
+          "USA",
+          "Brazil",
+          "Mexico",
+          "Egypt",
+          "Australia"
+        ],
+        "quarterfinalWinners": [
+          "France",
+          "Croatia",
+          "Brazil",
+          "Australia"
+        ],
+        "semifinalWinners": [
+          "France",
+          "Brazil"
+        ],
+        "runnerUp": "France",
+        "champion": "Brazil"
+      }
+    },
+    {
+      "id": "nfry",
+      "displayName": "NFry",
+      "sourceImages": {
+        "groupStage": "brackets/nfry_groupstage.jpeg",
+        "knockouts": "brackets/nfry_knockouts.jpeg"
+      },
+      "groupStage": {
+        "groups": {
+          "A": ["Mexico", "Korea Republic", "Czechia", "South Africa"],
+          "B": ["Canada", "Switzerland", "Bosnia-Herzegovina", "Qatar"],
+          "C": ["Brazil", "Morocco", "Scotland", "Haiti"],
+          "D": ["USA", "Turkiye", "Australia", "Paraguay"],
+          "E": ["Germany", "Cote d'Ivoire", "Ecuador", "Curacao"],
+          "F": ["Netherlands", "Japan", "Sweden", "Tunisia"],
+          "G": ["Belgium", "Egypt", "IR Iran", "New Zealand"],
+          "H": ["Spain", "Uruguay", "Cabo Verde", "Saudi Arabia"],
+          "I": ["France", "Norway", "Senegal", "Iraq"],
+          "J": ["Argentina", "Austria", "Algeria", "Jordan"],
+          "K": ["Portugal", "Colombia", "Congo DR", "Uzbekistan"],
+          "L": ["England", "Croatia", "Ghana", "Panama"]
+        },
+        "bestThirdCandidates": [
+          { "team": "Senegal", "selected": true },
+          { "team": "IR Iran", "selected": true },
+          { "team": "Ecuador", "selected": true },
+          { "team": "Australia", "selected": true },
+          { "team": "Algeria", "selected": true },
+          { "team": "Sweden", "selected": true },
+          { "team": "Czechia", "selected": true },
+          { "team": "Scotland", "selected": true },
+          { "team": "Congo DR", "selected": false },
+          { "team": "Bosnia-Herzegovina", "selected": false },
+          { "team": "Cabo Verde", "selected": false },
+          { "team": "Ghana", "selected": false }
+        ],
+        "selectedBestThirdPlacedTeams": [
+          "Senegal",
+          "IR Iran",
+          "Ecuador",
+          "Australia",
+          "Algeria",
+          "Sweden",
+          "Czechia",
+          "Scotland"
+        ]
+      },
+      "knockout": {
+        "roundOf32Winners": [
+          "Germany",
+          "France",
+          "Switzerland",
+          "Netherlands",
+          "Croatia",
+          "Spain",
+          "USA",
+          "Belgium",
+          "Brazil",
+          "Norway",
+          "Mexico",
+          "England",
+          "Argentina",
+          "Egypt",
+          "Canada",
+          "Portugal"
+        ],
+        "roundOf16Winners": [
+          "France",
+          "Netherlands",
+          "Spain",
+          "Belgium",
+          "Brazil",
+          "England",
+          "Argentina",
+          "Portugal"
+        ],
+        "quarterfinalWinners": [
+          "Netherlands",
+          "Spain",
+          "England",
+          "Argentina"
+        ],
+        "semifinalWinners": [
+          "Spain",
+          "England"
+        ],
+        "runnerUp": "England",
+        "champion": "Spain"
+      }
+    },
+    {
+      "id": "shreyas",
+      "displayName": "ShreyB",
+      "sourceImages": {
+        "groupStage": "brackets/Shreyas_groupstage.jpeg",
+        "knockouts": "brackets/Shreyas_knockouts.jpeg"
+      },
+      "groupStage": {
+        "groups": {
+          "A": ["Mexico", "Korea Republic", "Czechia", "South Africa"],
+          "B": ["Switzerland", "Canada", "Bosnia-Herzegovina", "Qatar"],
+          "C": ["Brazil", "Morocco", "Scotland", "Haiti"],
+          "D": ["Turkiye", "USA", "Paraguay", "Australia"],
+          "E": ["Germany", "Ecuador", "Cote d'Ivoire", "Curacao"],
+          "F": ["Netherlands", "Japan", "Sweden", "Tunisia"],
+          "G": ["Belgium", "Egypt", "New Zealand", "IR Iran"],
+          "H": ["Spain", "Uruguay", "Saudi Arabia", "Cabo Verde"],
+          "I": ["France", "Norway", "Senegal", "Iraq"],
+          "J": ["Argentina", "Austria", "Algeria", "Jordan"],
+          "K": ["Portugal", "Colombia", "Congo DR", "Uzbekistan"],
+          "L": ["England", "Croatia", "Ghana", "Panama"]
+        },
+        "bestThirdCandidates": [
+          { "team": "Senegal", "selected": true },
+          { "team": "Algeria", "selected": true },
+          { "team": "Cote d'Ivoire", "selected": false },
+          { "team": "Sweden", "selected": true },
+          { "team": "Czechia", "selected": true },
+          { "team": "Paraguay", "selected": true },
+          { "team": "Scotland", "selected": false },
+          { "team": "Congo DR", "selected": false },
+          { "team": "Saudi Arabia", "selected": true },
+          { "team": "Bosnia-Herzegovina", "selected": true },
+          { "team": "Ghana", "selected": true },
+          { "team": "New Zealand", "selected": false }
+        ],
+        "selectedBestThirdPlacedTeams": [
+          "Senegal",
+          "Algeria",
+          "Sweden",
+          "Czechia",
+          "Paraguay",
+          "Saudi Arabia",
+          "Bosnia-Herzegovina",
+          "Ghana"
+        ]
+      },
+      "knockout": {
+        "roundOf32Winners": [
+          "Germany",
+          "Sweden",
+          "Korea Republic",
+          "Morocco",
+          "Colombia",
+          "Austria",
+          "Bosnia-Herzegovina",
+          "Belgium",
+          "Japan",
+          "Ecuador",
+          "Saudi Arabia",
+          "England",
+          "Uruguay",
+          "USA",
+          "Algeria",
+          "Ghana"
+        ],
+        "roundOf16Winners": [
+          "Germany",
+          "Morocco",
+          "Austria",
+          "Belgium",
+          "Ecuador",
+          "England",
+          "USA",
+          "Algeria"
+        ],
+        "quarterfinalWinners": [
+          "Germany",
+          "Belgium",
+          "England",
+          "USA"
+        ],
+        "semifinalWinners": [
+          "Germany",
+          "USA"
+        ],
+        "runnerUp": "USA",
+        "champion": "Germany"
+      }
+    }
+  ]
+}

@@ -132,6 +132,12 @@
   white-space: nowrap;
 }
 
+.podium-name-button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
 .podium-name--primary {
   color: var(--primary);
 }
@@ -249,6 +255,18 @@
   font-size: 1rem;
   font-weight: 600;
   color: var(--on-surface);
+}
+
+.entrant-name-button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.entrant-name-button:hover,
+.podium-name-button:hover {
+  color: var(--pitch-green-bright);
 }
 
 .you-pill {
