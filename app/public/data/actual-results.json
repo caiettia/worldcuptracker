@@ -1,10 +1,10 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": "2026-06-26T23:14:37.124805+00:00",
+    "asOf": "2026-06-26T23:45:19.469688+00:00",
     "notes": "Synced from FIFA standings page.",
     "provider": "fifa-standings-scrape",
-    "providerFetchedAt": "2026-06-26T23:14:37.124805+00:00"
+    "providerFetchedAt": "2026-06-26T23:45:19.469688+00:00"
   },
   "groupStage": {
     "groups": {
