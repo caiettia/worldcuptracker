@@ -123,7 +123,7 @@ export default function EntryDetailView({
                   {renderStandings(actualGroup?.standings ?? [], "Awaiting finalized standings")}
                 </section>
                 <section className="group-card__column">
-                  <h3>{entryProgress.displayName}'s Prediction</h3>
+                  <h3>Your Prediction</h3>
                   {renderStandings(predictedStandings, "No prediction submitted")}
                 </section>
               </div>
