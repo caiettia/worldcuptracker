@@ -72,12 +72,14 @@ const appData = {
           points: 90,
           correctPositions: 1,
           perfectGroups: [],
-          finalizedGroupsScored: 1,
+          finalizedGroupsScored: 2,
           correctPositionsByGroup: {
             A: 1,
+            B: 0,
           },
           pointsByGroup: {
             A: 50,
+            B: 0,
           },
         },
         knockout: {
@@ -107,12 +109,14 @@ const appData = {
           points: 70,
           correctPositions: 1,
           perfectGroups: [],
-          finalizedGroupsScored: 1,
+          finalizedGroupsScored: 2,
           correctPositionsByGroup: {
             A: 1,
+            B: 0,
           },
           pointsByGroup: {
             A: 50,
+            B: 0,
           },
         },
         knockout: {
@@ -143,6 +147,7 @@ const appData = {
         groupStage: {
           groups: {
             A: ["Mexico", "Czechia", "Korea Republic", "South Africa"],
+            B: ["Bosnia-Herzegovina", "Canada", "Atlantis", "Qatar"],
           },
           bestThirdCandidates: [],
           selectedBestThirdPlacedTeams: [],
@@ -166,6 +171,7 @@ const appData = {
         groupStage: {
           groups: {
             A: ["Mexico", "Korea Republic", "Czechia", "South Africa"],
+            B: ["Canada", "Switzerland", "Bosnia-Herzegovina", "Qatar"],
           },
           bestThirdCandidates: [],
           selectedBestThirdPlacedTeams: [],
@@ -194,6 +200,10 @@ const appData = {
         A: {
           finalized: true,
           standings: ["Mexico", "Korea Republic", "Czechia", "South Africa"],
+        },
+        B: {
+          finalized: true,
+          standings: ["Switzerland", "Canada", "Bosnia and Herzegovina", "Qatar"],
         },
       },
       bestThirdPlacedTeams: [],
@@ -247,8 +257,22 @@ test("lets you click a player to view group stage predictions against actual res
   expect(screen.getByRole("heading", { name: /dinkelberg group stage/i })).toBeInTheDocument();
   expect(screen.getByRole("heading", { name: /group a/i })).toBeInTheDocument();
   expect(screen.getByText(/group points: 50/i)).toBeInTheDocument();
-  expect(screen.getByRole("heading", { name: /actual outcome/i })).toBeInTheDocument();
-  expect(screen.getByRole("heading", { name: /your prediction/i })).toBeInTheDocument();
+  expect(screen.getAllByRole("heading", { name: /actual outcome/i }).length).toBeGreaterThan(0);
+  expect(screen.getAllByRole("heading", { name: /your prediction/i }).length).toBeGreaterThan(0);
+});
+
+test("renders local flag avatars for known countries and skips unknown ones", async () => {
+  mockLoadAppData.mockResolvedValue(appData);
+
+  render(<App />);
+
+  fireEvent.click(await screen.findByRole("button", { name: /view dinkelberg predictions/i }));
+
+  expect(screen.getAllByAltText("Mexico flag")[0]).toHaveAttribute("src", "/flags/mx.svg");
+  expect(screen.getByAltText("Bosnia and Herzegovina flag")).toHaveAttribute("src", "/flags/ba.svg");
+  expect(screen.getByAltText("Bosnia-Herzegovina flag")).toHaveAttribute("src", "/flags/ba.svg");
+  expect(screen.getByText("Atlantis")).toBeInTheDocument();
+  expect(screen.queryByAltText("Atlantis flag")).not.toBeInTheDocument();
 });
 
 test("shows a bracket view with a player selector and no dashboard or live nav links", async () => {

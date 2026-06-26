@@ -1,4 +1,5 @@
 import type { ActualResultsPayload, BracketEntry, EntryProgressRow } from "../types/leaderboard";
+import { getCountryFlagSrc } from "../lib/countryFlags";
 
 type EntryDetailViewProps = {
   actualResults: ActualResultsPayload;
@@ -23,9 +24,22 @@ function renderStandings(teams: string[], emptyLabel: string) {
 
   return (
     <ol className="group-card__list">
-      {teams.map((team) => (
-        <li key={team}>{team}</li>
-      ))}
+      {teams.map((team) => {
+        const flagSrc = getCountryFlagSrc(team);
+
+        return (
+          <li className="group-card__team" key={team}>
+            <span className="group-card__team-row">
+              {flagSrc ? (
+                <span className="group-card__flag-avatar">
+                  <img alt={`${team} flag`} className="group-card__flag-image" src={flagSrc} />
+                </span>
+              ) : null}
+              <span>{team}</span>
+            </span>
+          </li>
+        );
+      })}
     </ol>
   );
 }
