@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Avatar from "../components/Avatar";
 import Flag from "../components/Flag";
+import { knockoutRounds, totalMatches, type KnockoutMatch } from "../lib/knockout";
 import { SCORING } from "../lib/scoring";
 import { COLORS, FONTS, CARD_SHADOW_SM, HEADER_SHADOW } from "../lib/ui";
-import type {
-  BracketsPayload,
-  EntryProgressPayload,
-  EntryProgressRow,
-  KnockoutRoundBreakdown,
-} from "../types/leaderboard";
+import type { BracketsPayload, EntryProgressPayload } from "../types/leaderboard";
 
 type BracketViewProps = {
   brackets: BracketsPayload;
@@ -16,38 +12,62 @@ type BracketViewProps = {
   focusPlayerId?: string;
 };
 
-type RoundSpec = {
-  name: string;
-  perTeam: number;
-  predictedTeams: string[];
-  breakdown: KnockoutRoundBreakdown;
-};
+function MatchCard({ match }: { match: KnockoutMatch }) {
+  const okIcon = match.status === "correct" ? "✓" : match.status === "wrong" ? "✕" : "·";
+  const okColor = match.status === "correct" ? "#1E9E5A" : match.status === "wrong" ? "#D86560" : COLORS.faint3;
+  const note =
+    match.status === "correct"
+      ? "Pick advanced"
+      : match.status === "wrong"
+        ? `Picked ${match.winnerName ?? "—"}`
+        : "Awaiting result";
 
-// Each round shows the teams an entrant predicted to *reach* that round, scored
-// against the teams that actually got there (see scoring.py ROUND_SPECS).
-function roundsFor(
-  bracketEntry: BracketsPayload["entries"][number],
-  progress: EntryProgressRow,
-): RoundSpec[] {
-  return [
-    { name: "Round of 16", perTeam: SCORING.knockout.roundOf16, predictedTeams: bracketEntry.knockout.roundOf32Winners, breakdown: progress.knockout.roundOf16 },
-    { name: "Quarterfinals", perTeam: SCORING.knockout.quarterfinal, predictedTeams: bracketEntry.knockout.roundOf16Winners, breakdown: progress.knockout.quarterfinal },
-    { name: "Semifinals", perTeam: SCORING.knockout.semifinal, predictedTeams: bracketEntry.knockout.quarterfinalWinners, breakdown: progress.knockout.semifinal },
-    { name: "Final", perTeam: SCORING.knockout.final, predictedTeams: bracketEntry.knockout.semifinalWinners, breakdown: progress.knockout.final },
-  ];
-}
-
-type TeamStatus = "pending" | "correct" | "wrong";
-
-function teamStatus(team: string, breakdown: KnockoutRoundBreakdown): TeamStatus {
-  if (breakdown.actualKnownCount === 0) {
-    return "pending";
-  }
-  return breakdown.correctTeams.includes(team) ? "correct" : "wrong";
+  return (
+    <div style={{ background: "#fff", border: `1px solid ${COLORS.line}`, borderRadius: 14, padding: 9, boxShadow: CARD_SHADOW_SM }}>
+      {match.teams.map((team) => (
+        <div
+          key={team.name}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "6px 7px",
+            borderRadius: 9,
+            background: team.advanced ? COLORS.greenSoft : "transparent",
+          }}
+        >
+          <Flag team={team.name} size={22} />
+          <span
+            style={{
+              flex: 1,
+              fontSize: 13,
+              fontWeight: team.advanced ? 700 : 500,
+              color: team.advanced ? COLORS.green : COLORS.faint2,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {team.name}
+          </span>
+          {team.advanced ? (
+            <span style={{ fontSize: 8.5, fontWeight: 800, letterSpacing: "0.05em", color: COLORS.green }}>ADV</span>
+          ) : null}
+        </div>
+      ))}
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 7, padding: "0 7px" }}>
+        <span style={{ fontWeight: 800, fontSize: 12, color: okColor }}>{okIcon}</span>
+        <span style={{ fontSize: 11, color: COLORS.muted, fontWeight: 500 }}>{note}</span>
+      </div>
+    </div>
+  );
 }
 
 export default function BracketView({ brackets, entryProgress, focusPlayerId }: BracketViewProps) {
-  const progressById = new Map(entryProgress.entries.map((e) => [e.id, e]));
+  const progressById = useMemo(
+    () => new Map(entryProgress.entries.map((e) => [e.id, e])),
+    [entryProgress],
+  );
   const players = brackets.entries.filter((e) => progressById.has(e.id));
 
   const [playerId, setPlayerId] = useState(focusPlayerId ?? players[0]?.id ?? "");
@@ -63,11 +83,12 @@ export default function BracketView({ brackets, entryProgress, focusPlayerId }: 
     return null;
   }
 
-  const rounds = roundsFor(bracketEntry, progress);
-  const totalPicks = rounds.reduce((sum, r) => sum + r.predictedTeams.length, 0);
+  const rounds = knockoutRounds(bracketEntry, progress);
+  const matchCount = totalMatches(rounds);
   const champ = progress.knockout.champion;
   const championTeam = champ.predictedTeam;
-  const championStatus: TeamStatus = champ.actualTeam === null ? "pending" : champ.correct ? "correct" : "wrong";
+  const championStatus: "pending" | "correct" | "wrong" =
+    champ.actualTeam === null ? "pending" : champ.correct ? "correct" : "wrong";
 
   return (
     <div data-screen-label="Bracket">
@@ -115,7 +136,7 @@ export default function BracketView({ brackets, entryProgress, focusPlayerId }: 
         <Avatar id={bracketEntry.id} displayName={bracketEntry.displayName} size={46} fontSize={19} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: FONTS.head, fontWeight: 800, fontSize: 18, letterSpacing: "-0.01em", color: COLORS.ink }}>{bracketEntry.displayName}</div>
-          <div style={{ fontSize: 12, color: COLORS.muted, fontWeight: 500 }}>{totalPicks} knockout picks</div>
+          <div style={{ fontSize: 12, color: COLORS.muted, fontWeight: 500 }}>{matchCount} knockout matches</div>
         </div>
         <div style={{ textAlign: "right" }}>
           <div style={{ fontFamily: FONTS.mono, fontWeight: 700, fontSize: 20, color: COLORS.green }}>{progress.knockout.points.toLocaleString()}</div>
@@ -128,55 +149,17 @@ export default function BracketView({ brackets, entryProgress, focusPlayerId }: 
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 11, padding: "0 2px" }}>
             <h3 style={{ margin: 0, fontFamily: FONTS.head, fontWeight: 800, fontSize: 17, letterSpacing: "-0.01em", color: COLORS.ink }}>{round.name}</h3>
             <span style={{ fontSize: 10.5, color: COLORS.faint3, fontWeight: 600 }}>
-              {round.breakdown.points > 0 ? `${round.breakdown.points} pts · ` : ""}+{round.perTeam}/team
+              {round.pointsEarned > 0 ? `${round.pointsEarned} pts · ` : ""}+{round.pointsPerMatch} / match
             </span>
           </div>
 
-          {round.predictedTeams.length === 0 ? (
+          {round.matches.length === 0 ? (
             <div style={{ fontSize: 12, color: COLORS.muted, padding: "0 2px" }}>No picks submitted.</div>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(150px,1fr))", gap: 10 }}>
-              {round.predictedTeams.map((team) => {
-                const status = teamStatus(team, round.breakdown);
-                const accent = status === "correct" ? COLORS.green : status === "wrong" ? COLORS.red : COLORS.faint3;
-                const note =
-                  status === "correct" ? `Advanced +${round.perTeam}` : status === "wrong" ? "Eliminated" : "Awaiting result";
-                return (
-                  <div key={team} style={{ background: "#fff", border: `1px solid ${COLORS.line}`, borderRadius: 14, padding: 9, boxShadow: CARD_SHADOW_SM }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        padding: "6px 7px",
-                        borderRadius: 9,
-                        background: status === "correct" ? COLORS.greenSoft : "transparent",
-                      }}
-                    >
-                      <Flag team={team} size={22} />
-                      <span
-                        style={{
-                          flex: 1,
-                          fontSize: 13,
-                          fontWeight: status === "wrong" ? 500 : 700,
-                          color: status === "correct" ? COLORS.green : status === "wrong" ? COLORS.faint2 : COLORS.ink,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {team}
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 7, padding: "0 7px" }}>
-                      <span style={{ fontWeight: 800, fontSize: 12, color: accent }}>
-                        {status === "correct" ? "✓" : status === "wrong" ? "✕" : "·"}
-                      </span>
-                      <span style={{ fontSize: 11, color: COLORS.muted, fontWeight: 500 }}>{note}</span>
-                    </div>
-                  </div>
-                );
-              })}
+              {round.matches.map((match) => (
+                <MatchCard key={match.id} match={match} />
+              ))}
             </div>
           )}
         </div>
