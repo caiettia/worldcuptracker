@@ -14,6 +14,22 @@ ROUND_SPECS = (
     ("final", "semifinalWinners", "finalTeams"),
 )
 
+# Predictions (data/brackets.json) and actual results (data/actual-results.json)
+# can spell the same nation differently -- for example the brackets list
+# "Bosnia-Herzegovina" while the FIFA-sourced standings use the canonical
+# "Bosnia and Herzegovina". Normalize known aliases to their canonical name so
+# scoring compares teams by identity rather than by exact string.
+TEAM_NAME_ALIASES = {
+    "Bosnia-Herzegovina": "Bosnia and Herzegovina",
+    "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+}
+
+
+def normalize_team_name(name: str | None) -> str | None:
+    if name is None:
+        return None
+    return TEAM_NAME_ALIASES.get(name, name)
+
 
 def load_json(path: str | Path) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -45,6 +61,9 @@ def score_group_stage(
         predicted_standings = predicted_groups.get(group_name, [])
         if not actual_standings or not predicted_standings:
             continue
+
+        actual_standings = [normalize_team_name(team) for team in actual_standings]
+        predicted_standings = [normalize_team_name(team) for team in predicted_standings]
 
         finalized_groups += 1
         matching_positions = sum(
@@ -82,8 +101,8 @@ def score_knockout(
     breakdown: dict[str, Any] = {}
 
     for score_key, prediction_key, actual_key in ROUND_SPECS:
-        predicted_teams = set(predicted_knockout.get(prediction_key, []))
-        actual_teams = set(actual_knockout.get(actual_key, []))
+        predicted_teams = {normalize_team_name(team) for team in predicted_knockout.get(prediction_key, [])}
+        actual_teams = {normalize_team_name(team) for team in actual_knockout.get(actual_key, [])}
         correct_teams = sorted(predicted_teams & actual_teams)
         points = len(correct_teams) * scoring_rules["knockout"][score_key]
 
@@ -96,14 +115,16 @@ def score_knockout(
         knockout_points += points
 
     actual_champion = actual_knockout.get("champion")
+    predicted_champion = predicted_knockout.get("champion")
     champion_correct = bool(
-        actual_champion and predicted_knockout.get("champion") == actual_champion
+        actual_champion
+        and normalize_team_name(predicted_champion) == normalize_team_name(actual_champion)
     )
     champion_points = scoring_rules["knockout"]["champion"] if champion_correct else 0
     knockout_points += champion_points
     breakdown["champion"] = {
         "points": champion_points,
-        "predictedTeam": predicted_knockout.get("champion"),
+        "predictedTeam": predicted_champion,
         "actualTeam": actual_champion,
         "correct": champion_correct,
     }

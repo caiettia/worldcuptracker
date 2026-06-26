@@ -1,4 +1,5 @@
 import { SCORING } from "./scoring";
+import { normalizeTeamName } from "./teamNames";
 import type { BracketEntry, EntryProgressRow, KnockoutRoundBreakdown } from "../types/leaderboard";
 
 export type MatchTeam = { name: string; advanced: boolean };
@@ -38,7 +39,7 @@ function buildRound(
   breakdown: { correctTeams: string[]; actualKnownCount: number; points: number },
 ): KnockoutRound {
   const winnerSet = new Set(winners);
-  const correctSet = new Set(breakdown.correctTeams);
+  const correctSet = new Set(breakdown.correctTeams.map(normalizeTeamName));
   const known = breakdown.actualKnownCount > 0;
 
   const matches = pairUp(competitors).map((pair, index) => {
@@ -49,7 +50,7 @@ function buildRound(
     }));
     let status: KnockoutMatch["status"] = "pending";
     if (known && winnerName) {
-      status = correctSet.has(winnerName) ? "correct" : "wrong";
+      status = correctSet.has(normalizeTeamName(winnerName)) ? "correct" : "wrong";
     }
     return { id: `${name}-${index}`, teams, winnerName, status };
   });

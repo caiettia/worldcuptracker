@@ -56,6 +56,55 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(scored["groupStage"]["perfectGroups"], ["A"])
         self.assertEqual(scored["groupStage"]["pointsByGroup"], {"A": 230, "B": 100})
 
+    def test_team_name_aliases_are_normalized_when_scoring(self) -> None:
+        # Predictions spell the nation "Bosnia-Herzegovina" while the actual
+        # results use the canonical FIFA spelling "Bosnia and Herzegovina".
+        entry = {
+            "id": "liz",
+            "displayName": "Liz",
+            "groupStage": {
+                "groups": {
+                    "B": ["Switzerland", "Canada", "Bosnia-Herzegovina", "Qatar"],
+                }
+            },
+            "knockout": {
+                "roundOf32Winners": ["Bosnia-Herzegovina"],
+                "roundOf16Winners": [],
+                "quarterfinalWinners": [],
+                "semifinalWinners": [],
+                "champion": "Bosnia-Herzegovina",
+            },
+        }
+        actual_results = {
+            "groupStage": {
+                "groups": {
+                    "B": {
+                        "finalized": True,
+                        "standings": ["Switzerland", "Canada", "Bosnia and Herzegovina", "Qatar"],
+                    },
+                }
+            },
+            "knockout": {
+                "roundOf16Teams": ["Bosnia and Herzegovina"],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": ["Bosnia and Herzegovina"],
+                "champion": "Bosnia and Herzegovina",
+            },
+        }
+
+        scored = score_entry(entry, actual_results, SCORING_RULES)
+
+        # All four positions match and the group is perfect: 4 * 50 + 30 = 230.
+        self.assertEqual(scored["groupStage"]["correctPositionsByGroup"]["B"], 4)
+        self.assertEqual(scored["groupStage"]["perfectGroups"], ["B"])
+        self.assertEqual(scored["groupStage"]["pointsByGroup"]["B"], 230)
+        # The aliased team is credited in the knockout round and as champion.
+        self.assertEqual(
+            scored["knockout"]["roundOf16"]["correctTeams"], ["Bosnia and Herzegovina"]
+        )
+        self.assertTrue(scored["knockout"]["champion"]["correct"])
+
     def test_knockout_scoring_is_team_based_by_round(self) -> None:
         entry = {
             "id": "alpha",
