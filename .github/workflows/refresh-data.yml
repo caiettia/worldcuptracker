@@ -3,7 +3,7 @@ name: Refresh Tracker Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "*/5 0-2,16-23 11-27 6 *"
 
 permissions:
   contents: write
@@ -15,8 +15,6 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    env:
-      API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -25,6 +23,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
 
       - name: Sync actual tournament results
         run: python scripts/sync_actual_results.py

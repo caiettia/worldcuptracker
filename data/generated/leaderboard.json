@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-26T07:37:19Z",
-    "asOf": null,
+    "generatedAt": "2026-06-26T16:38:03.612419+00:00",
+    "asOf": "2026-06-26T16:38:03.612419+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
   "progress": {
-    "groupsFinalized": 0,
+    "groupsFinalized": 6,
     "roundOf16TeamsKnown": 0,
     "quarterfinalTeamsKnown": 0,
     "semifinalTeamsKnown": 0,
@@ -16,50 +16,50 @@
   "leaderboard": [
     {
       "rank": 1,
-      "id": "chit",
-      "displayName": "chitra",
-      "totalPoints": 0,
-      "groupStagePoints": 0,
-      "knockoutPoints": 0
-    },
-    {
-      "rank": 1,
-      "id": "dinkelberg",
-      "displayName": "Dinkelberg",
-      "totalPoints": 0,
-      "groupStagePoints": 0,
-      "knockoutPoints": 0
-    },
-    {
-      "rank": 1,
-      "id": "heathernr24",
-      "displayName": "heathernr24",
-      "totalPoints": 0,
-      "groupStagePoints": 0,
-      "knockoutPoints": 0
-    },
-    {
-      "rank": 1,
-      "id": "liz",
-      "displayName": "Liz",
-      "totalPoints": 0,
-      "groupStagePoints": 0,
-      "knockoutPoints": 0
-    },
-    {
-      "rank": 1,
       "id": "nfry",
       "displayName": "NFry",
-      "totalPoints": 0,
-      "groupStagePoints": 0,
+      "totalPoints": 840,
+      "groupStagePoints": 840,
       "knockoutPoints": 0
     },
     {
-      "rank": 1,
+      "rank": 2,
       "id": "shreyas",
       "displayName": "ShreyB",
-      "totalPoints": 0,
-      "groupStagePoints": 0,
+      "totalPoints": 810,
+      "groupStagePoints": 810,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 3,
+      "id": "liz",
+      "displayName": "Liz",
+      "totalPoints": 730,
+      "groupStagePoints": 730,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 4,
+      "id": "chit",
+      "displayName": "chitra",
+      "totalPoints": 660,
+      "groupStagePoints": 660,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 4,
+      "id": "dinkelberg",
+      "displayName": "Dinkelberg",
+      "totalPoints": 660,
+      "groupStagePoints": 660,
+      "knockoutPoints": 0
+    },
+    {
+      "rank": 4,
+      "id": "heathernr24",
+      "displayName": "heathernr24",
+      "totalPoints": 660,
+      "groupStagePoints": 660,
       "knockoutPoints": 0
     }
   ]

@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-26T07:37:19Z",
-    "asOf": null,
+    "generatedAt": "2026-06-26T16:38:03.612419+00:00",
+    "asOf": "2026-06-26T16:38:03.612419+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
   "progress": {
-    "groupsFinalized": 0,
+    "groupsFinalized": 6,
     "roundOf16TeamsKnown": 0,
     "quarterfinalTeamsKnown": 0,
     "semifinalTeamsKnown": 0,
@@ -15,224 +15,38 @@
   },
   "entries": [
     {
-      "id": "chit",
-      "displayName": "chitra",
-      "points": {
-        "total": 0,
-        "groupStage": 0,
-        "knockout": 0
-      },
-      "groupStage": {
-        "points": 0,
-        "correctPositions": 0,
-        "perfectGroups": [],
-        "finalizedGroupsScored": 0,
-        "correctPositionsByGroup": {},
-        "pointsByGroup": {}
-      },
-      "knockout": {
-        "roundOf16": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 16,
-          "actualKnownCount": 0
-        },
-        "quarterfinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 8,
-          "actualKnownCount": 0
-        },
-        "semifinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 4,
-          "actualKnownCount": 0
-        },
-        "final": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 2,
-          "actualKnownCount": 0
-        },
-        "champion": {
-          "points": 0,
-          "predictedTeam": "Spain",
-          "actualTeam": null,
-          "correct": false
-        },
-        "points": 0
-      },
-      "rank": 1
-    },
-    {
-      "id": "dinkelberg",
-      "displayName": "Dinkelberg",
-      "points": {
-        "total": 0,
-        "groupStage": 0,
-        "knockout": 0
-      },
-      "groupStage": {
-        "points": 0,
-        "correctPositions": 0,
-        "perfectGroups": [],
-        "finalizedGroupsScored": 0,
-        "correctPositionsByGroup": {},
-        "pointsByGroup": {}
-      },
-      "knockout": {
-        "roundOf16": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 16,
-          "actualKnownCount": 0
-        },
-        "quarterfinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 8,
-          "actualKnownCount": 0
-        },
-        "semifinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 4,
-          "actualKnownCount": 0
-        },
-        "final": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 2,
-          "actualKnownCount": 0
-        },
-        "champion": {
-          "points": 0,
-          "predictedTeam": "Mexico",
-          "actualTeam": null,
-          "correct": false
-        },
-        "points": 0
-      },
-      "rank": 1
-    },
-    {
-      "id": "heathernr24",
-      "displayName": "heathernr24",
-      "points": {
-        "total": 0,
-        "groupStage": 0,
-        "knockout": 0
-      },
-      "groupStage": {
-        "points": 0,
-        "correctPositions": 0,
-        "perfectGroups": [],
-        "finalizedGroupsScored": 0,
-        "correctPositionsByGroup": {},
-        "pointsByGroup": {}
-      },
-      "knockout": {
-        "roundOf16": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 16,
-          "actualKnownCount": 0
-        },
-        "quarterfinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 8,
-          "actualKnownCount": 0
-        },
-        "semifinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 4,
-          "actualKnownCount": 0
-        },
-        "final": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 2,
-          "actualKnownCount": 0
-        },
-        "champion": {
-          "points": 0,
-          "predictedTeam": "Spain",
-          "actualTeam": null,
-          "correct": false
-        },
-        "points": 0
-      },
-      "rank": 1
-    },
-    {
-      "id": "liz",
-      "displayName": "Liz",
-      "points": {
-        "total": 0,
-        "groupStage": 0,
-        "knockout": 0
-      },
-      "groupStage": {
-        "points": 0,
-        "correctPositions": 0,
-        "perfectGroups": [],
-        "finalizedGroupsScored": 0,
-        "correctPositionsByGroup": {},
-        "pointsByGroup": {}
-      },
-      "knockout": {
-        "roundOf16": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 16,
-          "actualKnownCount": 0
-        },
-        "quarterfinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 8,
-          "actualKnownCount": 0
-        },
-        "semifinal": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 4,
-          "actualKnownCount": 0
-        },
-        "final": {
-          "points": 0,
-          "correctTeams": [],
-          "predictedCount": 2,
-          "actualKnownCount": 0
-        },
-        "champion": {
-          "points": 0,
-          "predictedTeam": "Brazil",
-          "actualTeam": null,
-          "correct": false
-        },
-        "points": 0
-      },
-      "rank": 1
-    },
-    {
       "id": "nfry",
       "displayName": "NFry",
       "points": {
-        "total": 0,
-        "groupStage": 0,
+        "total": 840,
+        "groupStage": 840,
         "knockout": 0
       },
       "groupStage": {
-        "points": 0,
-        "correctPositions": 0,
-        "perfectGroups": [],
-        "finalizedGroupsScored": 0,
-        "correctPositionsByGroup": {},
-        "pointsByGroup": {}
+        "points": 840,
+        "correctPositions": 15,
+        "perfectGroups": [
+          "C",
+          "E",
+          "F"
+        ],
+        "finalizedGroupsScored": 6,
+        "correctPositionsByGroup": {
+          "A": 1,
+          "B": 1,
+          "C": 4,
+          "D": 1,
+          "E": 4,
+          "F": 4
+        },
+        "pointsByGroup": {
+          "A": 50,
+          "B": 50,
+          "C": 230,
+          "D": 50,
+          "E": 230,
+          "F": 230
+        }
       },
       "knockout": {
         "roundOf16": {
@@ -273,17 +87,34 @@
       "id": "shreyas",
       "displayName": "ShreyB",
       "points": {
-        "total": 0,
-        "groupStage": 0,
+        "total": 810,
+        "groupStage": 810,
         "knockout": 0
       },
       "groupStage": {
-        "points": 0,
-        "correctPositions": 0,
-        "perfectGroups": [],
-        "finalizedGroupsScored": 0,
-        "correctPositionsByGroup": {},
-        "pointsByGroup": {}
+        "points": 810,
+        "correctPositions": 15,
+        "perfectGroups": [
+          "C",
+          "F"
+        ],
+        "finalizedGroupsScored": 6,
+        "correctPositionsByGroup": {
+          "A": 1,
+          "B": 3,
+          "C": 4,
+          "D": 1,
+          "E": 2,
+          "F": 4
+        },
+        "pointsByGroup": {
+          "A": 50,
+          "B": 150,
+          "C": 230,
+          "D": 50,
+          "E": 100,
+          "F": 230
+        }
       },
       "knockout": {
         "roundOf16": {
@@ -318,7 +149,278 @@
         },
         "points": 0
       },
-      "rank": 1
+      "rank": 2
+    },
+    {
+      "id": "liz",
+      "displayName": "Liz",
+      "points": {
+        "total": 730,
+        "groupStage": 730,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 730,
+        "correctPositions": 14,
+        "perfectGroups": [
+          "C"
+        ],
+        "finalizedGroupsScored": 6,
+        "correctPositionsByGroup": {
+          "A": 1,
+          "B": 3,
+          "C": 4,
+          "D": 2,
+          "E": 2,
+          "F": 2
+        },
+        "pointsByGroup": {
+          "A": 50,
+          "B": 150,
+          "C": 230,
+          "D": 100,
+          "E": 100,
+          "F": 100
+        }
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Brazil",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 3
+    },
+    {
+      "id": "chit",
+      "displayName": "chitra",
+      "points": {
+        "total": 660,
+        "groupStage": 660,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 660,
+        "correctPositions": 12,
+        "perfectGroups": [
+          "C",
+          "F"
+        ],
+        "finalizedGroupsScored": 6,
+        "correctPositionsByGroup": {
+          "A": 1,
+          "B": 0,
+          "C": 4,
+          "D": 1,
+          "E": 2,
+          "F": 4
+        },
+        "pointsByGroup": {
+          "A": 50,
+          "B": 0,
+          "C": 230,
+          "D": 50,
+          "E": 100,
+          "F": 230
+        }
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Spain",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 4
+    },
+    {
+      "id": "dinkelberg",
+      "displayName": "Dinkelberg",
+      "points": {
+        "total": 660,
+        "groupStage": 660,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 660,
+        "correctPositions": 12,
+        "perfectGroups": [
+          "D",
+          "F"
+        ],
+        "finalizedGroupsScored": 6,
+        "correctPositionsByGroup": {
+          "A": 2,
+          "B": 1,
+          "C": 0,
+          "D": 4,
+          "E": 1,
+          "F": 4
+        },
+        "pointsByGroup": {
+          "A": 100,
+          "B": 50,
+          "C": 0,
+          "D": 230,
+          "E": 50,
+          "F": 230
+        }
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Mexico",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 4
+    },
+    {
+      "id": "heathernr24",
+      "displayName": "heathernr24",
+      "points": {
+        "total": 660,
+        "groupStage": 660,
+        "knockout": 0
+      },
+      "groupStage": {
+        "points": 660,
+        "correctPositions": 12,
+        "perfectGroups": [
+          "C",
+          "F"
+        ],
+        "finalizedGroupsScored": 6,
+        "correctPositionsByGroup": {
+          "A": 1,
+          "B": 0,
+          "C": 4,
+          "D": 2,
+          "E": 1,
+          "F": 4
+        },
+        "pointsByGroup": {
+          "A": 50,
+          "B": 0,
+          "C": 230,
+          "D": 100,
+          "E": 50,
+          "F": 230
+        }
+      },
+      "knockout": {
+        "roundOf16": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 16,
+          "actualKnownCount": 0
+        },
+        "quarterfinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 8,
+          "actualKnownCount": 0
+        },
+        "semifinal": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 4,
+          "actualKnownCount": 0
+        },
+        "final": {
+          "points": 0,
+          "correctTeams": [],
+          "predictedCount": 2,
+          "actualKnownCount": 0
+        },
+        "champion": {
+          "points": 0,
+          "predictedTeam": "Spain",
+          "actualTeam": null,
+          "correct": false
+        },
+        "points": 0
+      },
+      "rank": 4
     }
   ]
 }
