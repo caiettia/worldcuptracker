@@ -1,10 +1,10 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": "2026-06-27T00:17:43.430289+00:00",
+    "asOf": "2026-06-27T01:20:27.292587+00:00",
     "notes": "Synced from FIFA standings page.",
     "provider": "fifa-standings-scrape",
-    "providerFetchedAt": "2026-06-27T00:17:43.430289+00:00"
+    "providerFetchedAt": "2026-06-27T01:20:27.292587+00:00"
   },
   "groupStage": {
     "groups": {
@@ -72,11 +72,11 @@
         ]
       },
       "H": {
-        "finalized": false,
+        "finalized": true,
         "standings": [
           "Spain",
-          "Uruguay",
           "Cabo Verde",
+          "Uruguay",
           "Saudi Arabia"
         ]
       },
