@@ -73,6 +73,18 @@ function isKnockoutRoundBreakdown(value: unknown): boolean {
   );
 }
 
+function isThirdPlaceQualifierBreakdown(value: unknown): boolean {
+  return (
+    isRecord(value) &&
+    isStringArray(value.predictedTeams) &&
+    isStringArray(value.actualTeams) &&
+    isStringArray(value.correctTeams) &&
+    typeof value.correctCount === "number" &&
+    typeof value.points === "number" &&
+    typeof value.scored === "boolean"
+  );
+}
+
 function isEntryProgressPayload(value: unknown): value is EntryProgressPayload {
   if (!(isRecord(value) && isMetadata(value.metadata) && isProgress(value.progress) && Array.isArray(value.entries))) {
     return false;
@@ -99,6 +111,7 @@ function isEntryProgressPayload(value: unknown): value is EntryProgressPayload {
       Object.values(entry.groupStage.correctPositionsByGroup).every((count) => typeof count === "number") &&
       isRecord(entry.groupStage.pointsByGroup) &&
       Object.values(entry.groupStage.pointsByGroup).every((count) => typeof count === "number") &&
+      isThirdPlaceQualifierBreakdown(entry.groupStage.thirdPlaceQualifiers) &&
       isKnockoutRoundBreakdown(entry.knockout.roundOf16) &&
       isKnockoutRoundBreakdown(entry.knockout.quarterfinal) &&
       isKnockoutRoundBreakdown(entry.knockout.semifinal) &&

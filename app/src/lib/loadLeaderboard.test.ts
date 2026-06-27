@@ -76,6 +76,14 @@ describe("loadAppData", () => {
                   finalizedGroupsScored: 0,
                   correctPositionsByGroup: {},
                   pointsByGroup: {},
+                  thirdPlaceQualifiers: {
+                    predictedTeams: [],
+                    actualTeams: [],
+                    correctTeams: [],
+                    correctCount: 0,
+                    points: 0,
+                    scored: false,
+                  },
                 },
                 knockout: {
                   roundOf16: {

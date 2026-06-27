@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-27T20:16:32.719659+00:00",
-    "asOf": "2026-06-27T20:16:32.719659+00:00",
+    "generatedAt": "2026-06-27T20:08:57.066848+00:00",
+    "asOf": "2026-06-27T20:08:08.575323+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
@@ -19,8 +19,8 @@
       "id": "nfry",
       "displayName": "NFry",
       "totalPoints": 1450,
-      "projectedTotalPoints": 1880,
-      "projectedAdditionalPoints": 430,
+      "projectedTotalPoints": 1940,
+      "projectedAdditionalPoints": 490,
       "groupStagePoints": 1450,
       "knockoutPoints": 0
     },
@@ -29,8 +29,8 @@
       "id": "shreyas",
       "displayName": "ShreyB",
       "totalPoints": 1270,
-      "projectedTotalPoints": 1700,
-      "projectedAdditionalPoints": 430,
+      "projectedTotalPoints": 1760,
+      "projectedAdditionalPoints": 490,
       "groupStagePoints": 1270,
       "knockoutPoints": 0
     },
@@ -39,8 +39,8 @@
       "id": "liz",
       "displayName": "Liz",
       "totalPoints": 1240,
-      "projectedTotalPoints": 1670,
-      "projectedAdditionalPoints": 430,
+      "projectedTotalPoints": 1700,
+      "projectedAdditionalPoints": 460,
       "groupStagePoints": 1240,
       "knockoutPoints": 0
     },
@@ -49,8 +49,8 @@
       "id": "chit",
       "displayName": "chitra",
       "totalPoints": 1090,
-      "projectedTotalPoints": 1520,
-      "projectedAdditionalPoints": 430,
+      "projectedTotalPoints": 1550,
+      "projectedAdditionalPoints": 460,
       "groupStagePoints": 1090,
       "knockoutPoints": 0
     },
@@ -59,8 +59,8 @@
       "id": "heathernr24",
       "displayName": "heathernr24",
       "totalPoints": 990,
-      "projectedTotalPoints": 1370,
-      "projectedAdditionalPoints": 380,
+      "projectedTotalPoints": 1415,
+      "projectedAdditionalPoints": 425,
       "groupStagePoints": 990,
       "knockoutPoints": 0
     },
@@ -69,8 +69,8 @@
       "id": "dinkelberg",
       "displayName": "Dinkelberg",
       "totalPoints": 810,
-      "projectedTotalPoints": 1110,
-      "projectedAdditionalPoints": 300,
+      "projectedTotalPoints": 1170,
+      "projectedAdditionalPoints": 360,
       "groupStagePoints": 810,
       "knockoutPoints": 0
     }

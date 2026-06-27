@@ -40,6 +40,16 @@ export type GroupStageBreakdown = {
   finalizedGroupsScored: number;
   correctPositionsByGroup: Record<string, number>;
   pointsByGroup: Record<string, number>;
+  thirdPlaceQualifiers: ThirdPlaceQualifierBreakdown;
+};
+
+export type ThirdPlaceQualifierBreakdown = {
+  predictedTeams: string[];
+  actualTeams: string[];
+  correctTeams: string[];
+  correctCount: number;
+  points: number;
+  scored: boolean;
 };
 
 export type KnockoutRoundBreakdown = {

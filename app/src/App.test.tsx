@@ -24,20 +24,20 @@ const appData = {
         rank: 1,
         id: "dinkelberg",
         displayName: "Dinkelberg",
-        totalPoints: 120,
-        projectedTotalPoints: 160,
+        totalPoints: 95,
+        projectedTotalPoints: 135,
         projectedAdditionalPoints: 40,
-        groupStagePoints: 90,
+        groupStagePoints: 65,
         knockoutPoints: 30,
       },
       {
         rank: 2,
         id: "nfry",
         displayName: "NFry",
-        totalPoints: 100,
-        projectedTotalPoints: 130,
+        totalPoints: 80,
+        projectedTotalPoints: 110,
         projectedAdditionalPoints: 30,
-        groupStagePoints: 70,
+        groupStagePoints: 50,
         knockoutPoints: 30,
       },
     ],
@@ -57,14 +57,22 @@ const appData = {
         id: "dinkelberg",
         displayName: "Dinkelberg",
         rank: 1,
-        points: { total: 120, groupStage: 90, knockout: 30 },
+        points: { total: 95, groupStage: 65, knockout: 30 },
         groupStage: {
-          points: 90,
+          points: 65,
           correctPositions: 1,
           perfectGroups: [],
           finalizedGroupsScored: 1,
           correctPositionsByGroup: { A: 1 },
           pointsByGroup: { A: 50 },
+          thirdPlaceQualifiers: {
+            predictedTeams: ["Senegal", "Sweden", "Paraguay"],
+            actualTeams: ["Senegal", "Paraguay", "Bosnia and Herzegovina"],
+            correctTeams: ["Paraguay", "Senegal"],
+            correctCount: 2,
+            points: 15,
+            scored: true,
+          },
         },
         knockout: {
           roundOf16: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
@@ -79,14 +87,22 @@ const appData = {
         id: "nfry",
         displayName: "NFry",
         rank: 2,
-        points: { total: 100, groupStage: 70, knockout: 30 },
+        points: { total: 80, groupStage: 50, knockout: 30 },
         groupStage: {
-          points: 70,
+          points: 50,
           correctPositions: 1,
           perfectGroups: [],
           finalizedGroupsScored: 1,
           correctPositionsByGroup: { A: 1 },
           pointsByGroup: { A: 50 },
+          thirdPlaceQualifiers: {
+            predictedTeams: ["Sweden"],
+            actualTeams: ["Senegal", "Paraguay", "Bosnia and Herzegovina"],
+            correctTeams: [],
+            correctCount: 0,
+            points: 0,
+            scored: false,
+          },
         },
         knockout: {
           roundOf16: { points: 0, correctTeams: [], predictedCount: 0, actualKnownCount: 0 },
@@ -187,7 +203,7 @@ test("renders the leaderboard with players, points and the three nav tabs", asyn
 
   expect(await screen.findByRole("button", { name: /view dinkelberg predictions/i })).toBeInTheDocument();
   expect(screen.getAllByText("Dinkelberg").length).toBeGreaterThan(0);
-  expect(screen.getAllByText("120").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("95").length).toBeGreaterThan(0);
   expect(screen.getByRole("button", { name: /^leaderboard$/i })).toBeInTheDocument();
   expect(screen.getByRole("button", { name: /^groups$/i })).toBeInTheDocument();
   expect(screen.getByRole("button", { name: /^bracket$/i })).toBeInTheDocument();
@@ -206,6 +222,19 @@ test("clicking a player opens their group-stage breakdown with actual vs predict
   // Group B is not finalized: shown as pending.
   expect(screen.getAllByText(/pending/i).length).toBeGreaterThan(0);
   expect(screen.getAllByAltText("Mexico flag")[0]).toHaveAttribute("src", "/flags/mx.svg");
+});
+
+test("player group-stage view shows third-place qualifier scoring", async () => {
+  mockLoadAppData.mockResolvedValue(appData);
+  render(<App />);
+
+  fireEvent.click(await screen.findByRole("button", { name: /view dinkelberg predictions/i }));
+
+  expect(screen.getByText(/third-place qualifiers/i)).toBeInTheDocument();
+  expect(screen.getByText(/2 correct/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/15 pts/i).length).toBeGreaterThan(0);
+  expect(screen.getAllByText(/senegal/i).length).toBeGreaterThan(0);
+  expect(screen.getAllByText(/paraguay/i).length).toBeGreaterThan(0);
 });
 
 test("bracket tab shows the entrant knockout summary and champion banner", async () => {

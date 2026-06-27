@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-27T20:16:32.719659+00:00",
-    "asOf": "2026-06-27T20:16:32.719659+00:00",
+    "generatedAt": "2026-06-27T20:08:57.066848+00:00",
+    "asOf": "2026-06-27T20:08:08.575323+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
@@ -54,6 +54,37 @@
           "G": 230,
           "H": 100,
           "I": 230
+        },
+        "thirdPlaceQualifiers": {
+          "predictedTeams": [
+            "Senegal",
+            "IR Iran",
+            "Ecuador",
+            "Australia",
+            "Algeria",
+            "Sweden",
+            "Czechia",
+            "Scotland"
+          ],
+          "actualTeams": [
+            "Sweden",
+            "Ecuador",
+            "Bosnia and Herzegovina",
+            "Paraguay",
+            "Senegal",
+            "IR Iran",
+            "Croatia",
+            "Korea Republic"
+          ],
+          "correctTeams": [
+            "Ecuador",
+            "IR Iran",
+            "Senegal",
+            "Sweden"
+          ],
+          "correctCount": 4,
+          "points": 0,
+          "scored": false
         }
       },
       "knockout": {
@@ -130,6 +161,37 @@
           "G": 100,
           "H": 50,
           "I": 230
+        },
+        "thirdPlaceQualifiers": {
+          "predictedTeams": [
+            "Senegal",
+            "Algeria",
+            "Sweden",
+            "Czechia",
+            "Paraguay",
+            "Saudi Arabia",
+            "Bosnia and Herzegovina",
+            "Ghana"
+          ],
+          "actualTeams": [
+            "Sweden",
+            "Ecuador",
+            "Bosnia and Herzegovina",
+            "Paraguay",
+            "Senegal",
+            "IR Iran",
+            "Croatia",
+            "Korea Republic"
+          ],
+          "correctTeams": [
+            "Bosnia and Herzegovina",
+            "Paraguay",
+            "Senegal",
+            "Sweden"
+          ],
+          "correctCount": 4,
+          "points": 0,
+          "scored": false
         }
       },
       "knockout": {
@@ -205,6 +267,35 @@
           "G": 100,
           "H": 100,
           "I": 230
+        },
+        "thirdPlaceQualifiers": {
+          "predictedTeams": [
+            "Senegal",
+            "Australia",
+            "Algeria",
+            "Cote d'Ivoire",
+            "Sweden",
+            "Scotland",
+            "South Africa",
+            "Cabo Verde"
+          ],
+          "actualTeams": [
+            "Sweden",
+            "Ecuador",
+            "Bosnia and Herzegovina",
+            "Paraguay",
+            "Senegal",
+            "IR Iran",
+            "Croatia",
+            "Korea Republic"
+          ],
+          "correctTeams": [
+            "Senegal",
+            "Sweden"
+          ],
+          "correctCount": 2,
+          "points": 0,
+          "scored": false
         }
       },
       "knockout": {
@@ -280,6 +371,35 @@
           "G": 100,
           "H": 100,
           "I": 230
+        },
+        "thirdPlaceQualifiers": {
+          "predictedTeams": [
+            "Senegal",
+            "Turkiye",
+            "Cote d'Ivoire",
+            "Panama",
+            "Sweden",
+            "Czechia",
+            "Scotland",
+            "New Zealand"
+          ],
+          "actualTeams": [
+            "Sweden",
+            "Ecuador",
+            "Bosnia and Herzegovina",
+            "Paraguay",
+            "Senegal",
+            "IR Iran",
+            "Croatia",
+            "Korea Republic"
+          ],
+          "correctTeams": [
+            "Senegal",
+            "Sweden"
+          ],
+          "correctCount": 2,
+          "points": 0,
+          "scored": false
         }
       },
       "knockout": {
@@ -355,6 +475,36 @@
           "G": 230,
           "H": 50,
           "I": 50
+        },
+        "thirdPlaceQualifiers": {
+          "predictedTeams": [
+            "IR Iran",
+            "Panama",
+            "Sweden",
+            "Czechia",
+            "Paraguay",
+            "Scotland",
+            "Qatar",
+            "Curacao"
+          ],
+          "actualTeams": [
+            "Sweden",
+            "Ecuador",
+            "Bosnia and Herzegovina",
+            "Paraguay",
+            "Senegal",
+            "IR Iran",
+            "Croatia",
+            "Korea Republic"
+          ],
+          "correctTeams": [
+            "IR Iran",
+            "Paraguay",
+            "Sweden"
+          ],
+          "correctCount": 3,
+          "points": 0,
+          "scored": false
         }
       },
       "knockout": {
@@ -429,6 +579,37 @@
           "G": 0,
           "H": 50,
           "I": 100
+        },
+        "thirdPlaceQualifiers": {
+          "predictedTeams": [
+            "Senegal",
+            "Korea Republic",
+            "Canada",
+            "Sweden",
+            "Paraguay",
+            "Jordan",
+            "Cabo Verde",
+            "Ghana"
+          ],
+          "actualTeams": [
+            "Sweden",
+            "Ecuador",
+            "Bosnia and Herzegovina",
+            "Paraguay",
+            "Senegal",
+            "IR Iran",
+            "Croatia",
+            "Korea Republic"
+          ],
+          "correctTeams": [
+            "Korea Republic",
+            "Paraguay",
+            "Senegal",
+            "Sweden"
+          ],
+          "correctCount": 4,
+          "points": 0,
+          "scored": false
         }
       },
       "knockout": {

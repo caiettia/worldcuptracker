@@ -63,6 +63,25 @@ function ptsPill(label: string) {
   );
 }
 
+function teamChip(team: string) {
+  return (
+    <span
+      key={team}
+      style={{
+        fontSize: 12,
+        fontWeight: 600,
+        color: COLORS.ink,
+        background: "#fff",
+        border: `1px solid ${COLORS.line}`,
+        padding: "5px 8px",
+        borderRadius: 999,
+      }}
+    >
+      {team}
+    </span>
+  );
+}
+
 export default function GroupsView({ actualResults, brackets, entryProgress, focusPlayerId }: GroupsViewProps) {
   const keys = groupKeys(actualResults);
   const players = entryProgress.entries;
@@ -316,6 +335,7 @@ function ByPlayer({ keys, players, playerId, setPlayerId, actualResults, bracket
   }
 
   const groups = keys.map((key) => groupForPlayer(key, actualResults, bracketById.get(player.id), player));
+  const thirdPlace = player.groupStage.thirdPlaceQualifiers;
 
   return (
     <div>
@@ -370,6 +390,56 @@ function ByPlayer({ keys, players, playerId, setPlayerId, actualResults, bracket
             {player.groupStage.points.toLocaleString()}
           </div>
           <div style={{ fontSize: 9.5, color: COLORS.faint, letterSpacing: "0.06em", fontWeight: 600 }}>GROUP PTS</div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          background: "#fff",
+          border: `1px solid ${COLORS.line}`,
+          borderRadius: 18,
+          padding: "14px 16px",
+          marginBottom: 14,
+          boxShadow: CARD_SHADOW_SM,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 10 }}>
+          <div>
+            <div style={{ ...sectionLabel, marginBottom: 6 }}>Third-place qualifiers</div>
+            <div style={{ fontSize: 13, color: COLORS.muted, fontWeight: 500 }}>
+              {thirdPlace.correctCount} correct
+            </div>
+          </div>
+          {ptsPill(thirdPlace.scored ? `${thirdPlace.points} pts` : "Pending")}
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div>
+            <div style={{ fontSize: 11, color: COLORS.faint, fontWeight: 700, letterSpacing: "0.06em", marginBottom: 6 }}>
+              CORRECT PICKS
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {thirdPlace.correctTeams.length > 0 ? thirdPlace.correctTeams.map(teamChip) : <span style={{ fontSize: 12, color: COLORS.faint2 }}>No correct teams yet</span>}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize: 11, color: COLORS.faint, fontWeight: 700, letterSpacing: "0.06em", marginBottom: 6 }}>
+              YOUR PICKS
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {thirdPlace.predictedTeams.map(teamChip)}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize: 11, color: COLORS.faint, fontWeight: 700, letterSpacing: "0.06em", marginBottom: 6 }}>
+              ACTUAL QUALIFIERS
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {thirdPlace.actualTeams.map(teamChip)}
+            </div>
+          </div>
         </div>
       </div>
 
