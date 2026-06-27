@@ -1,10 +1,10 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": "2026-06-27T02:13:45.388707+00:00",
+    "asOf": "2026-06-27T16:31:54.617899+00:00",
     "notes": "Synced from FIFA standings page.",
     "provider": "fifa-standings-scrape",
-    "providerFetchedAt": "2026-06-27T02:13:45.388707+00:00"
+    "providerFetchedAt": "2026-06-27T16:31:54.617899+00:00"
   },
   "groupStage": {
     "groups": {
@@ -63,11 +63,11 @@
         ]
       },
       "G": {
-        "finalized": false,
+        "finalized": true,
         "standings": [
+          "Belgium",
           "Egypt",
           "IR Iran",
-          "Belgium",
           "New Zealand"
         ]
       },
@@ -123,9 +123,9 @@
       "Bosnia and Herzegovina",
       "Paraguay",
       "Senegal",
+      "IR Iran",
       "Croatia",
-      "Korea Republic",
-      "Algeria"
+      "Korea Republic"
     ]
   },
   "knockout": {
