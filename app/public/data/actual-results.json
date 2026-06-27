@@ -1,10 +1,10 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": "2026-06-27T20:43:30.698884+00:00",
+    "asOf": "2026-06-27T21:14:39.925847+00:00",
     "notes": "Synced from FIFA standings page.",
     "provider": "fifa-standings-scrape",
-    "providerFetchedAt": "2026-06-27T20:43:30.698884+00:00"
+    "providerFetchedAt": "2026-06-27T21:14:39.925847+00:00"
   },
   "groupStage": {
     "groups": {
@@ -108,7 +108,7 @@
         ]
       },
       "L": {
-        "finalized": false,
+        "finalized": true,
         "standings": [
           "England",
           "Ghana",
@@ -121,10 +121,10 @@
       "Sweden",
       "Ecuador",
       "Bosnia and Herzegovina",
+      "Croatia",
       "Paraguay",
       "Senegal",
       "IR Iran",
-      "Croatia",
       "Korea Republic"
     ]
   },
