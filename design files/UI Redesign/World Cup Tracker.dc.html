@@ -16,6 +16,15 @@
     html,body{margin:0;padding:0;}
     .wct-scroll{scrollbar-width:none;-ms-overflow-style:none;}
     .wct-scroll::-webkit-scrollbar{display:none;}
+    .wct-ko-scroll{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+    .wct-ko-round{flex:0 0 87%;max-width:330px;scroll-snap-align:center;display:flex;flex-direction:column;padding:0 4px;}
+    .wct-ko-col{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;min-height:720px;}
+    .wct-ko-pair{flex:1 1 0;display:flex;flex-direction:column;justify-content:space-around;position:relative;padding-right:22px;}
+    .wct-ko-pair.is-final{padding-right:0;justify-content:center;}
+    .wct-ko-slot{position:relative;display:flex;flex-direction:column;justify-content:center;}
+    .wct-ko-bracket{position:absolute;right:2px;top:25%;bottom:25%;width:16px;border:2px solid #E4DBC7;border-left:none;border-radius:0 8px 8px 0;pointer-events:none;}
+    .wct-ko-bracket::after{content:'';position:absolute;right:-9px;top:50%;width:9px;height:2px;background:#E4DBC7;transform:translateY(-1px);}
+    .wct-ko-round.has-in .wct-ko-slot::before{content:'';position:absolute;left:-10px;top:50%;width:10px;height:2px;background:#E4DBC7;transform:translateY(-1px);}
   </style>
 </helmet>
 <div style="min-height:100vh;background:linear-gradient(180deg,#FBF4E6 0%,#F7F0E0 42%,#F4EDDB 100%);font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#16241C;-webkit-font-smoothing:antialiased;">
@@ -101,6 +110,7 @@
               </sc-for>
             </div>
 
+            <sc-if value="{{ showGroupCard }}" hint-placeholder-val="{{ true }}">
             <div style="background:#fff;border:1px solid #EFE7D6;border-radius:22px;padding:20px 18px;box-shadow:0 12px 34px rgba(20,40,30,0.055);">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
                 <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;letter-spacing:-0.02em;">Group {{ group.id }}</h2>
@@ -155,6 +165,67 @@
                 </sc-for>
               </div>
             </div>
+            </sc-if>
+
+            <sc-if value="{{ show3rd }}">
+            <div style="background:#fff;border:1px solid #EFE7D6;border-radius:22px;padding:20px 18px;box-shadow:0 12px 34px rgba(20,40,30,0.055);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;letter-spacing:-0.02em;">Third-Place Race</h2>
+                <span style="font-size:11px;font-weight:700;color:#C9831F;background:rgba(232,162,61,0.16);padding:5px 11px;border-radius:999px;letter-spacing:0.03em;">8 of 12 advance</span>
+              </div>
+              <div style="font-size:12px;color:#8A938B;font-weight:500;margin-bottom:18px;">The eight best third-placed teams join the Round of 32.</div>
+
+              <div style="font-size:10.5px;letter-spacing:0.09em;color:#A6AC9F;font-weight:700;text-transform:uppercase;margin-bottom:9px;">Final ranking</div>
+              <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:22px;">
+                <sc-for list="{{ thirdStandings }}" as="t" hint-placeholder-count="12">
+                  <div style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:12px;background:{{ t.rowBg }};">
+                    <span style="font-family:'Space Mono';font-weight:700;font-size:13px;color:#9AA39B;width:18px;">{{ t.rank }}</span>
+                    <span style="width:26px;height:26px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,0.15);display:block;"><img src="https://flagcdn.com/w80/{{ t.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
+                    <span style="flex:1;font-weight:600;font-size:14px;">{{ t.name }}</span>
+                    <span style="font-family:'Space Mono';font-size:10px;color:#B0B6A8;font-weight:700;letter-spacing:0.04em;">{{ t.grpLabel }}</span>
+                    <sc-if value="{{ t.advanced }}"><span style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;color:#0E6E42;background:rgba(14,110,66,0.12);padding:3px 7px;border-radius:6px;">ADV</span></sc-if>
+                    <sc-if value="{{ t.out }}"><span style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;color:#B7574F;background:rgba(216,58,54,0.1);padding:3px 7px;border-radius:6px;">OUT</span></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;">
+                <div style="font-size:10.5px;letter-spacing:0.09em;color:#A6AC9F;font-weight:700;text-transform:uppercase;">How everyone scored</div>
+                <div style="font-size:10.5px;color:#B0B6A8;font-weight:500;">+25 each · +80 sweep</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <sc-for list="{{ thirdView.scoreboard }}" as="s" hint-placeholder-count="6">
+                  <div style="border:1px solid #EFE7D6;border-radius:14px;overflow:hidden;">
+                    <button onClick="{{ s.onClick }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:11px 12px;background:#FCFAF4;border:none;cursor:pointer;text-align:left;font-family:'Plus Jakarta Sans';">
+                      <span style="font-family:'Space Mono';font-weight:700;font-size:13px;color:#9AA39B;width:14px;">{{ s.rankLabel }}</span>
+                      <span style="width:32px;height:32px;border-radius:50%;background:{{ s.player.color }};color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque';font-weight:700;font-size:13px;flex-shrink:0;">{{ s.player.initial }}</span>
+                      <span style="flex:1;font-weight:700;font-size:14px;color:#16241C;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ s.player.name }}</span>
+                      <sc-if value="{{ s.perfect }}"><span style="font-size:9.5px;font-weight:800;letter-spacing:0.04em;color:#C9831F;background:rgba(232,162,61,0.16);padding:3px 7px;border-radius:6px;">★ SWEEP</span></sc-if>
+                      <span style="font-size:11px;color:#8A938B;font-weight:500;">{{ s.exactLabel }}</span>
+                      <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#0E6E42;background:rgba(14,110,66,0.09);padding:4px 9px;border-radius:8px;">{{ s.ptsLabel }}</span>
+                      <span style="color:#B0B6A8;font-size:11px;width:12px;">{{ s.chevron }}</span>
+                    </button>
+                    <sc-if value="{{ s.expanded }}">
+                      <div style="padding:6px 12px 12px;background:#fff;">
+                        <div style="display:flex;font-size:9.5px;letter-spacing:0.07em;color:#B0B6A8;font-weight:700;text-transform:uppercase;padding:6px 8px 8px;">
+                          <span style="width:18px;"></span><span style="flex:1;">Team</span><span style="width:52px;text-align:center;">Actual</span><span style="width:60px;text-align:center;">Their call</span><span style="width:20px;"></span>
+                        </div>
+                        <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="12">
+                          <div style="display:flex;align-items:center;padding:7px 8px;border-radius:9px;background:{{ r.rowBg }};">
+                            <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#9AA39B;width:18px;">{{ r.posLabel }}</span>
+                            <span style="flex:1;display:flex;align-items:center;gap:8px;min-width:0;"><span style="width:20px;height:20px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ r.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span><span style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.name }}</span></span>
+                            <span style="width:52px;display:flex;justify-content:center;"><span style="{{ r.actualBadge }}">{{ r.actualLabel }}</span></span>
+                            <span style="width:60px;display:flex;justify-content:center;"><span style="{{ r.pickBadge }}">{{ r.pickLabel }}</span></span>
+                            <span style="width:20px;text-align:center;font-weight:800;font-size:13px;color:{{ r.okColor }};">{{ r.okIcon }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -201,6 +272,29 @@
                   </sc-for>
                 </div>
               </sc-for>
+
+              <div style="background:#fff;border:1px solid #EFE7D6;border-radius:16px;padding:14px;box-shadow:0 6px 18px rgba(20,40,30,0.04);border-top:3px solid #E8A23D;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                  <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;">Third-Place Race</span>
+                  <span style="display:flex;align-items:center;gap:7px;">
+                    <sc-if value="{{ playerThird.perfect }}"><span style="font-size:9px;font-weight:800;letter-spacing:0.04em;color:#C9831F;background:rgba(232,162,61,0.16);padding:3px 7px;border-radius:6px;">★ SWEEP</span></sc-if>
+                    <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#0E6E42;background:rgba(14,110,66,0.09);padding:4px 9px;border-radius:8px;">{{ playerThird.ptsLabel }}</span>
+                  </span>
+                </div>
+                <div style="font-size:11px;color:#8A938B;font-weight:500;margin-bottom:10px;">{{ playerThird.summary }} · 8 of 12 advance</div>
+                <div style="display:flex;font-size:9.5px;letter-spacing:0.07em;color:#B0B6A8;font-weight:700;text-transform:uppercase;padding:0 8px 6px;">
+                  <span style="width:18px;"></span><span style="flex:1;">Team</span><span style="width:52px;text-align:center;">Actual</span><span style="width:60px;text-align:center;">Their call</span><span style="width:20px;"></span>
+                </div>
+                <sc-for list="{{ playerThird.rows }}" as="r" hint-placeholder-count="12">
+                  <div style="display:flex;align-items:center;padding:6px 8px;border-radius:9px;background:{{ r.rowBg }};">
+                    <span style="font-family:'Space Mono';font-weight:700;font-size:12px;color:#9AA39B;width:18px;">{{ r.posLabel }}</span>
+                    <span style="flex:1;display:flex;align-items:center;gap:8px;min-width:0;"><span style="width:20px;height:20px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ r.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span><span style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.name }}</span></span>
+                    <span style="width:52px;display:flex;justify-content:center;"><span style="{{ r.actualBadge }}">{{ r.actualLabel }}</span></span>
+                    <span style="width:60px;display:flex;justify-content:center;"><span style="{{ r.pickBadge }}">{{ r.pickLabel }}</span></span>
+                    <span style="width:20px;text-align:center;font-weight:800;font-size:13px;color:{{ r.okColor }};">{{ r.okIcon }}</span>
+                  </div>
+                </sc-for>
+              </div>
             </div>
           </div>
         </sc-if>
@@ -227,31 +321,50 @@
           </div>
         </div>
 
-        <sc-for list="{{ rounds }}" as="rnd" hint-placeholder-count="4">
-          <div style="margin-bottom:22px;">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px;padding:0 2px;">
-              <h3 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:17px;letter-spacing:-0.01em;">{{ rnd.name }}</h3>
-              <span style="font-size:10.5px;color:#B0B6A8;font-weight:600;">{{ rnd.ptsLabel }}</span>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;">
-              <sc-for list="{{ rnd.matches }}" as="m" hint-placeholder-count="2">
-                <div style="background:#fff;border:1px solid #EFE7D6;border-radius:14px;padding:9px;box-shadow:0 5px 16px rgba(20,40,30,0.04);">
-                  <sc-for list="{{ m.teams }}" as="t" hint-placeholder-count="2">
-                    <div style="display:flex;align-items:center;gap:8px;padding:6px 7px;border-radius:9px;background:{{ t.rowBg }};">
-                      <span style="width:22px;height:22px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;"><img src="https://flagcdn.com/w80/{{ t.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
-                      <span style="flex:1;font-size:13px;font-weight:{{ t.weight }};color:{{ t.nameColor }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ t.name }}</span>
-                      <span style="font-size:8.5px;font-weight:800;letter-spacing:0.05em;color:#0E6E42;">{{ t.tag }}</span>
-                    </div>
-                  </sc-for>
-                  <div style="display:flex;align-items:center;gap:6px;margin-top:7px;padding:0 7px;">
-                    <span style="font-weight:800;font-size:12px;color:{{ m.okColor }};">{{ m.okIcon }}</span>
-                    <span style="font-size:11px;color:#8A938B;font-weight:500;">{{ m.note }}</span>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;">
+          <sc-for list="{{ koSteps }}" as="st" hint-placeholder-count="4">
+            <button onClick="{{ st.onClick }}" style="{{ st.style }}">{{ st.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#A6AC9F;font-weight:500;margin:0 2px 14px;">
+          <span>Swipe across the rounds toward the final</span>
+          <span style="font-size:13px;">→</span>
+        </div>
+
+        <div class="wct-ko-scroll wct-scroll" ref="{{ setScrollEl }}" style="margin:0 -16px 20px;padding:0 12px;">
+          <sc-for list="{{ rounds }}" as="rnd" hint-placeholder-count="4">
+            <div class="{{ rnd.roundCls }}" data-idx="{{ rnd.idx }}" ref="{{ setColRef }}">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;padding:0 6px;">
+                <h3 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;letter-spacing:-0.01em;">{{ rnd.name }}</h3>
+                <span style="font-size:10px;color:#B0B6A8;font-weight:700;">{{ rnd.ptsLabel }}</span>
+              </div>
+              <div class="wct-ko-col">
+                <sc-for list="{{ rnd.pairs }}" as="pr" hint-placeholder-count="4">
+                  <div class="{{ pr.pairCls }}">
+                    <sc-for list="{{ pr.matches }}" as="m" hint-placeholder-count="2">
+                      <div class="wct-ko-slot">
+                        <div style="position:relative;background:#fff;border:1px solid #EFE7D6;border-radius:13px;box-shadow:0 4px 14px rgba(20,40,30,0.05);overflow:hidden;">
+                          <sc-for list="{{ m.teams }}" as="t" hint-placeholder-count="2">
+                            <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:{{ t.rowBg }};">
+                              <span style="width:22px;height:22px;border-radius:50%;overflow:hidden;flex-shrink:0;display:block;box-shadow:0 1px 2px rgba(0,0,0,0.12);"><img src="https://flagcdn.com/w80/{{ t.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
+                              <span style="flex:1;font-size:13px;font-weight:{{ t.weight }};color:{{ t.nameColor }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ t.name }}</span>
+                              <sc-if value="{{ t.win }}"><span style="font-size:8px;font-weight:800;letter-spacing:0.06em;color:#0E6E42;background:rgba(14,110,66,0.12);padding:2px 6px;border-radius:5px;">ADV</span></sc-if>
+                            </div>
+                          </sc-for>
+                          <div style="display:flex;align-items:center;gap:6px;padding:5px 10px;background:{{ m.statusBg }};">
+                            <span style="font-weight:800;font-size:11px;color:{{ m.statusColor }};">{{ m.okIcon }}</span>
+                            <span style="font-size:10.5px;color:{{ m.statusColor }};font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ m.note }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ pr.showBracket }}"><div class="wct-ko-bracket"></div></sc-if>
                   </div>
-                </div>
-              </sc-for>
+                </sc-for>
+              </div>
             </div>
-          </div>
-        </sc-for>
+          </sc-for>
+        </div>
 
         <div style="background:linear-gradient(135deg,#0E6E42,#0A5733);border-radius:18px;padding:18px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 14px 32px rgba(14,110,66,0.28);">
           <span style="width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #E8A23D;display:block;"><img src="https://flagcdn.com/w80/{{ champion.code }}.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
@@ -275,7 +388,34 @@ class Component extends DCLogic {
     groupId: 'C',
     playerId: 'nfry',
     bracketPlayerId: 'nfry',
+    koRound: 0,
     expanded: {}
+  };
+
+  KO_SHORT = { 'Round of 16': 'R16', 'Quarterfinals': 'QF', 'Semifinals': 'SF', 'Final': 'Final' };
+  colRefs = [];
+  setColRef = (el) => { if (el) this.colRefs[+el.dataset.idx] = el; };
+  setScrollEl = (el) => {
+    if (el && el !== this._scrollEl) {
+      this._scrollEl = el;
+      el.addEventListener('scroll', this.handleScroll, { passive: true });
+    }
+  };
+  handleScroll = () => {
+    const sc = this._scrollEl; if (!sc) return;
+    const r = sc.getBoundingClientRect(); const mid = r.left + r.width / 2;
+    let best = 0, bd = 1e9;
+    this.colRefs.forEach((c, i) => {
+      if (!c) return;
+      const cr = c.getBoundingClientRect(); const cc = cr.left + cr.width / 2;
+      const dd = Math.abs(cc - mid); if (dd < bd) { bd = dd; best = i; }
+    });
+    if (best !== this.state.koRound) this.setState({ koRound: best });
+  };
+  scrollToRound = (i) => {
+    const sc = this._scrollEl, c = this.colRefs[i]; if (!sc || !c) return;
+    const left = sc.scrollLeft + c.getBoundingClientRect().left - sc.getBoundingClientRect().left - (sc.clientWidth - c.offsetWidth) / 2;
+    sc.scrollTo({ left, behavior: 'smooth' });
   };
 
   PLAYERS = [
@@ -326,6 +466,22 @@ class Component extends DCLogic {
     ]}
   ];
   CHAMPION = ['Argentina', 'ar'];
+
+  // Third-place race: 12 groups produce 12 third-placed teams; the best 8 advance.
+  THIRD_PLACE = [
+    { name: 'Morocco',        code: 'ma', group: 'G' },
+    { name: 'Colombia',       code: 'co', group: 'H' },
+    { name: 'Senegal',        code: 'sn', group: 'E' },
+    { name: 'Denmark',        code: 'dk', group: 'J' },
+    { name: 'Cameroon',       code: 'cm', group: 'C' },
+    { name: 'Poland',         code: 'pl', group: 'I' },
+    { name: 'Korea Republic', code: 'kr', group: 'A' },
+    { name: 'Serbia',         code: 'rs', group: 'K' },
+    { name: 'Ghana',          code: 'gh', group: 'D' },
+    { name: 'Australia',      code: 'au', group: 'F' },
+    { name: 'Bosnia & Herz.', code: 'ba', group: 'B' },
+    { name: 'Tunisia',        code: 'tn', group: 'L' }
+  ];
 
   hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   rng(seed) { let x = (seed >>> 0) || 1; return () => { x ^= x << 13; x >>>= 0; x ^= x >> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
@@ -384,13 +540,42 @@ class Component extends DCLogic {
         return { teams, ok, okIcon: ok ? '✓' : '✕', okColor: ok ? '#1E9E5A' : '#D86560',
                  note: ok ? ('Correct +' + rd.pts) : ('Picked ' + pick[0]), pickName: pick[0] };
       });
-      return { name: rd.name, pts: rd.pts, ptsLabel: '+' + rd.pts + ' / match', matches };
+      return { name: rd.name, short: this.KO_SHORT[rd.name], pts: rd.pts, ptsLabel: '+' + rd.pts + ' / match', matches };
     });
     const finalM = rounds[rounds.length - 1].matches[0];
     const champOk = finalM.ok;
     const champPick = finalM.pickName;
     if (champOk) total += 50;
     return { total, correct, totalMatches, rounds, champOk, champPick };
+  }
+
+  thirdFor(p) {
+    const skill = this.SKILL[p.id];
+    const r = this.rng(this.hash('third|' + p.id));
+    const advStyle = 'font-size:9.5px;font-weight:800;letter-spacing:0.05em;padding:3px 8px;border-radius:6px;color:#0E6E42;background:rgba(14,110,66,0.12);';
+    const outStyle = 'font-size:9.5px;font-weight:800;letter-spacing:0.05em;padding:3px 8px;border-radius:6px;color:#9AA39B;background:rgba(120,128,118,0.12);';
+    let correct = 0;
+    const rows = this.THIRD_PLACE.map((t, i) => {
+      const actualAdv = i < 8;
+      const hit = r() < (0.42 + skill * 0.52);
+      const pickAdv = hit ? actualAdv : !actualAdv;
+      const ok = pickAdv === actualAdv;
+      if (ok) correct++;
+      return {
+        posLabel: String(i + 1),
+        name: t.name, code: t.code, grpLabel: 'Grp ' + t.group,
+        actualLabel: actualAdv ? 'ADV' : 'OUT',
+        pickLabel: pickAdv ? 'ADV' : 'OUT',
+        actualBadge: actualAdv ? advStyle : outStyle,
+        pickBadge: pickAdv ? advStyle : outStyle,
+        ok, okIcon: ok ? '✓' : '✕',
+        okColor: ok ? '#0E6E42' : '#C9402F',
+        rowBg: ok ? 'rgba(14,110,66,0.06)' : 'rgba(216,58,54,0.045)'
+      };
+    });
+    const perfect = correct === 12;
+    const points = correct * 25 + (perfect ? 80 : 0);
+    return { playerId: p.id, rows, correct, perfect, points };
   }
 
   data() {
@@ -422,8 +607,12 @@ class Component extends DCLogic {
       const ko = this.bracketFor(p);
       return Object.assign({}, p, { gpts, correct, ko: ko.total, total: gpts + ko.total });
     });
+    const third = {
+      teams: this.THIRD_PLACE.map((t, i) => ({ name: t.name, code: t.code, group: t.group, rank: i + 1, advanced: i < 8 })),
+      results: this.PLAYERS.map(p => this.thirdFor(p))
+    };
     const sorted = players.slice().sort((a, b) => b.total - a.total);
-    this._d = { groups, players, sorted };
+    this._d = { groups, players, sorted, third };
     return this._d;
   }
 
@@ -447,6 +636,8 @@ class Component extends DCLogic {
 
     const squareActive = 'min-width:44px;height:44px;border-radius:14px;border:1px solid transparent;font-family:Bricolage Grotesque,sans-serif;font-weight:800;font-size:16px;cursor:pointer;background:#0E6E42;color:#fff;box-shadow:0 4px 12px rgba(14,110,66,0.28);flex-shrink:0;';
     const squareIdle = 'min-width:44px;height:44px;border-radius:14px;border:1px solid #EAE2D1;font-family:Bricolage Grotesque,sans-serif;font-weight:800;font-size:16px;cursor:pointer;background:#fff;color:#16241C;flex-shrink:0;';
+    const thirdChipActive = 'min-width:52px;height:44px;padding:0 15px;border-radius:14px;border:1px solid transparent;font-family:Bricolage Grotesque,sans-serif;font-weight:800;font-size:15px;cursor:pointer;background:#E8A23D;color:#fff;box-shadow:0 4px 12px rgba(232,162,61,0.32);flex-shrink:0;';
+    const thirdChipIdle = 'min-width:52px;height:44px;padding:0 15px;border-radius:14px;border:1px solid #EAD9B6;font-family:Bricolage Grotesque,sans-serif;font-weight:800;font-size:15px;cursor:pointer;background:#fff;color:#C9831F;flex-shrink:0;';
 
     const pillActive = 'border-radius:999px;padding:8px 15px;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;background:#0E6E42;color:#fff;border:1px solid #0E6E42;flex-shrink:0;';
     const pillIdle = 'border-radius:999px;padding:8px 15px;font-family:Plus Jakarta Sans,sans-serif;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;background:#fff;color:#46524A;border:1px solid #EAE2D1;flex-shrink:0;';
@@ -488,7 +679,11 @@ class Component extends DCLogic {
       label: g.id, onClick: () => this.setState({ groupId: g.id }),
       style: g.id === this.state.groupId ? squareActive : squareIdle
     }));
-    const group = d.groups.find(g => g.id === this.state.groupId);
+    groupChips.push({
+      label: '3rd', onClick: () => this.setState({ groupId: '3rd' }),
+      style: this.state.groupId === '3rd' ? thirdChipActive : thirdChipIdle
+    });
+    const group = d.groups.find(g => g.id === this.state.groupId) || d.groups[0];
     const groupView = {
       id: group.id,
       standings: group.standings,
@@ -499,6 +694,29 @@ class Component extends DCLogic {
         return {
           player: pl, rankLabel: String(i + 1),
           exactLabel: res.exact + '/4 exact',
+          ptsLabel: res.points + ' pts',
+          perfect: res.perfect, expanded, rows: res.rows,
+          chevron: expanded ? '▾' : '▸',
+          onClick: () => this.toggle(key)
+        };
+      })
+    };
+
+    // ---- groups: third-place race ----
+    const third = d.third;
+    const thirdStandings = third.teams.map(t => ({
+      rank: t.rank, name: t.name, code: t.code, grpLabel: 'Grp ' + t.group,
+      advanced: t.advanced, out: !t.advanced,
+      rowBg: t.advanced ? 'rgba(14,110,66,0.05)' : 'transparent'
+    }));
+    const thirdView = {
+      scoreboard: third.results.slice().sort((a, b) => b.points - a.points).map((res, i) => {
+        const pl = this.PLAYERS.find(p => p.id === res.playerId);
+        const key = '3rd-' + res.playerId;
+        const expanded = !!this.state.expanded[key];
+        return {
+          player: pl, rankLabel: String(i + 1),
+          exactLabel: res.correct + '/12 calls',
           ptsLabel: res.points + ' pts',
           perfect: res.perfect, expanded, rows: res.rows,
           chevron: expanded ? '▾' : '▸',
@@ -520,6 +738,11 @@ class Component extends DCLogic {
       return { id: g.id, ptsLabel: res.points + ' pts', perfect: res.perfect, rows: res.rows };
     });
     const playerHeader = { player: selPlayer, totalLabel: pTot.toLocaleString() };
+    const ptRes = third.results.find(x => x.playerId === this.state.playerId);
+    const playerThird = {
+      ptsLabel: ptRes.points + ' pts', perfect: ptRes.perfect,
+      summary: ptRes.correct + ' of 12 calls correct', rows: ptRes.rows
+    };
 
     // ---- bracket ----
     const bp = this.PLAYERS.find(p => p.id === this.state.bracketPlayerId);
@@ -528,19 +751,41 @@ class Component extends DCLogic {
       label: p.name, onClick: () => this.setState({ bracketPlayerId: p.id }),
       style: p.id === this.state.bracketPlayerId ? pillActive : pillIdle
     }));
-    const rounds = bData.rounds.map(rd => ({
-      name: rd.name, ptsLabel: rd.ptsLabel,
-      matches: rd.matches.map(m => ({
-        okIcon: m.okIcon, okColor: m.okColor, note: m.note,
-        teams: m.teams.map(t => ({
-          name: t.name, code: t.code,
-          rowBg: t.win ? 'rgba(14,110,66,0.09)' : 'transparent',
-          nameColor: t.win ? '#0E6E42' : '#9AA39B',
-          weight: t.win ? '700' : '500',
-          tag: t.win ? 'ADV' : ''
-        }))
-      }))
+    const koStepBase = 'border:none;cursor:pointer;font-family:Plus Jakarta Sans,sans-serif;font-size:12px;padding:7px 0;border-radius:999px;white-space:nowrap;flex:1;transition:all .15s;';
+    const koStepActive = koStepBase + 'font-weight:700;background:#0E6E42;color:#fff;box-shadow:0 2px 8px rgba(14,110,66,0.28);';
+    const koStepIdle = koStepBase + 'font-weight:600;background:#fff;color:#7A857C;border:1px solid #EAE2D1;';
+    const koSteps = bData.rounds.map((rd, i) => ({
+      label: this.KO_SHORT[rd.name],
+      onClick: () => this.scrollToRound(i),
+      style: i === this.state.koRound ? koStepActive : koStepIdle
     }));
+    const nR = bData.rounds.length;
+    const rounds = bData.rounds.map((rd, ri) => {
+      const isFinal = ri === nR - 1;
+      const ms = rd.matches.map(m => ({
+        okIcon: m.okIcon, note: m.note,
+        statusBg: m.ok ? 'rgba(14,110,66,0.07)' : 'rgba(216,58,54,0.06)',
+        statusColor: m.ok ? '#0E6E42' : '#C0473C',
+        teams: m.teams.map(t => ({
+          name: t.name, code: t.code, win: t.win,
+          rowBg: t.win ? 'rgba(14,110,66,0.08)' : '#fff',
+          nameColor: t.win ? '#0E6E42' : '#8A938B',
+          weight: t.win ? '700' : '500'
+        }))
+      }));
+      const pairs = [];
+      for (let i = 0; i < ms.length; i += 2) {
+        pairs.push({
+          matches: ms.slice(i, i + 2),
+          pairCls: isFinal ? 'wct-ko-pair is-final' : 'wct-ko-pair',
+          showBracket: !isFinal
+        });
+      }
+      return {
+        idx: ri, name: rd.name, ptsLabel: rd.ptsLabel, pairs,
+        roundCls: ri > 0 ? 'wct-ko-round has-in' : 'wct-ko-round'
+      };
+    });
     const champion = {
       name: this.CHAMPION[0], code: this.CHAMPION[1],
       okIcon: bData.champOk ? '✓' : '✕',
@@ -560,8 +805,12 @@ class Component extends DCLogic {
       isByGroup: this.state.groupTab === 'byGroup',
       isByPlayer: this.state.groupTab === 'byPlayer',
       groupChips, group: groupView,
-      playerChips, playerHeader, playerGroups,
-      bracketChips, bracketSummary, rounds, champion
+      show3rd: this.state.groupId === '3rd',
+      showGroupCard: this.state.groupId !== '3rd',
+      thirdStandings, thirdView,
+      playerChips, playerHeader, playerGroups, playerThird,
+      bracketChips, bracketSummary, rounds, champion,
+      koSteps, setScrollEl: this.setScrollEl, setColRef: this.setColRef
     };
   }
 }

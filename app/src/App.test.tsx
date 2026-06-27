@@ -230,7 +230,7 @@ test("player group-stage view shows third-place qualifier scoring", async () => 
 
   fireEvent.click(await screen.findByRole("button", { name: /view dinkelberg predictions/i }));
 
-  expect(screen.getByText(/third-place qualifiers/i)).toBeInTheDocument();
+  expect(screen.getByText(/third-place race/i)).toBeInTheDocument();
   expect(screen.getByText(/2 correct/i)).toBeInTheDocument();
   expect(screen.getAllByText(/15 pts/i).length).toBeGreaterThan(0);
   expect(screen.getAllByText(/senegal/i).length).toBeGreaterThan(0);

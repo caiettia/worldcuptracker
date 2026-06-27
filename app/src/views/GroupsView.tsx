@@ -2,14 +2,35 @@ import { useEffect, useState } from "react";
 import Avatar from "../components/Avatar";
 import ComparisonRows from "../components/ComparisonRows";
 import Flag from "../components/Flag";
+import ThirdPlaceCallTable from "../components/ThirdPlaceCallTable";
 import { groupForPlayer, groupKeys } from "../lib/groupStage";
 import { SCORING } from "../lib/scoring";
+import { actualThirdPlaceRanking, thirdPlaceCalls, type ThirdPlaceRanking } from "../lib/thirdPlace";
 import { COLORS, FONTS, CARD_SHADOW, CARD_SHADOW_SM, HEADER_SHADOW, sectionLabel } from "../lib/ui";
 import type {
   ActualResultsPayload,
   BracketsPayload,
   EntryProgressPayload,
+  EntryProgressRow,
 } from "../types/leaderboard";
+
+const THIRD_PLACE_KEY = "3rd";
+
+const sweepBadge = (
+  <span
+    style={{
+      fontSize: 9.5,
+      fontWeight: 800,
+      letterSpacing: "0.04em",
+      color: COLORS.goldText,
+      background: COLORS.goldSoft,
+      padding: "3px 7px",
+      borderRadius: 6,
+    }}
+  >
+    ★ SWEEP
+  </span>
+);
 
 type GroupsViewProps = {
   actualResults: ActualResultsPayload;
@@ -59,25 +80,6 @@ function ptsPill(label: string) {
       }}
     >
       {label}
-    </span>
-  );
-}
-
-function teamChip(team: string) {
-  return (
-    <span
-      key={team}
-      style={{
-        fontSize: 12,
-        fontWeight: 600,
-        color: COLORS.ink,
-        background: "#fff",
-        border: `1px solid ${COLORS.line}`,
-        padding: "5px 8px",
-        borderRadius: 999,
-      }}
-    >
-      {team}
     </span>
   );
 }
@@ -212,8 +214,32 @@ function ByGroup({ keys, groupId, setGroupId, actualResults, players, bracketByI
             </button>
           );
         })}
+        <button
+          type="button"
+          onClick={() => setGroupId(THIRD_PLACE_KEY)}
+          style={{
+            minWidth: 52,
+            height: 44,
+            padding: "0 15px",
+            borderRadius: 14,
+            border: groupId === THIRD_PLACE_KEY ? "1px solid transparent" : "1px solid #EAD9B6",
+            fontFamily: FONTS.head,
+            fontWeight: 800,
+            fontSize: 15,
+            cursor: "pointer",
+            flexShrink: 0,
+            background: groupId === THIRD_PLACE_KEY ? COLORS.gold : "#fff",
+            color: groupId === THIRD_PLACE_KEY ? "#fff" : COLORS.goldText,
+            boxShadow: groupId === THIRD_PLACE_KEY ? "0 4px 12px rgba(232,162,61,0.32)" : undefined,
+          }}
+        >
+          3rd
+        </button>
       </div>
 
+      {groupId === THIRD_PLACE_KEY ? (
+        <ThirdPlaceRace actualResults={actualResults} players={players} expanded={expanded} setExpanded={setExpanded} />
+      ) : (
       <div style={{ background: "#fff", border: `1px solid ${COLORS.line}`, borderRadius: 22, padding: "20px 18px", boxShadow: CARD_SHADOW }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
           <h2 style={{ margin: 0, fontFamily: FONTS.head, fontWeight: 800, fontSize: 24, letterSpacing: "-0.02em", color: COLORS.ink }}>
@@ -315,6 +341,158 @@ function ByGroup({ keys, groupId, setGroupId, actualResults, players, bracketByI
           })}
         </div>
       </div>
+      )}
+    </div>
+  );
+}
+
+type ThirdPlaceRaceProps = {
+  actualResults: ActualResultsPayload;
+  players: EntryProgressPayload["entries"];
+  expanded: Record<string, boolean>;
+  setExpanded: (updater: (prev: Record<string, boolean>) => Record<string, boolean>) => void;
+};
+
+function thirdSweepFor(player: EntryProgressRow): boolean {
+  const q = player.groupStage.thirdPlaceQualifiers;
+  return (
+    q.scored &&
+    q.correctCount > 0 &&
+    q.correctCount === q.actualTeams.length &&
+    q.correctCount === q.predictedTeams.length
+  );
+}
+
+function rankBadge(advanced: boolean) {
+  return (
+    <span
+      style={{
+        fontSize: 9.5,
+        fontWeight: 800,
+        letterSpacing: "0.06em",
+        padding: "3px 7px",
+        borderRadius: 6,
+        color: advanced ? COLORS.green : "#B7574F",
+        background: advanced ? "rgba(14,110,66,0.12)" : "rgba(216,58,54,0.1)",
+      }}
+    >
+      {advanced ? "ADV" : "OUT"}
+    </span>
+  );
+}
+
+function ThirdPlaceRace({ actualResults, players, expanded, setExpanded }: ThirdPlaceRaceProps) {
+  const ranking: ThirdPlaceRanking = actualThirdPlaceRanking(actualResults);
+
+  const scoreboard = players
+    .map((player) => {
+      const qualifiers = player.groupStage.thirdPlaceQualifiers;
+      return { player, qualifiers, rows: thirdPlaceCalls(qualifiers, ranking) };
+    })
+    .sort((a, b) => b.qualifiers.points - a.qualifiers.points || b.qualifiers.correctCount - a.qualifiers.correctCount);
+
+  return (
+    <div style={{ background: "#fff", border: `1px solid ${COLORS.line}`, borderRadius: 22, padding: "20px 18px", boxShadow: CARD_SHADOW }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+        <h2 style={{ margin: 0, fontFamily: FONTS.head, fontWeight: 800, fontSize: 24, letterSpacing: "-0.02em", color: COLORS.ink }}>
+          Third-Place Race
+        </h2>
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: COLORS.goldText,
+            background: COLORS.goldSoft,
+            padding: "5px 11px",
+            borderRadius: 999,
+            letterSpacing: "0.03em",
+          }}
+        >
+          {ranking.advanceCount} of {ranking.totalSlots} advance
+        </span>
+      </div>
+      <div style={{ fontSize: 12, color: COLORS.muted, fontWeight: 500, marginBottom: 18 }}>
+        The {ranking.advanceCount} best third-placed teams advance to the knockout rounds.
+      </div>
+
+      <div style={{ ...sectionLabel, marginBottom: 9 }}>
+        {ranking.allFinalized ? "Final ranking" : "Provisional ranking"}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 2, marginBottom: 22 }}>
+        {ranking.teams.map((team, i) => (
+          <div
+            key={team.team}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 11,
+              padding: "9px 10px",
+              borderRadius: 12,
+              background: team.advanced ? "rgba(14,110,66,0.05)" : "transparent",
+            }}
+          >
+            <span style={{ fontFamily: FONTS.mono, fontWeight: 700, fontSize: 13, color: COLORS.faint2, width: 18 }}>{i + 1}</span>
+            <Flag team={team.team} size={26} />
+            <span style={{ flex: 1, fontWeight: 600, fontSize: 14, color: COLORS.ink }}>{team.team}</span>
+            <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.faint3, fontWeight: 700, letterSpacing: "0.04em" }}>
+              Grp {team.group}
+            </span>
+            {rankBadge(team.advanced)}
+          </div>
+        ))}
+        {ranking.teams.length === 0 ? (
+          <div style={{ fontSize: 13, color: COLORS.muted, padding: "4px 10px" }}>Awaiting third-place standings</div>
+        ) : null}
+      </div>
+
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 11 }}>
+        <div style={sectionLabel}>How everyone scored</div>
+        <div style={{ fontSize: 10.5, color: COLORS.faint3, fontWeight: 500 }}>
+          +{SCORING.groupStage.correctThirdPlaceQualifierPerTeam} per hit
+        </div>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+        {scoreboard.map(({ player, qualifiers, rows }, i) => {
+          const key = `${THIRD_PLACE_KEY}-${player.id}`;
+          const isOpen = !!expanded[key];
+          return (
+            <div key={player.id} style={{ border: `1px solid ${COLORS.line}`, borderRadius: 14, overflow: "hidden" }}>
+              <button
+                type="button"
+                onClick={() => setExpanded((prev) => ({ ...prev, [key]: !prev[key] }))}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 11,
+                  padding: "11px 12px",
+                  background: COLORS.fieldBg,
+                  border: "none",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  fontFamily: FONTS.body,
+                }}
+              >
+                <span style={{ fontFamily: FONTS.mono, fontWeight: 700, fontSize: 13, color: COLORS.faint2, width: 14 }}>{i + 1}</span>
+                <Avatar id={player.id} displayName={player.displayName} size={32} fontSize={13} />
+                <span style={{ flex: 1, fontWeight: 700, fontSize: 14, color: COLORS.ink, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {player.displayName}
+                </span>
+                {thirdSweepFor(player) ? sweepBadge : null}
+                <span style={{ fontSize: 11, color: COLORS.muted, fontWeight: 500 }}>{qualifiers.correctCount} correct</span>
+                {ptsPill(qualifiers.scored ? `${qualifiers.points} pts` : "Pending")}
+                <span style={{ color: COLORS.faint3, fontSize: 11, width: 12 }}>{isOpen ? "▾" : "▸"}</span>
+              </button>
+              {isOpen ? (
+                <div style={{ padding: "6px 12px 12px", background: "#fff" }}>
+                  <ThirdPlaceCallTable rows={rows} />
+                </div>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -336,6 +514,13 @@ function ByPlayer({ keys, players, playerId, setPlayerId, actualResults, bracket
 
   const groups = keys.map((key) => groupForPlayer(key, actualResults, bracketById.get(player.id), player));
   const thirdPlace = player.groupStage.thirdPlaceQualifiers;
+  const thirdRanking = actualThirdPlaceRanking(actualResults);
+  const thirdRows = thirdPlaceCalls(thirdPlace, thirdRanking);
+  const thirdSweep =
+    thirdPlace.scored &&
+    thirdPlace.correctCount > 0 &&
+    thirdPlace.correctCount === thirdPlace.actualTeams.length &&
+    thirdPlace.correctCount === thirdPlace.predictedTeams.length;
 
   return (
     <div>
@@ -397,50 +582,24 @@ function ByPlayer({ keys, players, playerId, setPlayerId, actualResults, bracket
         style={{
           background: "#fff",
           border: `1px solid ${COLORS.line}`,
-          borderRadius: 18,
-          padding: "14px 16px",
+          borderRadius: 16,
+          padding: 14,
           marginBottom: 14,
           boxShadow: CARD_SHADOW_SM,
+          borderTop: `3px solid ${COLORS.gold}`,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 10 }}>
-          <div>
-            <div style={{ ...sectionLabel, marginBottom: 6 }}>Third-place qualifiers</div>
-            <div style={{ fontSize: 13, color: COLORS.muted, fontWeight: 500 }}>
-              {thirdPlace.correctCount} correct
-            </div>
-          </div>
-          {ptsPill(thirdPlace.scored ? `${thirdPlace.points} pts` : "Pending")}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 3 }}>
+          <span style={{ fontFamily: FONTS.head, fontWeight: 800, fontSize: 16, color: COLORS.ink }}>Third-Place Race</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
+            {thirdSweep ? sweepBadge : null}
+            {ptsPill(thirdPlace.scored ? `${thirdPlace.points} pts` : "Pending")}
+          </span>
         </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <div>
-            <div style={{ fontSize: 11, color: COLORS.faint, fontWeight: 700, letterSpacing: "0.06em", marginBottom: 6 }}>
-              CORRECT PICKS
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {thirdPlace.correctTeams.length > 0 ? thirdPlace.correctTeams.map(teamChip) : <span style={{ fontSize: 12, color: COLORS.faint2 }}>No correct teams yet</span>}
-            </div>
-          </div>
-
-          <div>
-            <div style={{ fontSize: 11, color: COLORS.faint, fontWeight: 700, letterSpacing: "0.06em", marginBottom: 6 }}>
-              YOUR PICKS
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {thirdPlace.predictedTeams.map(teamChip)}
-            </div>
-          </div>
-
-          <div>
-            <div style={{ fontSize: 11, color: COLORS.faint, fontWeight: 700, letterSpacing: "0.06em", marginBottom: 6 }}>
-              ACTUAL QUALIFIERS
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {thirdPlace.actualTeams.map(teamChip)}
-            </div>
-          </div>
+        <div style={{ fontSize: 11, color: COLORS.muted, fontWeight: 500, marginBottom: 10 }}>
+          {thirdPlace.correctCount} correct · {thirdRanking.advanceCount} of {thirdRanking.totalSlots} advance
         </div>
+        <ThirdPlaceCallTable rows={thirdRows} />
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>

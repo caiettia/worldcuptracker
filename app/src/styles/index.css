@@ -33,3 +33,85 @@ button {
 .wct-scroll::-webkit-scrollbar {
   display: none;
 }
+
+/* Knockout bracket: horizontally scrolling, snap-aligned rounds that read left
+   (Round of 16) to right (Final), with connectors drawing each pair toward the
+   match it feeds. Ported from the Claude Design source. */
+.wct-ko-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.wct-ko-round {
+  flex: 0 0 87%;
+  max-width: 330px;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0 4px;
+}
+
+.wct-ko-col {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 720px;
+}
+
+.wct-ko-pair {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  padding-right: 22px;
+}
+
+.wct-ko-pair.is-final {
+  padding-right: 0;
+  justify-content: center;
+}
+
+.wct-ko-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wct-ko-bracket {
+  position: absolute;
+  right: 2px;
+  top: 25%;
+  bottom: 25%;
+  width: 16px;
+  border: 2px solid #e4dbc7;
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  pointer-events: none;
+}
+
+.wct-ko-bracket::after {
+  content: "";
+  position: absolute;
+  right: -9px;
+  top: 50%;
+  width: 9px;
+  height: 2px;
+  background: #e4dbc7;
+  transform: translateY(-1px);
+}
+
+.wct-ko-round.has-in .wct-ko-slot::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  width: 10px;
+  height: 2px;
+  background: #e4dbc7;
+  transform: translateY(-1px);
+}
