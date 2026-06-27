@@ -1,10 +1,10 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": "2026-06-27T23:11:33.694022+00:00",
+    "asOf": "2026-06-27T23:38:40.097664+00:00",
     "notes": "Synced from FIFA standings page.",
     "provider": "fifa-standings-scrape",
-    "providerFetchedAt": "2026-06-27T23:11:33.694022+00:00"
+    "providerFetchedAt": "2026-06-27T23:38:40.097664+00:00"
   },
   "groupStage": {
     "groups": {
@@ -99,7 +99,7 @@
         ]
       },
       "K": {
-        "finalized": false,
+        "finalized": true,
         "standings": [
           "Colombia",
           "Portugal",
