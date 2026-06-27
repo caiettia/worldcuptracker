@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-27T21:14:39.925847+00:00",
-    "asOf": "2026-06-27T21:14:39.925847+00:00",
+    "generatedAt": "2026-06-27T21:42:46.143780+00:00",
+    "asOf": "2026-06-27T21:42:46.143780+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
@@ -71,8 +71,8 @@
           "actualTeams": [
             "Sweden",
             "Ecuador",
+            "Ghana",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -180,8 +180,8 @@
           "actualTeams": [
             "Sweden",
             "Ecuador",
+            "Ghana",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -189,11 +189,12 @@
           ],
           "correctTeams": [
             "Bosnia and Herzegovina",
+            "Ghana",
             "Paraguay",
             "Senegal",
             "Sweden"
           ],
-          "correctCount": 4,
+          "correctCount": 5,
           "points": 0,
           "scored": false
         }
@@ -288,8 +289,8 @@
           "actualTeams": [
             "Sweden",
             "Ecuador",
+            "Ghana",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -343,13 +344,13 @@
       "id": "chit",
       "displayName": "chitra",
       "points": {
-        "total": 1190,
-        "groupStage": 1190,
+        "total": 1090,
+        "groupStage": 1090,
         "knockout": 0
       },
       "groupStage": {
-        "points": 1190,
-        "correctPositions": 22,
+        "points": 1090,
+        "correctPositions": 20,
         "perfectGroups": [
           "C",
           "F",
@@ -366,7 +367,7 @@
           "G": 2,
           "H": 2,
           "I": 4,
-          "L": 2
+          "L": 0
         },
         "pointsByGroup": {
           "A": 50,
@@ -378,7 +379,7 @@
           "G": 100,
           "H": 100,
           "I": 230,
-          "L": 100
+          "L": 0
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -394,8 +395,8 @@
           "actualTeams": [
             "Sweden",
             "Ecuador",
+            "Ghana",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -449,13 +450,13 @@
       "id": "heathernr24",
       "displayName": "heathernr24",
       "points": {
-        "total": 1040,
-        "groupStage": 1040,
+        "total": 990,
+        "groupStage": 990,
         "knockout": 0
       },
       "groupStage": {
-        "points": 1040,
-        "correctPositions": 19,
+        "points": 990,
+        "correctPositions": 18,
         "perfectGroups": [
           "C",
           "F",
@@ -472,7 +473,7 @@
           "G": 4,
           "H": 1,
           "I": 1,
-          "L": 1
+          "L": 0
         },
         "pointsByGroup": {
           "A": 50,
@@ -484,7 +485,7 @@
           "G": 230,
           "H": 50,
           "I": 50,
-          "L": 50
+          "L": 0
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -500,8 +501,8 @@
           "actualTeams": [
             "Sweden",
             "Ecuador",
+            "Ghana",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -606,20 +607,21 @@
           "actualTeams": [
             "Sweden",
             "Ecuador",
+            "Ghana",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
             "Korea Republic"
           ],
           "correctTeams": [
+            "Ghana",
             "Korea Republic",
             "Paraguay",
             "Senegal",
             "Sweden"
           ],
-          "correctCount": 4,
+          "correctCount": 5,
           "points": 0,
           "scored": false
         }

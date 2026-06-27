@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-27T21:14:39.925847+00:00",
-    "asOf": "2026-06-27T21:14:39.925847+00:00",
+    "generatedAt": "2026-06-27T21:42:46.143780+00:00",
+    "asOf": "2026-06-27T21:42:46.143780+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
@@ -29,8 +29,8 @@
       "id": "shreyas",
       "displayName": "ShreyB",
       "totalPoints": 1370,
-      "projectedTotalPoints": 1760,
-      "projectedAdditionalPoints": 390,
+      "projectedTotalPoints": 1775,
+      "projectedAdditionalPoints": 405,
       "groupStagePoints": 1370,
       "knockoutPoints": 0
     },
@@ -48,20 +48,20 @@
       "rank": 4,
       "id": "chit",
       "displayName": "chitra",
-      "totalPoints": 1190,
-      "projectedTotalPoints": 1550,
+      "totalPoints": 1090,
+      "projectedTotalPoints": 1450,
       "projectedAdditionalPoints": 360,
-      "groupStagePoints": 1190,
+      "groupStagePoints": 1090,
       "knockoutPoints": 0
     },
     {
       "rank": 5,
       "id": "heathernr24",
       "displayName": "heathernr24",
-      "totalPoints": 1040,
-      "projectedTotalPoints": 1415,
+      "totalPoints": 990,
+      "projectedTotalPoints": 1365,
       "projectedAdditionalPoints": 375,
-      "groupStagePoints": 1040,
+      "groupStagePoints": 990,
       "knockoutPoints": 0
     },
     {
@@ -69,8 +69,8 @@
       "id": "dinkelberg",
       "displayName": "Dinkelberg",
       "totalPoints": 910,
-      "projectedTotalPoints": 1170,
-      "projectedAdditionalPoints": 260,
+      "projectedTotalPoints": 1185,
+      "projectedAdditionalPoints": 275,
       "groupStagePoints": 910,
       "knockoutPoints": 0
     }
