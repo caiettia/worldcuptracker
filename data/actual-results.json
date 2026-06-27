@@ -1,10 +1,10 @@
 {
   "metadata": {
     "tournament": "FIFA World Cup 2026",
-    "asOf": "2026-06-27T22:41:08.537654+00:00",
+    "asOf": "2026-06-27T23:11:33.694022+00:00",
     "notes": "Synced from FIFA standings page.",
     "provider": "fifa-standings-scrape",
-    "providerFetchedAt": "2026-06-27T22:41:08.537654+00:00"
+    "providerFetchedAt": "2026-06-27T23:11:33.694022+00:00"
   },
   "groupStage": {
     "groups": {
@@ -111,17 +111,17 @@
         "finalized": true,
         "standings": [
           "England",
-          "Ghana",
           "Croatia",
+          "Ghana",
           "Panama"
         ]
       }
     },
     "bestThirdPlacedTeams": [
       "Sweden",
+      "Ghana",
       "Ecuador",
       "Bosnia and Herzegovina",
-      "Croatia",
       "Paraguay",
       "Senegal",
       "IR Iran",

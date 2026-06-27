@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generatedAt": "2026-06-27T22:41:08.537654+00:00",
-    "asOf": "2026-06-27T22:41:08.537654+00:00",
+    "generatedAt": "2026-06-27T23:11:33.694022+00:00",
+    "asOf": "2026-06-27T23:11:33.694022+00:00",
     "entrants": 6,
     "scoringSystem": "fifa-world-cup-2026-bracket-challenge"
   },
@@ -18,19 +18,20 @@
       "id": "nfry",
       "displayName": "NFry",
       "points": {
-        "total": 1550,
-        "groupStage": 1550,
+        "total": 1680,
+        "groupStage": 1680,
         "knockout": 0
       },
       "groupStage": {
-        "points": 1550,
-        "correctPositions": 28,
+        "points": 1680,
+        "correctPositions": 30,
         "perfectGroups": [
           "C",
           "E",
           "F",
           "G",
-          "I"
+          "I",
+          "L"
         ],
         "finalizedGroupsScored": 10,
         "correctPositionsByGroup": {
@@ -43,7 +44,7 @@
           "G": 4,
           "H": 2,
           "I": 4,
-          "L": 2
+          "L": 4
         },
         "pointsByGroup": {
           "A": 50,
@@ -55,7 +56,7 @@
           "G": 230,
           "H": 100,
           "I": 230,
-          "L": 100
+          "L": 230
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -70,9 +71,9 @@
           ],
           "actualTeams": [
             "Sweden",
+            "Ghana",
             "Ecuador",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -128,18 +129,19 @@
       "id": "shreyas",
       "displayName": "ShreyB",
       "points": {
-        "total": 1370,
-        "groupStage": 1370,
+        "total": 1500,
+        "groupStage": 1500,
         "knockout": 0
       },
       "groupStage": {
-        "points": 1370,
-        "correctPositions": 25,
+        "points": 1500,
+        "correctPositions": 27,
         "perfectGroups": [
           "B",
           "C",
           "F",
-          "I"
+          "I",
+          "L"
         ],
         "finalizedGroupsScored": 10,
         "correctPositionsByGroup": {
@@ -152,7 +154,7 @@
           "G": 2,
           "H": 1,
           "I": 4,
-          "L": 2
+          "L": 4
         },
         "pointsByGroup": {
           "A": 50,
@@ -164,7 +166,7 @@
           "G": 100,
           "H": 50,
           "I": 230,
-          "L": 100
+          "L": 230
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -179,9 +181,9 @@
           ],
           "actualTeams": [
             "Sweden",
+            "Ghana",
             "Ecuador",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -189,11 +191,12 @@
           ],
           "correctTeams": [
             "Bosnia and Herzegovina",
+            "Ghana",
             "Paraguay",
             "Senegal",
             "Sweden"
           ],
-          "correctCount": 4,
+          "correctCount": 5,
           "points": 0,
           "scored": false
         }
@@ -237,17 +240,18 @@
       "id": "liz",
       "displayName": "Liz",
       "points": {
-        "total": 1340,
-        "groupStage": 1340,
+        "total": 1470,
+        "groupStage": 1470,
         "knockout": 0
       },
       "groupStage": {
-        "points": 1340,
-        "correctPositions": 25,
+        "points": 1470,
+        "correctPositions": 27,
         "perfectGroups": [
           "B",
           "C",
-          "I"
+          "I",
+          "L"
         ],
         "finalizedGroupsScored": 10,
         "correctPositionsByGroup": {
@@ -260,7 +264,7 @@
           "G": 2,
           "H": 2,
           "I": 4,
-          "L": 2
+          "L": 4
         },
         "pointsByGroup": {
           "A": 50,
@@ -272,7 +276,7 @@
           "G": 100,
           "H": 100,
           "I": 230,
-          "L": 100
+          "L": 230
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -287,9 +291,9 @@
           ],
           "actualTeams": [
             "Sweden",
+            "Ghana",
             "Ecuador",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -343,13 +347,13 @@
       "id": "chit",
       "displayName": "chitra",
       "points": {
-        "total": 1190,
-        "groupStage": 1190,
+        "total": 1140,
+        "groupStage": 1140,
         "knockout": 0
       },
       "groupStage": {
-        "points": 1190,
-        "correctPositions": 22,
+        "points": 1140,
+        "correctPositions": 21,
         "perfectGroups": [
           "C",
           "F",
@@ -366,7 +370,7 @@
           "G": 2,
           "H": 2,
           "I": 4,
-          "L": 2
+          "L": 1
         },
         "pointsByGroup": {
           "A": 50,
@@ -378,7 +382,7 @@
           "G": 100,
           "H": 100,
           "I": 230,
-          "L": 100
+          "L": 50
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -393,9 +397,9 @@
           ],
           "actualTeams": [
             "Sweden",
+            "Ghana",
             "Ecuador",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -449,13 +453,13 @@
       "id": "heathernr24",
       "displayName": "heathernr24",
       "points": {
-        "total": 1040,
-        "groupStage": 1040,
+        "total": 1090,
+        "groupStage": 1090,
         "knockout": 0
       },
       "groupStage": {
-        "points": 1040,
-        "correctPositions": 19,
+        "points": 1090,
+        "correctPositions": 20,
         "perfectGroups": [
           "C",
           "F",
@@ -472,7 +476,7 @@
           "G": 4,
           "H": 1,
           "I": 1,
-          "L": 1
+          "L": 2
         },
         "pointsByGroup": {
           "A": 50,
@@ -484,7 +488,7 @@
           "G": 230,
           "H": 50,
           "I": 50,
-          "L": 50
+          "L": 100
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -499,9 +503,9 @@
           ],
           "actualTeams": [
             "Sweden",
+            "Ghana",
             "Ecuador",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
@@ -556,16 +560,17 @@
       "id": "dinkelberg",
       "displayName": "Dinkelberg",
       "points": {
-        "total": 910,
-        "groupStage": 910,
+        "total": 1040,
+        "groupStage": 1040,
         "knockout": 0
       },
       "groupStage": {
-        "points": 910,
-        "correctPositions": 17,
+        "points": 1040,
+        "correctPositions": 19,
         "perfectGroups": [
           "D",
-          "F"
+          "F",
+          "L"
         ],
         "finalizedGroupsScored": 10,
         "correctPositionsByGroup": {
@@ -578,7 +583,7 @@
           "G": 0,
           "H": 1,
           "I": 2,
-          "L": 2
+          "L": 4
         },
         "pointsByGroup": {
           "A": 100,
@@ -590,7 +595,7 @@
           "G": 0,
           "H": 50,
           "I": 100,
-          "L": 100
+          "L": 230
         },
         "thirdPlaceQualifiers": {
           "predictedTeams": [
@@ -605,21 +610,22 @@
           ],
           "actualTeams": [
             "Sweden",
+            "Ghana",
             "Ecuador",
             "Bosnia and Herzegovina",
-            "Croatia",
             "Paraguay",
             "Senegal",
             "IR Iran",
             "Korea Republic"
           ],
           "correctTeams": [
+            "Ghana",
             "Korea Republic",
             "Paraguay",
             "Senegal",
             "Sweden"
           ],
-          "correctCount": 4,
+          "correctCount": 5,
           "points": 0,
           "scored": false
         }
