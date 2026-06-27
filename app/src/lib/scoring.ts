@@ -5,6 +5,7 @@ export const SCORING = {
   groupStage: {
     correctPositionPerTeam: 50,
     perfectGroupBonus: 30,
+    correctThirdPlaceQualifierPerTeam: 15,
   },
   knockout: {
     roundOf16: 20,

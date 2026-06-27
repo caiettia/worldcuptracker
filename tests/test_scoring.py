@@ -9,6 +9,7 @@ SCORING_RULES = {
     "groupStage": {
         "correctPositionPerTeam": 50,
         "perfectGroupBonus": 30,
+        "correctThirdPlaceQualifierPerTeam": 15,
     },
     "knockout": {
         "roundOf16": 20,
@@ -213,6 +214,149 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(row["totalPoints"], 230)
         self.assertEqual(row["projectedTotalPoints"], 330)
         self.assertEqual(row["projectedAdditionalPoints"], 100)
+
+    def test_group_stage_scoring_includes_third_place_qualifiers(self) -> None:
+        entry = {
+            "id": "alpha",
+            "displayName": "Alpha",
+            "groupStage": {
+                "groups": {
+                    "A": ["A1", "A2", "A3", "A4"],
+                },
+                "selectedBestThirdPlacedTeams": [
+                    "T1",
+                    "T2",
+                    "T3",
+                    "T4",
+                    "T5",
+                    "T6",
+                    "T7",
+                    "T8",
+                ],
+            },
+            "knockout": {
+                "roundOf32Winners": [],
+                "roundOf16Winners": [],
+                "quarterfinalWinners": [],
+                "semifinalWinners": [],
+                "champion": None,
+            },
+        }
+        actual_results = {
+            "groupStage": {
+                "groups": {
+                    "A": {"finalized": True, "standings": ["A1", "A2", "A3", "A4"]},
+                },
+                "bestThirdPlacedTeams": ["T1", "T3", "T5", "T7", "U1", "U2", "U3", "U4"],
+            },
+            "knockout": {},
+        }
+
+        scored = score_entry(entry, actual_results, SCORING_RULES)
+
+        self.assertEqual(
+            scored["groupStage"]["thirdPlaceQualifiers"]["correctTeams"],
+            ["T1", "T3", "T5", "T7"],
+        )
+        self.assertEqual(scored["groupStage"]["thirdPlaceQualifiers"]["correctCount"], 4)
+        self.assertEqual(scored["groupStage"]["thirdPlaceQualifiers"]["points"], 60)
+        self.assertTrue(scored["groupStage"]["thirdPlaceQualifiers"]["scored"])
+        self.assertEqual(scored["points"]["groupStage"], 290)
+
+    def test_third_place_aliases_are_normalized_when_scoring(self) -> None:
+        entry = {
+            "id": "alpha",
+            "displayName": "Alpha",
+            "groupStage": {
+                "groups": {
+                    "A": ["A1", "A2", "A3", "A4"],
+                },
+                "selectedBestThirdPlacedTeams": ["Bosnia-Herzegovina"],
+            },
+            "knockout": {
+                "roundOf32Winners": [],
+                "roundOf16Winners": [],
+                "quarterfinalWinners": [],
+                "semifinalWinners": [],
+                "champion": None,
+            },
+        }
+        actual_results = {
+            "groupStage": {
+                "groups": {
+                    "A": {"finalized": True, "standings": ["A1", "A2", "A3", "A4"]},
+                },
+                "bestThirdPlacedTeams": ["Bosnia and Herzegovina"],
+            },
+            "knockout": {},
+        }
+
+        scored = score_entry(entry, actual_results, SCORING_RULES)
+
+        self.assertEqual(
+            scored["groupStage"]["thirdPlaceQualifiers"]["correctTeams"],
+            ["Bosnia and Herzegovina"],
+        )
+        self.assertEqual(scored["groupStage"]["thirdPlaceQualifiers"]["points"], 15)
+
+    def test_projected_totals_include_pending_third_place_qualifiers(self) -> None:
+        brackets_doc = {
+            "entries": [
+                {
+                    "id": "alpha",
+                    "displayName": "Alpha",
+                    "groupStage": {
+                        "groups": {
+                            "A": ["A1", "A2", "A3", "A4"],
+                        },
+                        "selectedBestThirdPlacedTeams": [
+                            "T1",
+                            "T2",
+                            "T3",
+                            "T4",
+                            "T5",
+                            "T6",
+                            "T7",
+                            "T8",
+                        ],
+                    },
+                    "knockout": {
+                        "roundOf32Winners": [],
+                        "roundOf16Winners": [],
+                        "quarterfinalWinners": [],
+                        "semifinalWinners": [],
+                        "champion": None,
+                    },
+                }
+            ]
+        }
+        actual_results = {
+            "metadata": {"asOf": None},
+            "groupStage": {
+                "groups": {
+                    "A": {"finalized": True, "standings": ["A1", "A2", "A3", "A4"]},
+                    "B": {"finalized": False, "standings": ["B1", "B2", "B3", "B4"]},
+                },
+                "bestThirdPlacedTeams": ["T1", "T3", "T5", "T7", "U1", "U2", "U3", "U4"],
+            },
+            "knockout": {
+                "roundOf16Teams": [],
+                "quarterfinalTeams": [],
+                "semifinalTeams": [],
+                "finalTeams": [],
+                "champion": None,
+            },
+        }
+
+        outputs = build_tracker_outputs(brackets_doc, actual_results, SCORING_RULES)
+        row = outputs["leaderboard"]["leaderboard"][0]
+        entry = outputs["entryProgress"]["entries"][0]
+
+        self.assertEqual(row["groupStagePoints"], 230)
+        self.assertEqual(row["projectedTotalPoints"], 290)
+        self.assertEqual(row["projectedAdditionalPoints"], 60)
+        self.assertFalse(entry["groupStage"]["thirdPlaceQualifiers"]["scored"])
+        self.assertEqual(entry["groupStage"]["thirdPlaceQualifiers"]["correctCount"], 4)
 
     def test_leaderboard_is_sorted_by_points_then_name(self) -> None:
         brackets_doc = {

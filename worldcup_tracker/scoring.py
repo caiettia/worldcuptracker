@@ -35,11 +35,54 @@ def load_json(path: str | Path) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
+def score_third_place_qualifiers(
+    predicted_teams: list[str],
+    actual_group_stage: dict[str, Any],
+    scoring_rules: dict[str, Any],
+    *,
+    include_pending: bool = False,
+) -> dict[str, Any]:
+    actual_groups = actual_group_stage.get("groups", {})
+    actual_teams = [
+        normalize_team_name(team) for team in actual_group_stage.get("bestThirdPlacedTeams", [])
+    ]
+    normalized_predicted = [normalize_team_name(team) for team in predicted_teams]
+    correct_teams = sorted(
+        {
+            team
+            for team in normalized_predicted
+            if team is not None and team in {actual for actual in actual_teams if actual is not None}
+        }
+    )
+
+    all_groups_finalized = bool(actual_groups) and all(
+        group.get("finalized") for group in actual_groups.values()
+    )
+    actual_teams_available = bool(actual_teams)
+    scored = actual_teams_available and (include_pending or all_groups_finalized)
+
+    points = 0
+    if scored:
+        points = (
+            len(correct_teams) * scoring_rules["groupStage"]["correctThirdPlaceQualifierPerTeam"]
+        )
+
+    return {
+        "predictedTeams": normalized_predicted,
+        "actualTeams": actual_teams,
+        "correctTeams": correct_teams,
+        "correctCount": len(correct_teams),
+        "points": points,
+        "scored": scored,
+    }
+
+
 def score_group_stage(
     predicted_groups: dict[str, list[str]],
     actual_group_stage: dict[str, Any],
     scoring_rules: dict[str, Any],
     *,
+    predicted_third_place_teams: list[str] | None = None,
     include_pending: bool = False,
 ) -> dict[str, Any]:
     points_per_team = scoring_rules["groupStage"]["correctPositionPerTeam"]
@@ -82,6 +125,14 @@ def score_group_stage(
         points_by_group[group_name] = group_score
         group_points += group_score
 
+    third_place_breakdown = score_third_place_qualifiers(
+        predicted_third_place_teams or [],
+        actual_group_stage,
+        scoring_rules,
+        include_pending=include_pending,
+    )
+    group_points += third_place_breakdown["points"]
+
     return {
         "points": group_points,
         "correctPositions": correct_positions,
@@ -89,6 +140,7 @@ def score_group_stage(
         "finalizedGroupsScored": finalized_groups,
         "correctPositionsByGroup": correct_positions_by_group,
         "pointsByGroup": points_by_group,
+        "thirdPlaceQualifiers": third_place_breakdown,
     }
 
 
@@ -142,6 +194,7 @@ def score_entry(
         entry["groupStage"]["groups"],
         actual_results["groupStage"],
         scoring_rules,
+        predicted_third_place_teams=entry["groupStage"].get("selectedBestThirdPlacedTeams", []),
     )
     knockout_breakdown = score_knockout(
         entry["knockout"],
@@ -191,6 +244,7 @@ def build_tracker_outputs(
             entry["groupStage"]["groups"],
             actual_results["groupStage"],
             scoring_rules,
+            predicted_third_place_teams=entry["groupStage"].get("selectedBestThirdPlacedTeams", []),
             include_pending=True,
         )
         projected_total_points = (
